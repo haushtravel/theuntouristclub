@@ -820,7 +820,7 @@
           </div>
 
           <!-- Step 3: Contact Info -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917] mb-2" data-i18n="book_name_label">
                 Nome e Cognome
@@ -832,6 +832,12 @@
                 Indirizzo Email
               </label>
               <input type="email" id="guestEmail" required placeholder="mario.rossi@email.it" class="w-full px-4 py-3 rounded-xl border border-[#EAE3D9] bg-white text-sm text-[#1C1917] focus:outline-none focus:border-[#B88746] transition-colors shadow-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917] mb-2">
+                Telefono / WhatsApp
+              </label>
+              <input type="tel" id="guestPhone" placeholder="+39 340 1234567" class="w-full px-4 py-3 rounded-xl border border-[#EAE3D9] bg-white text-sm text-[#1C1917] focus:outline-none focus:border-[#B88746] transition-colors shadow-sm">
             </div>
           </div>
 
@@ -1570,14 +1576,96 @@
       e.preventDefault();
       
       const chapterKey = document.querySelector('input[name="chapterOption"]:checked')?.value || 'cafes';
-      const guests = document.getElementById('bookingGuests').value;
+      const guests = parseInt(document.getElementById('bookingGuests').value || 2);
       const date = document.getElementById('bookingDate').value;
       const time = document.getElementById('bookingTime').value;
-      const name = document.getElementById('guestName').value;
-      const email = document.getElementById('guestEmail').value;
-      const code = 'UTC-2026-' + Math.floor(1000 + Math.random() * 9000);
+      const name = document.getElementById('guestName').value.trim();
+      const email = document.getElementById('guestEmail').value.trim();
+      const phone = (document.getElementById('guestPhone')?.value || '').trim() || '+39 340 0000000';
+      const code = 'UNT-TRN-' + Math.floor(1000 + Math.random() * 9000);
+      const pricePerPax = CHAPTER_PRICES[chapterKey] || 42;
+      const totalAmount = pricePerPax * guests;
+      const guide = chapterKey === 'palaces' ? 'Marco Della Rocca' : 'Elena Rostagno';
 
-      lastBookingDetails = { chapterKey, guests, date, time, name, email, code };
+      const newBooking = {
+        vCode: code,
+        name: name,
+        email: email,
+        phone: phone,
+        lang: currentLang || 'it',
+        chapterName: CHAPTER_NAMES[chapterKey] || 'I Grandi Caffè & Cospiratori',
+        chapterKey: chapterKey,
+        date: date,
+        slot: time,
+        guests: guests,
+        amount: totalAmount,
+        guideName: guide,
+        paymentStatus: 'paid',
+        gateway: 'Stripe · Simulazione Online',
+        voucherSent: true,
+        reminder24hSent: false,
+        checkedIn: false,
+        reviewSent: false,
+        reviewPlatform: null,
+        createdAt: new Date().toISOString()
+      };
+
+      // 1. SAVE TO LOCALSTORAGE
+      try {
+        let bookings = [];
+        const raw = localStorage.getItem('untourist_crm');
+        if (raw) {
+          bookings = JSON.parse(raw);
+          // If stored contains old dummy mocks, clean them out
+          if (Array.isArray(bookings)) {
+            bookings = bookings.filter(b => !b.name.includes('Casanova') && !b.name.includes('Dupont') && !b.vCode.includes('8841') && !b.vCode.includes('7412'));
+          } else {
+            bookings = [];
+          }
+        }
+        bookings.unshift(newBooking);
+        localStorage.setItem('untourist_crm', JSON.stringify(bookings));
+        console.log('✓ Booking recorded into localStorage:', newBooking);
+      } catch (err) {
+        console.error('Error recording to localStorage:', err);
+      }
+
+      // 2. SAVE TO SUPABASE CLOUD DATABASE
+      try {
+        fetch('https://dnhqrokonkkqmvkegjff.supabase.co/rest/v1/untourist_bookings', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuaHFyb2tvbmtrcW12a2VnamZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk5ODgwNDAsImV4cCI6MjA4NTU2NDA0MH0.i59wHvk2U0PmTluBoDxa8AmOzLKzDhpCrglwsOr86lI',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuaHFyb2tvbmtrcW12a2VnamZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk5ODgwNDAsImV4cCI6MjA4NTU2NDA0MH0.i59wHvk2U0PmTluBoDxa8AmOzLKzDhpCrglwsOr86lI',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            v_code: code,
+            name: name,
+            email: email,
+            phone: phone,
+            lang: currentLang || 'it',
+            chapter_name: CHAPTER_NAMES[chapterKey] || 'I Grandi Caffè & Cospiratori',
+            chapter_key: chapterKey,
+            tour_date: date,
+            tour_slot: time,
+            guests: guests,
+            amount: totalAmount,
+            guide_name: guide,
+            payment_status: 'paid',
+            gateway: 'Stripe · Online'
+          })
+        }).then(() => {
+          console.log('✓ Booking synced to Supabase Cloud Database');
+        }).catch(e => {
+          console.warn('Supabase sync offline:', e);
+        });
+      } catch (e) {
+        console.warn('Supabase fetch failed:', e);
+      }
+
+      lastBookingDetails = { chapterKey, guests, date, time, name, email, phone, code, amount: totalAmount };
 
       // Fill Voucher Modal
       document.getElementById('voucherCode').innerText = code;

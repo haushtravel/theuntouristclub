@@ -372,7 +372,12 @@
               <h3 class="font-serif text-lg text-white font-bold">CRM Passeggeri & Registro Voucher</h3>
               <p class="text-xs text-white/50">Database consolidato dei clienti confermati con dettagli e contatti.</p>
             </div>
-            <input type="text" onkeyup="filterCrmTable(this.value)" placeholder="Cerca per nome, email o voucher..." class="px-4 py-2.5 rounded-xl bg-black/50 border border-white/20 text-white text-xs outline-none w-full sm:w-72">
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+              <input type="text" onkeyup="filterCrmTable(this.value)" placeholder="Cerca per nome, email o voucher..." class="px-4 py-2 rounded-xl bg-black/50 border border-white/20 text-white text-xs outline-none w-full sm:w-64">
+              <button onclick="clearAllBookings()" class="px-3.5 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500 hover:text-white text-rose-400 text-xs font-bold transition-all border border-rose-500/30 flex items-center gap-1.5 whitespace-nowrap" title="Elimina tutte le prenotazioni">
+                <span>🗑️</span> <span>Svuota Archivio</span>
+              </button>
+            </div>
           </div>
 
           <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10 overflow-x-auto">
@@ -962,39 +967,151 @@
       if (tab === 'finance') renderFinance();
     }
 
-    // --- 3. DATA LOAD & CRM ---
-    const DEFAULT_BOOKINGS = [
-      { vCode: "UNT-TRN-8841", name: "Giacomo Casanova", email: "giacomo@venezia.it", phone: "+39 333 9128311", lang: "it", chapterName: "I Grandi Caffè & Cospiratori", date: "2026-09-18", slot: "10:00", guests: 2, amount: 84, guideName: "Elena Rostagno", paymentStatus: "paid", gateway: "Stripe · Apple Pay", voucherSent: true, reminder24hSent: true, checkedIn: true, reviewSent: true, reviewPlatform: "Google (5★)" },
-      { vCode: "UNT-TRN-7412", name: "Claire Dupont", email: "claire.dupont@paris.fr", phone: "+33 6 12345678", lang: "fr", chapterName: "Segreti Sabaudi & Corti Nascoste", date: "2026-09-19", slot: "15:30", guests: 4, amount: 152, guideName: "Marco Della Rocca", paymentStatus: "paid", gateway: "Stripe · Visa", voucherSent: true, reminder24hSent: true, checkedIn: false, reviewSent: false, reviewPlatform: null },
-      { vCode: "UNT-TRN-5129", name: "Alejandro Morales", email: "amorales@madrid.es", phone: "+34 600 987654", lang: "es", chapterName: "L'Arte del Bogianen & Osterie", date: "2026-09-20", slot: "10:00", guests: 2, amount: 52, guideName: "Elena Rostagno", paymentStatus: "paid", gateway: "Stripe · Mastercard", voucherSent: true, reminder24hSent: false, checkedIn: false, reviewSent: false, reviewPlatform: null },
-      { vCode: "UNT-TRN-9321", name: "Edward Sterling", email: "ed.sterling@london.uk", phone: "+44 7700 900123", lang: "en", chapterName: "I Grandi Caffè & Cospiratori", date: "2026-09-21", slot: "10:00", guests: 3, amount: 126, guideName: "Marco Della Rocca", paymentStatus: "paid", gateway: "Stripe · Amex", voucherSent: true, reminder24hSent: false, checkedIn: false, reviewSent: false, reviewPlatform: null },
-      { vCode: "UNT-TRN-6643", name: "Beatrice Vivaldi", email: "beatrice.vivaldi@milano.it", phone: "+39 348 7766554", lang: "it", chapterName: "Segreti Sabaudi & Corti Nascoste", date: "2026-09-22", slot: "15:30", guests: 2, amount: 76, guideName: "Elena Rostagno", paymentStatus: "refunded", gateway: "Stripe (Storno 100%)", voucherSent: true, reminder24hSent: false, checkedIn: false, reviewSent: false, reviewPlatform: null }
-    ];
+        // --- 3. DATA LOAD & CRM (DATABASE REAL-TIME & PULITO) ---
+    const DEFAULT_BOOKINGS = []; // Nessuna prenotazione fittizia predefinita
 
     function getBookings() {
-      const stored = localStorage.getItem('untourist_crm');
-      if (!stored) {
-        localStorage.setItem('untourist_crm', JSON.stringify(DEFAULT_BOOKINGS));
-        return DEFAULT_BOOKINGS;
+      let stored = localStorage.getItem('untourist_crm');
+      // Purge old mock data if present
+      if (stored && (stored.includes('Giacomo Casanova') || stored.includes('UNT-TRN-8841') || stored.includes('Claire Dupont') || stored.includes('UNT-TRN-7412'))) {
+        localStorage.removeItem('untourist_crm');
+        stored = null;
       }
-      return JSON.parse(stored);
+      if (!stored) {
+        localStorage.setItem('untourist_crm', JSON.stringify([]));
+        return [];
+      }
+      try {
+        const parsed = JSON.parse(stored);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    // Sincronizzazione in tempo reale con Supabase Cloud
+    async function syncBookingsWithSupabase() {
+      try {
+        const res = await fetch('https://dnhqrokonkkqmvkegjff.supabase.co/rest/v1/untourist_bookings?order=created_at.desc', {
+          headers: {
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuaHFyb2tvbmtrcW12a2VnamZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk5ODgwNDAsImV4cCI6MjA4NTU2NDA0MH0.i59wHvk2U0PmTluBoDxa8AmOzLKzDhpCrglwsOr86lI',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuaHFyb2tvbmtrcW12a2VnamZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk5ODgwNDAsImV4cCI6MjA4NTU2NDA0MH0.i59wHvk2U0PmTluBoDxa8AmOzLKzDhpCrglwsOr86lI'
+          }
+        });
+        if (res.ok) {
+          const rows = await res.json();
+          if (Array.isArray(rows)) {
+            const currentLocal = getBookings();
+            // Merge cloud and local
+            const cloudBookings = rows.map(r => ({
+              vCode: r.v_code,
+              name: r.name,
+              email: r.email,
+              phone: r.phone || 'Non indicato',
+              lang: r.lang || 'it',
+              chapterName: r.chapter_name,
+              chapterKey: r.chapter_key,
+              date: r.tour_date,
+              slot: r.tour_slot,
+              guests: r.guests,
+              amount: parseFloat(r.amount) || 0,
+              guideName: r.guide_name || 'Elena Rostagno',
+              paymentStatus: r.payment_status || 'paid',
+              gateway: r.gateway || 'Stripe · Online',
+              voucherSent: r.voucher_sent ?? true,
+              reminder24hSent: r.reminder_24h_sent ?? false,
+              checkedIn: r.checked_in ?? false,
+              reviewSent: r.review_sent ?? false,
+              reviewPlatform: r.review_platform || null
+            }));
+
+            // Combine unique by vCode
+            const map = new Map();
+            cloudBookings.forEach(b => map.set(b.vCode, b));
+            currentLocal.forEach(b => {
+              if (!map.has(b.vCode)) map.set(b.vCode, b);
+            });
+            const merged = Array.from(map.values());
+            localStorage.setItem('untourist_crm', JSON.stringify(merged));
+            renderFinance();
+            renderCrm();
+            renderCalendar();
+          }
+        }
+      } catch (err) {
+        console.warn('Supabase sync info:', err);
+      }
+    }
+
+    async function clearAllBookings() {
+      if (!confirm('ATTENZIONE: Sei sicuro di voler cancellare TUTTE le prenotazioni dal sistema?\n\nQuesta azione eliminerà i dati sia dal browser che dal database Supabase.')) {
+        return;
+      }
+      localStorage.setItem('untourist_crm', JSON.stringify([]));
+      
+      try {
+        await fetch('https://dnhqrokonkkqmvkegjff.supabase.co/rest/v1/untourist_bookings?v_code=neq.EMPTY', {
+          method: 'DELETE',
+          headers: {
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuaHFyb2tvbmtrcW12a2VnamZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk5ODgwNDAsImV4cCI6MjA4NTU2NDA0MH0.i59wHvk2U0PmTluBoDxa8AmOzLKzDhpCrglwsOr86lI',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuaHFyb2tvbmtrcW12a2VnamZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk5ODgwNDAsImV4cCI6MjA4NTU2NDA0MH0.i59wHvk2U0PmTluBoDxa8AmOzLKzDhpCrglwsOr86lI'
+          }
+        });
+      } catch (err) {
+        console.warn('Supabase delete error:', err);
+      }
+
+      renderFinance();
+      renderCrm();
+      renderCalendar();
+      alert('Tutte le prenotazioni sono state eliminate. Il sistema è ora azzerato e pronto per nuove prenotazioni.');
     }
 
     function renderFinance() {
       const bookings = getBookings();
+      const paidBookings = bookings.filter(b => b.paymentStatus === 'paid');
+      const totalGross = paidBookings.reduce((sum, b) => sum + (Number(b.amount) || 0), 0);
+      const margin = totalGross * 0.15;
+      const guides = totalGross * 0.82;
+      const taxes = totalGross * 0.03;
+
+      const kpiGross = document.getElementById('kpiGrossRev');
+      const kpiMarg = document.getElementById('kpiMargin');
+      const kpiGuid = document.getElementById('kpiGuidesPayout');
+      const kpiTax = document.getElementById('kpiTaxFund');
+
+      if (kpiGross) kpiGross.innerText = '€' + totalGross.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (kpiMarg) kpiMarg.innerText = '€' + margin.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (kpiGuid) kpiGuid.innerText = '€' + guides.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (kpiTax) kpiTax.innerText = '€' + taxes.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
       const tbody = document.getElementById('financeClientsTable');
+      if (!tbody) return;
+
+      if (bookings.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="4" class="py-8 text-center text-white/40 text-xs">
+              Nessuna transazione registrata. Le nuove prenotazioni effettuate sul sito compariranno qui automaticamente.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
       tbody.innerHTML = bookings.map(b => {
+        const isPaid = b.paymentStatus === 'paid';
         const guideFee = (b.amount * 0.82).toFixed(2);
-        const margin = (b.amount * 0.15).toFixed(2);
+        const marginVal = (b.amount * 0.15).toFixed(2);
         return `
-          <tr class="hover:bg-white/5">
+          <tr class="hover:bg-white/5 ${!isPaid ? 'opacity-40 line-through' : ''}">
             <td class="py-2.5">
               <b class="text-white">${b.name}</b><br>
               <span class="text-[10px] text-white/50 font-mono">#${b.vCode} · ${b.date}</span>
             </td>
             <td class="font-bold text-white font-mono">€${b.amount.toFixed(2)}</td>
             <td class="text-white/60 font-mono">€${guideFee}</td>
-            <td class="font-bold text-[#EAD7A1] font-mono">+ €${margin}</td>
+            <td class="font-bold text-[#EAD7A1] font-mono">+ €${marginVal}</td>
           </tr>
         `;
       }).join('');
@@ -1003,6 +1120,17 @@
     function renderCrm() {
       const bookings = getBookings();
       const tbody = document.getElementById('crmFullTableBody');
+      if (!tbody) return;
+      if (bookings.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="py-12 text-center text-white/40 text-xs">
+              Nessuna prenotazione presente nell'archivio. Effettua una prenotazione sul sito pubblico per vederla comparire qui in tempo reale.
+            </td>
+          </tr>
+        `;
+        return;
+      }
       tbody.innerHTML = bookings.map((b, idx) => {
         const isPaid = b.paymentStatus === 'paid';
         const isRefunded = b.paymentStatus === 'refunded';
