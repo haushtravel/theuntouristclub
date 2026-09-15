@@ -379,14 +379,14 @@
             <table class="w-full text-left text-xs border-collapse">
               <thead>
                 <tr class="border-b border-white/10 text-white/40 text-[10px] uppercase">
-                  <th class="py-3">Voucher ID</th>
+                  <th class="py-3">Voucher & Pagamento</th>
                   <th>Ospite</th>
-                  <th>Contatto</th>
-                  <th>Capitolo</th>
+                  <th>Contatto / Lingua</th>
+                  <th>Esperienza</th>
                   <th>Data & Turno</th>
                   <th>Guida Assegnata</th>
-                  <th>Importo</th>
-                  <th>Azioni</th>
+                  <th>Stato Ciclo Email</th>
+                  <th>Azioni Operative</th>
                 </tr>
               </thead>
               <tbody id="crmFullTableBody" class="divide-y divide-white/5">
@@ -420,6 +420,17 @@
         <!-- MÓDULO 5: GENERATORE AI COPY INSTAGRAM                            -->
         <!-- ================================================================= -->
         <section id="module-copy" class="space-y-6 hidden">
+          <!-- Banner Studio Grafico & Caroselli Instagram -->
+          <div class="p-6 rounded-2xl bg-gradient-to-r from-[#C9A86A]/20 via-[#3B0F1A]/40 to-black border border-[#C9A86A]/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
+            <div>
+              <span class="px-2.5 py-0.5 rounded-full bg-[#C9A86A] text-black text-[10px] font-bold uppercase tracking-wider">Nuovo Strumento</span>
+              <h4 class="font-serif text-base text-white font-bold mt-1">Studio Grafico Caroselli Instagram (1080×1350 HD)</h4>
+              <p class="text-xs text-white/70 mt-0.5">6 Slide visive pronte per Instagram in 🇮🇹 Italiano, 🇬🇧 English e 🇪🇸 Español con download 1-clic.</p>
+            </div>
+            <a href="social-kit.html" target="_blank" class="px-5 py-2.5 rounded-xl bg-[#C9A86A] text-black font-bold text-xs hover:bg-[#EAD7A1] transition-all whitespace-nowrap shadow-lg flex items-center gap-2">
+              <span>🎨</span> <span>Apri Studio Grafico HD →</span>
+            </a>
+          </div>
           <div>
             <h3 class="font-serif text-lg text-white font-bold">Generatore Strategico di Copy per Instagram</h3>
             <p class="text-xs text-white/50">12+ format di copywriting ad alta conversione per attrarre viaggiatori a Torino.</p>
@@ -953,11 +964,11 @@
 
     // --- 3. DATA LOAD & CRM ---
     const DEFAULT_BOOKINGS = [
-      { vCode: "UNT-TRN-8841", name: "Giacomo Casanova", email: "giacomo@venezia.it", phone: "+39 333 9128311", lang: "it", chapterName: "I Grandi Caffè & Cospiratori", date: "2026-09-18", slot: "10:00", guests: 2, amount: 84, guideName: "Elena Rostagno" },
-      { vCode: "UNT-TRN-7412", name: "Claire Dupont", email: "claire.dupont@paris.fr", phone: "+33 6 12345678", lang: "fr", chapterName: "Segreti Sabaudi & Corti Nascoste", date: "2026-09-19", slot: "15:30", guests: 4, amount: 152, guideName: "Marco Della Rocca" },
-      { vCode: "UNT-TRN-5129", name: "Alejandro Morales", email: "amorales@madrid.es", phone: "+34 600 987654", lang: "es", chapterName: "L'Arte del Bogianen & Osterie", date: "2026-09-20", slot: "10:00", guests: 2, amount: 52, guideName: "Elena Rostagno" },
-      { vCode: "UNT-TRN-9321", name: "Edward Sterling", email: "ed.sterling@london.uk", phone: "+44 7700 900123", lang: "en", chapterName: "I Grandi Caffè & Cospiratori", date: "2026-09-21", slot: "10:00", guests: 3, amount: 126, guideName: "Marco Della Rocca" },
-      { vCode: "UNT-TRN-6643", name: "Beatrice Vivaldi", email: "beatrice.vivaldi@milano.it", phone: "+39 348 7766554", lang: "it", chapterName: "Segreti Sabaudi & Corti Nascoste", date: "2026-09-22", slot: "15:30", guests: 2, amount: 76, guideName: "Elena Rostagno" }
+      { vCode: "UNT-TRN-8841", name: "Giacomo Casanova", email: "giacomo@venezia.it", phone: "+39 333 9128311", lang: "it", chapterName: "I Grandi Caffè & Cospiratori", date: "2026-09-18", slot: "10:00", guests: 2, amount: 84, guideName: "Elena Rostagno", paymentStatus: "paid", gateway: "Stripe · Apple Pay", voucherSent: true, reminder24hSent: true, checkedIn: true, reviewSent: true, reviewPlatform: "Google (5★)" },
+      { vCode: "UNT-TRN-7412", name: "Claire Dupont", email: "claire.dupont@paris.fr", phone: "+33 6 12345678", lang: "fr", chapterName: "Segreti Sabaudi & Corti Nascoste", date: "2026-09-19", slot: "15:30", guests: 4, amount: 152, guideName: "Marco Della Rocca", paymentStatus: "paid", gateway: "Stripe · Visa", voucherSent: true, reminder24hSent: true, checkedIn: false, reviewSent: false, reviewPlatform: null },
+      { vCode: "UNT-TRN-5129", name: "Alejandro Morales", email: "amorales@madrid.es", phone: "+34 600 987654", lang: "es", chapterName: "L'Arte del Bogianen & Osterie", date: "2026-09-20", slot: "10:00", guests: 2, amount: 52, guideName: "Elena Rostagno", paymentStatus: "paid", gateway: "Stripe · Mastercard", voucherSent: true, reminder24hSent: false, checkedIn: false, reviewSent: false, reviewPlatform: null },
+      { vCode: "UNT-TRN-9321", name: "Edward Sterling", email: "ed.sterling@london.uk", phone: "+44 7700 900123", lang: "en", chapterName: "I Grandi Caffè & Cospiratori", date: "2026-09-21", slot: "10:00", guests: 3, amount: 126, guideName: "Marco Della Rocca", paymentStatus: "paid", gateway: "Stripe · Amex", voucherSent: true, reminder24hSent: false, checkedIn: false, reviewSent: false, reviewPlatform: null },
+      { vCode: "UNT-TRN-6643", name: "Beatrice Vivaldi", email: "beatrice.vivaldi@milano.it", phone: "+39 348 7766554", lang: "it", chapterName: "Segreti Sabaudi & Corti Nascoste", date: "2026-09-22", slot: "15:30", guests: 2, amount: 76, guideName: "Elena Rostagno", paymentStatus: "refunded", gateway: "Stripe (Storno 100%)", voucherSent: true, reminder24hSent: false, checkedIn: false, reviewSent: false, reviewPlatform: null }
     ];
 
     function getBookings() {
@@ -992,31 +1003,133 @@
     function renderCrm() {
       const bookings = getBookings();
       const tbody = document.getElementById('crmFullTableBody');
-      tbody.innerHTML = bookings.map(b => `
-        <tr class="hover:bg-white/5">
-          <td class="py-3 font-mono font-bold text-[#C9A86A]">${b.vCode}</td>
+      tbody.innerHTML = bookings.map((b, idx) => {
+        const isPaid = b.paymentStatus === 'paid';
+        const isRefunded = b.paymentStatus === 'refunded';
+        
+        let paymentBadge = isPaid 
+          ? `<span class="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold uppercase tracking-wider">✓ Pagato</span>`
+          : (isRefunded 
+              ? `<span class="px-2 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-400 text-[10px] font-bold uppercase tracking-wider">Stornato</span>`
+              : `<span class="px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-400 text-[10px] font-bold uppercase tracking-wider">Pendente</span>`);
+
+        let reminderBadge = b.reminder24hSent 
+          ? `<span class="text-emerald-400" title="Inviata 24h prima">✓ 24h Inviata</span>`
+          : `<span class="text-white/40" title="In attesa T-24h">⏱ 24h In attesa</span>`;
+
+        let reviewBadge = b.reviewSent 
+          ? `<span class="text-[#C9A86A] font-bold" title="Email inviata al cliente">★ Review Inviata</span>`
+          : `<span class="text-white/30" title="Invio il giorno dopo il tour">★ In attesa T+24h</span>`;
+
+        return `
+        <tr class="hover:bg-white/5 transition-colors ${isRefunded ? 'opacity-60' : ''}">
+          <td class="py-3">
+            <span class="font-mono font-bold text-[#C9A86A] text-xs">${b.vCode}</span>
+            <div class="mt-1 flex items-center gap-1.5">
+              ${paymentBadge}
+              <span class="text-[10px] text-white/50">${b.gateway || 'Stripe'}</span>
+            </div>
+            <span class="font-bold text-white font-mono text-xs block mt-1">€${b.amount.toFixed(2)}</span>
+          </td>
           <td>
             <b class="text-white text-sm">${b.name}</b><br>
             <span class="text-[10px] text-white/50">${b.email}</span>
+            ${b.reviewPlatform ? `<span class="text-[10px] text-emerald-400 block font-semibold mt-0.5">Recensito su: ${b.reviewPlatform}</span>` : ''}
           </td>
           <td>
-            <span class="text-white/80">${b.phone || 'Non indicato'}</span><br>
-            <span class="text-[10px] text-[#C9A86A] uppercase font-bold">Lingua: ${b.lang}</span>
+            <span class="text-white/80 font-mono text-xs">${b.phone || 'Non indicato'}</span><br>
+            <span class="text-[10px] text-[#C9A86A] uppercase font-bold tracking-wider">Lingua: ${b.lang.toUpperCase()}</span>
           </td>
-          <td class="text-white">${b.chapterName} (${b.guests} pax)</td>
+          <td class="text-white">
+            <span class="font-medium">${b.chapterName}</span><br>
+            <span class="text-[10px] text-white/60">${b.guests} Ospiti (${b.checkedIn ? '<b class="text-emerald-400">Check-in OK</b>' : 'In attesa'})</span>
+          </td>
           <td>
             <span class="font-bold text-white">${b.date}</span><br>
             <span class="text-[10px] text-white/60">${b.slot} h</span>
           </td>
           <td class="text-[#EAD7A1] font-medium">${b.guideName}</td>
-          <td class="font-bold text-white font-mono">€${b.amount}</td>
           <td>
-            <button onclick="alert('Voucher #${b.vCode} verificato ed attivo.')" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-[#C9A86A] hover:text-black transition-colors font-bold text-[10px]">
-              Vedi Voucher
-            </button>
+            <div class="space-y-1 text-[10px]">
+              <div class="flex items-center gap-1.5">
+                <span class="text-emerald-400">✓ Voucher PDF</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                ${reminderBadge}
+              </div>
+              <div class="flex items-center gap-1.5">
+                ${reviewBadge}
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="flex flex-col gap-1.5">
+              <button onclick="showVoucherModal('${b.vCode}')" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-[#C9A86A] hover:text-black transition-colors font-bold text-[10px] text-center">
+                Vedi Voucher
+              </button>
+              ${!b.reminder24hSent && isPaid ? `
+              <button onclick="sendReminder24hManual('${b.vCode}')" class="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 hover:bg-amber-500 hover:text-black transition-colors text-[9px] font-semibold">
+                Invia Reconf. 24h
+              </button>
+              ` : ''}
+              ${!b.reviewSent && isPaid && b.checkedIn ? `
+              <button onclick="sendReviewEmailManual('${b.vCode}')" class="px-2 py-0.5 rounded-lg bg-[#C9A86A]/20 text-[#EAD7A1] hover:bg-[#C9A86A] hover:text-black transition-colors text-[9px] font-semibold">
+                Invia Review (+24h)
+              </button>
+              ` : ''}
+              ${isPaid ? `
+              <button onclick="triggerRefundAction('${b.vCode}')" class="px-2 py-0.5 rounded-lg bg-rose-500/10 text-rose-300 hover:bg-rose-500 hover:text-white transition-colors text-[9px]">
+                Storno / Rimborso
+              </button>
+              ` : ''}
+            </div>
           </td>
         </tr>
-      `).join('');
+        `;
+      }).join('');
+    }
+
+    function showVoucherModal(vCode) {
+      const bookings = getBookings();
+      const b = bookings.find(x => x.vCode === vCode);
+      if (!b) return alert('Voucher non trovato.');
+      alert('VOUCHER UFFICIALE: ' + b.vCode + '\nOspite: ' + b.name + ' (' + b.guests + ' pax)\nData: ' + b.date + ' ore ' + b.slot + '\nCapitolo: ' + b.chapterName + '\nGuida: ' + b.guideName + '\nStato Pagamento: ' + b.paymentStatus.toUpperCase() + '\nImporto: €' + b.amount.toFixed(2));
+    }
+
+    function sendReminder24hManual(vCode) {
+      const bookings = getBookings();
+      const b = bookings.find(x => x.vCode === vCode);
+      if (b) {
+        b.reminder24hSent = true;
+        localStorage.setItem('untourist_crm', JSON.stringify(bookings));
+        renderCrm();
+        alert('Email di Re-conferma T-24h inviata con successo a ' + b.email + ' con istruzioni meteo, punto di incontro e contatto WhatsApp della guida.');
+      }
+    }
+
+    function sendReviewEmailManual(vCode) {
+      const bookings = getBookings();
+      const b = bookings.find(x => x.vCode === vCode);
+      if (b) {
+        b.reviewSent = true;
+        localStorage.setItem('untourist_crm', JSON.stringify(bookings));
+        renderCrm();
+        alert('Email T+24h di ringraziamento e invito a recensire su Google Business Profile e TripAdvisor inviata con successo a ' + b.email);
+      }
+    }
+
+    function triggerRefundAction(vCode) {
+      const bookings = getBookings();
+      const b = bookings.find(x => x.vCode === vCode);
+      if (!b) return;
+      if (confirm('Confermi lo storno e rimborso totale di €' + b.amount.toFixed(2) + ' per la prenotazione ' + b.vCode + ' via Stripe API?\n\nQuesto libererà i ' + b.guests + ' posti nel calendario e rettificherà il bilancio.')) {
+        b.paymentStatus = 'refunded';
+        b.gateway = 'Stripe (Storno 100%)';
+        localStorage.setItem('untourist_crm', JSON.stringify(bookings));
+        renderCrm();
+        renderFinance();
+        alert('Rimborso emesso con successo. Notifica di storno inviata a ' + b.email + ' e bilancio aggiornato.');
+      }
     }
 
     function filterCrmTable(q) {

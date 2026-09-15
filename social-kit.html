@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kit Grafico Social · The Untourist Club</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- html2canvas for 1-click HD PNG export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #161514;
+      color: #FAF8F5;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    /* Exact Instagram 4:5 Portrait Ratio (1080 x 1350) */
+    .instagram-slide {
+      width: 540px;
+      height: 675px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      flex-shrink: 0;
+      background: #1C1917;
+    }
+
+    @media (max-width: 640px) {
+      .instagram-slide {
+        width: 340px;
+        height: 425px;
+      }
+    }
+  </style>
+</head>
+<body class="p-6 lg:p-12 antialiased">
+
+  <!-- Top Toolbar -->
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 mb-10 pb-6 border-b border-white/10">
+    <div>
+      <div class="flex items-center gap-3 mb-1">
+        <a href="/admin" class="text-xs text-[#C9A86A] hover:underline flex items-center gap-1">
+          ← Torna ad Amministrazione
+        </a>
+        <span class="text-white/30">·</span>
+        <span class="text-xs uppercase tracking-widest text-white/50">Instagram Carousel Suite</span>
+      </div>
+      <h1 class="font-serif text-2xl sm:text-3xl font-bold text-white">Piezas Gráficas · The Untourist Club</h1>
+      <p class="text-xs text-white/60 mt-1">Presentación oficial de 6 slides listas para publicar en Instagram (Formato 4:5 Vertical HD).</p>
+    </div>
+
+    <!-- Language Selector & Export Buttons -->
+    <div class="flex flex-wrap items-center gap-3">
+      <!-- Language Pill Switcher -->
+      <div class="flex rounded-xl bg-white/5 p-1 border border-white/15 text-xs font-bold">
+        <button onclick="changeKitLanguage('it')" id="btn-it" class="px-3 py-1.5 rounded-lg bg-[#C9A86A] text-black transition-all">🇮🇹 Italiano</button>
+        <button onclick="changeKitLanguage('en')" id="btn-en" class="px-3 py-1.5 rounded-lg text-white/70 hover:text-white transition-all">🇬🇧 English</button>
+        <button onclick="changeKitLanguage('es')" id="btn-es" class="px-3 py-1.5 rounded-lg text-white/70 hover:text-white transition-all">🇪🇸 Español</button>
+      </div>
+
+      <!-- Export All Action -->
+      <button onclick="downloadAllSlides()" class="px-5 py-2.5 rounded-xl bg-white text-black text-xs font-bold uppercase tracking-wider hover:bg-[#C9A86A] transition-all flex items-center gap-2 shadow-lg">
+        <span>⬇️</span> Scarica Tutte le Slide in HD (PNG)
+      </button>
+    </div>
+  </div>
+
+  <!-- Slides Container Grid -->
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    <!-- ===================================================================== -->
+    <!-- SLIDE 1: COVER                                                        -->
+    <!-- ===================================================================== -->
+    <div class="flex flex-col gap-3">
+      <div class="flex justify-between items-center text-xs text-white/60 px-1">
+        <span class="font-bold text-[#C9A86A]">Slide 01 · Copertina</span>
+        <button onclick="downloadSingleSlide('slide-1', 'Slide_01_Cover')" class="hover:text-white text-[11px] underline">Scarica PNG</button>
+      </div>
+      
+      <div id="slide-1" class="instagram-slide">
+        <img src="assets/photo1_matteo_milan.jpg" alt="Mole Antonelliana" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/30"></div>
+
+        <!-- Slide Header -->
+        <div class="absolute top-8 left-8 right-8 flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center font-serif text-sm font-bold">U</div>
+            <span class="font-serif text-xs tracking-widest text-white uppercase font-bold">THE UNTOURIST CLUB</span>
+          </div>
+          <span class="text-[9px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#EAD7A1] font-bold" id="s1-tag">
+            Torino · Italia
+          </span>
+        </div>
+
+        <!-- Center / Bottom Content -->
+        <div class="absolute bottom-10 left-8 right-8">
+          <span class="text-[10px] uppercase tracking-[0.3em] text-[#C9A86A] font-bold block mb-2" id="s1-kicker">Nuove Esperienze 2026</span>
+          <h2 class="font-serif text-3xl sm:text-4xl text-white font-bold leading-tight mb-3" id="s1-title">
+            Torino Oltre <br>
+            <span class="italic font-normal text-[#EAE3D9]">il Visibile.</span>
+          </h2>
+          <p class="text-xs text-white/80 font-light leading-relaxed mb-6" id="s1-desc">
+            Un club per chi viaggia a passo lento. Salotti segreti dell'Ottocento, corti sabaude e osterie veraci in piccoli gruppi di massimo 8 persone.
+          </p>
+
+          <div class="flex items-center justify-between pt-4 border-t border-white/20 text-[10px] text-white/60">
+            <span id="s1-swipe">Scorri per scoprire i 3 Capitoli →</span>
+            <span>1 / 6</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- SLIDE 2: IL MANIFESTO                                                 -->
+    <!-- ===================================================================== -->
+    <div class="flex flex-col gap-3">
+      <div class="flex justify-between items-center text-xs text-white/60 px-1">
+        <span class="font-bold text-[#C9A86A]">Slide 02 · Il Manifesto</span>
+        <button onclick="downloadSingleSlide('slide-2', 'Slide_02_Manifesto')" class="hover:text-white text-[11px] underline">Scarica PNG</button>
+      </div>
+
+      <div id="slide-2" class="instagram-slide">
+        <img src="assets/photo4_efrem_efre.jpg" alt="Tram Storico" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/40"></div>
+
+        <div class="absolute top-8 left-8 right-8 flex items-center justify-between">
+          <span class="font-serif text-xs tracking-widest text-[#C9A86A] uppercase font-bold" id="s2-badge">IL NOSTRO APPROCCIO</span>
+          <span class="text-[10px] text-white/50">2 / 6</span>
+        </div>
+
+        <div class="absolute bottom-10 left-8 right-8">
+          <span class="text-[10px] uppercase tracking-[0.25em] text-[#EAD7A1] font-bold block mb-2" id="s2-kicker">La Filosofia Untourist</span>
+          <h3 class="font-serif text-2xl sm:text-3xl text-white font-bold leading-snug mb-4" id="s2-title">
+            "Torino non urla: sussurra a chi sa perdersi."
+          </h3>
+          
+          <div class="space-y-3 text-xs text-white/80 font-light mb-6">
+            <div class="flex items-start gap-2.5">
+              <span class="text-[#C9A86A] font-bold">✕</span>
+              <span id="s2-p1">Niente bus a due piani né cuffiette registrate.</span>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="text-[#C9A86A] font-bold">✕</span>
+              <span id="s2-p2">Niente orari frenetici o tappe da spuntare su una lista.</span>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="text-[#C9A86A] font-bold">✓</span>
+              <span class="text-white font-medium" id="s2-p3">Solo camminate lente con guide abilitate residenti e soste gastronomiche d'eccellenza.</span>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-white/20 text-[10px] text-white/60">
+            <span id="s2-foot">3 Itinerari Esclusivi d'Autore →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- SLIDE 3: CAPITOLO I                                                   -->
+    <!-- ===================================================================== -->
+    <div class="flex flex-col gap-3">
+      <div class="flex justify-between items-center text-xs text-white/60 px-1">
+        <span class="font-bold text-[#C9A86A]">Slide 03 · Capitolo I</span>
+        <button onclick="downloadSingleSlide('slide-3', 'Slide_03_Capitolo_I')" class="hover:text-white text-[11px] underline">Scarica PNG</button>
+      </div>
+
+      <div id="slide-3" class="instagram-slide">
+        <img src="assets/cafe_baratti.jpg" alt="Baratti & Milano" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/30"></div>
+
+        <div class="absolute top-8 left-8 right-8 flex items-center justify-between">
+          <span class="px-3 py-1 rounded-full bg-[#B88746] text-black font-bold text-[10px] uppercase tracking-wider">
+            Capitolo I
+          </span>
+          <span class="text-[10px] text-white/50">3 / 6</span>
+        </div>
+
+        <div class="absolute bottom-10 left-8 right-8">
+          <span class="text-[10px] uppercase tracking-[0.25em] text-[#EAD7A1] font-bold block mb-1" id="s3-kicker">Salotti & Cospiratori</span>
+          <h3 class="font-serif text-2xl sm:text-3xl text-white font-bold leading-snug mb-3" id="s3-title">
+            I Grandi Caffè & Cospiratori
+          </h3>
+          <p class="text-xs text-white/85 font-light leading-relaxed mb-4" id="s3-desc">
+            Dove l'Italia fu concepita tra specchi dorati e lampadari di Boemia. Dalla tazzina di Bicerin del 1763 all'arsenale segreto della Resistenza sotto i pavimenti di Baratti & Milano.
+          </p>
+
+          <div class="p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 mb-4 text-[11px] space-y-1">
+            <p>📍 <b class="text-white" id="s3-m-label">Ritrovo:</b> <span id="s3-m-val">Piazza Castello 29 (Galleria Subalpina)</span></p>
+            <p>☕ <b class="text-white" id="s3-d-label">Incluso:</b> <span id="s3-d-val">Degustazione Bicerin originale o Vermut 1786</span></p>
+            <p>⏱️ <b class="text-white">Durata:</b> 2h 30m · Max 8 pax · <span class="text-[#EAD7A1] font-bold">€42 / pax</span></p>
+          </div>
+
+          <div class="pt-2 text-[10px] text-white/60">
+            <span>theuntouristclub.com →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- SLIDE 4: CAPITOLO II                                                  -->
+    <!-- ===================================================================== -->
+    <div class="flex flex-col gap-3">
+      <div class="flex justify-between items-center text-xs text-white/60 px-1">
+        <span class="font-bold text-[#C9A86A]">Slide 04 · Capitolo II</span>
+        <button onclick="downloadSingleSlide('slide-4', 'Slide_04_Capitolo_II')" class="hover:text-white text-[11px] underline">Scarica PNG</button>
+      </div>
+
+      <div id="slide-4" class="instagram-slide">
+        <img src="assets/photo2_matteo_milan.jpg" alt="Corti Reali" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/30"></div>
+
+        <div class="absolute top-8 left-8 right-8 flex items-center justify-between">
+          <span class="px-3 py-1 rounded-full bg-[#B88746] text-black font-bold text-[10px] uppercase tracking-wider">
+            Capitolo II
+          </span>
+          <span class="text-[10px] text-white/50">4 / 6</span>
+        </div>
+
+        <div class="absolute bottom-10 left-8 right-8">
+          <span class="text-[10px] uppercase tracking-[0.25em] text-[#EAD7A1] font-bold block mb-1" id="s4-kicker">Savoia & Corti Nascoste</span>
+          <h3 class="font-serif text-2xl sm:text-3xl text-white font-bold leading-snug mb-3" id="s4-title">
+            Segreti della Corona & Corti Reali
+          </h3>
+          <p class="text-xs text-white/85 font-light leading-relaxed mb-4" id="s4-desc">
+            Dietro l'austero mattone rosso si cela il barocco più ardito d'Europa. Cortili segreti di Palazzo Reale, le onde di Palazzo Carignano e le geometrie svelate di Guarino Guarini.
+          </p>
+
+          <div class="p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 mb-4 text-[11px] space-y-1">
+            <p>📍 <b class="text-white" id="s4-m-label">Ritrovo:</b> <span id="s4-m-val">Piazza Palazzo di Città (Monumento Conte Verde)</span></p>
+            <p>🍷 <b class="text-white" id="s4-d-label">Incluso:</b> <span id="s4-d-val">Aperitivo sabaudo con calice di vino DOC collinare</span></p>
+            <p>⏱️ <b class="text-white">Durata:</b> 2h 15m · Max 8 pax · <span class="text-[#EAD7A1] font-bold">€38 / pax</span></p>
+          </div>
+
+          <div class="pt-2 text-[10px] text-white/60">
+            <span>theuntouristclub.com →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- SLIDE 5: CAPITOLO III                                                 -->
+    <!-- ===================================================================== -->
+    <div class="flex flex-col gap-3">
+      <div class="flex justify-between items-center text-xs text-white/60 px-1">
+        <span class="font-bold text-[#C9A86A]">Slide 05 · Capitolo III</span>
+        <button onclick="downloadSingleSlide('slide-5', 'Slide_05_Capitolo_III')" class="hover:text-white text-[11px] underline">Scarica PNG</button>
+      </div>
+
+      <div id="slide-5" class="instagram-slide">
+        <img src="assets/photo6_ipekpinar_calik.jpg" alt="Osteria Tipica" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/30"></div>
+
+        <div class="absolute top-8 left-8 right-8 flex items-center justify-between">
+          <span class="px-3 py-1 rounded-full bg-[#B88746] text-black font-bold text-[10px] uppercase tracking-wider">
+            Capitolo III
+          </span>
+          <span class="text-[10px] text-white/50">5 / 6</span>
+        </div>
+
+        <div class="absolute bottom-10 left-8 right-8">
+          <span class="text-[10px] uppercase tracking-[0.25em] text-[#EAD7A1] font-bold block mb-1" id="s5-kicker">Bogianen & Piòle Storiche</span>
+          <h3 class="font-serif text-2xl sm:text-3xl text-white font-bold leading-snug mb-3" id="s5-title">
+            L'Arte del Bogianen & Osterie
+          </h3>
+          <p class="text-xs text-white/85 font-light leading-relaxed mb-4" id="s5-desc">
+            Nel Quadrilatero Romano il dialetto piemontese è la lingua viva dei sentimenti. Botteghe artigiane centenarie, vecchie legatorie e il rito autentico del gotto di vino in piòla.
+          </p>
+
+          <div class="p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 mb-4 text-[11px] space-y-1">
+            <p>📍 <b class="text-white" id="s5-m-label">Ritrovo:</b> <span id="s5-m-val">Piazza della Consolata 5 (fronte Al Bicerin)</span></p>
+            <p>🧀 <b class="text-white" id="s5-d-label">Incluso:</b> <span id="s5-d-val">Cata di formaggi d'alpeggio e tajarin freschi</span></p>
+            <p>⏱️ <b class="text-white">Durata:</b> 2h 00m · Max 8 pax · <span class="text-[#EAD7A1] font-bold">€26 / pax</span></p>
+          </div>
+
+          <div class="pt-2 text-[10px] text-white/60">
+            <span>theuntouristclub.com →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- SLIDE 6: CALL TO ACTION / CONCLUSIONE                                 -->
+    <!-- ===================================================================== -->
+    <div class="flex flex-col gap-3">
+      <div class="flex justify-between items-center text-xs text-white/60 px-1">
+        <span class="font-bold text-[#C9A86A]">Slide 06 · Call to Action</span>
+        <button onclick="downloadSingleSlide('slide-6', 'Slide_06_Call_To_Action')" class="hover:text-white text-[11px] underline">Scarica PNG</button>
+      </div>
+
+      <div id="slide-6" class="instagram-slide">
+        <img src="assets/photo3_anes_bendia.jpg" alt="Piazza Vittorio" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/40"></div>
+
+        <div class="absolute top-8 left-8 right-8 flex items-center justify-between">
+          <span class="font-serif text-xs tracking-widest text-[#C9A86A] uppercase font-bold">PRENOTAZIONI APERTE</span>
+          <span class="text-[10px] text-white/50">6 / 6</span>
+        </div>
+
+        <div class="absolute bottom-10 left-8 right-8 text-center">
+          <div class="w-12 h-12 rounded-full bg-[#B88746] text-black font-serif font-bold text-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+            U
+          </div>
+
+          <h3 class="font-serif text-3xl text-white font-bold mb-2" id="s6-title">
+            Vivi Torino Come <br> Non L'Hai Mai Vista.
+          </h3>
+          <p class="text-xs text-white/80 font-light leading-relaxed max-w-sm mx-auto mb-6" id="s6-desc">
+            Le uscite sono riservate a soli 8 partecipanti per volta. Seleziona la data e ricevi all'istante il tuo Voucher Ufficiale di Viaggio.
+          </p>
+
+          <div class="p-3.5 rounded-2xl bg-white text-[#1C1917] font-bold text-xs shadow-xl mb-4">
+            🔗 theuntouristclub.com
+          </div>
+
+          <p class="text-[10px] text-[#EAD7A1]" id="s6-foot">
+            Link in bio per riservare il tuo posto · Assistenza via WhatsApp
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Captions Box Ready to Copy -->
+  <div class="max-w-4xl mx-auto mt-16 p-8 rounded-3xl bg-white/[0.04] border border-white/10 shadow-2xl">
+    <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+      <div>
+        <span class="text-[10px] uppercase tracking-widest text-[#C9A86A] font-bold">Copy Pronto per Instagram</span>
+        <h3 class="font-serif text-xl font-bold text-white mt-0.5">Didascalia del Post (Copywriting di Lancio)</h3>
+      </div>
+      <button onclick="copyPostText()" id="btnCopyCaption" class="px-4 py-2 rounded-xl bg-[#C9A86A] text-black font-bold text-xs hover:bg-[#d6b77d] transition-all">
+        Copia Didascalia 📋
+      </button>
+    </div>
+
+    <textarea id="postCaptionArea" readonly rows="12" class="w-full p-4 rounded-xl bg-black/40 border border-white/10 text-white/90 text-xs font-mono leading-relaxed focus:outline-none"></textarea>
+  </div>
+
+  <!-- JavaScript for Language Switch & Image Download -->
+  <script>
+    const CONTENT = {
+      it: {
+        s1_tag: "Torino · Italia",
+        s1_kicker: "Nuove Esperienze 2026",
+        s1_title: "Torino Oltre <br><span class='italic font-normal text-[#EAE3D9]'>il Visibile.</span>",
+        s1_desc: "Un club per chi viaggia a passo lento. Salotti segreti dell'Ottocento, corti sabaude e osterie veraci in piccoli gruppi di massimo 8 persone.",
+        s1_swipe: "Scorri per scoprire i 3 Capitoli →",
+        s2_badge: "IL NOSTRO APPROCCIO",
+        s2_kicker: "La Filosofia Untourist",
+        s2_title: "\"Torino non urla: sussurra a chi sa perdersi.\"",
+        s2_p1: "Niente bus a due piani né cuffiette registrate.",
+        s2_p2: "Niente orari frenetici o tappe da spuntare su una lista.",
+        s2_p3: "Solo camminate lente con guide abilitate residenti e soste gastronomiche d'eccellenza.",
+        s2_foot: "3 Itinerari Esclusivi d'Autore →",
+        s3_kicker: "Salotti & Cospiratori",
+        s3_title: "I Grandi Caffè & Cospiratori",
+        s3_desc: "Dove l'Italia fu concepita tra specchi dorati e lampadari di Boemia. Dalla tazzina di Bicerin del 1763 all'arsenale segreto sotto Baratti & Milano.",
+        s3_m_label: "Ritrovo:", s3_m_val: "Piazza Castello 29 (Galleria Subalpina)",
+        s3_d_label: "Incluso:", s3_d_val: "Degustazione Bicerin originale o Vermut 1786",
+        s4_kicker: "Savoia & Corti Nascoste",
+        s4_title: "Segreti della Corona & Corti Reali",
+        s4_desc: "Dietro l'austero mattone rosso si cela il barocco più ardito d'Europa. Cortili segreti di Palazzo Reale e le geometrie svelate di Guarini.",
+        s4_m_label: "Ritrovo:", s4_m_val: "Piazza Palazzo di Città (Monumento Conte Verde)",
+        s4_d_label: "Incluso:", s4_d_val: "Aperitivo sabaudo con calice di vino DOC collinare",
+        s5_kicker: "Bogianen & Piòle Storiche",
+        s5_title: "L'Arte del Bogianen & Osterie",
+        s5_desc: "Nel Quadrilatero Romano il dialetto piemontese è la lingua viva dei sentimenti. Botteghe centenarie e il rito del gotto di vino in piòla.",
+        s5_m_label: "Ritrovo:", s5_m_val: "Piazza della Consolata 5 (fronte Al Bicerin)",
+        s5_d_label: "Incluso:", s5_d_val: "Cata di formaggi d'alpeggio e tajarin freschi",
+        s6_title: "Vivi Torino Come <br> Non L'Hai Mai Vista.",
+        s6_desc: "Le uscite sono riservate a soli 8 partecipanti per volta. Seleziona la data e ricevi all'istante il tuo Voucher Ufficiale di Viaggio.",
+        s6_foot: "Link in bio per riservare il tuo posto · Assistenza via WhatsApp",
+        caption: `✨ Torino non urla: sussurra. E noi abbiamo deciso di ascoltarla.
+
+Nasce ufficialmente The Untourist Club: un modo completamente nuovo, lento e riservato per scoprire la prima capitale d'Italia.
+
+Abbiamo disegnato tre capitoli indipendenti guidati esclusivamente da storici e guide abilitate residenti, per piccoli gruppi di massimo 8 persone:
+
+☕ Capitolo I — I Grandi Caffè & Cospiratori (con cata di Bicerin originale del 1763)
+👑 Capitolo II — Segreti della Corona & Corti Reali (accesso a cortili nobiliari chiusi al pubblico)
+🍷 Capitolo III — L'Arte del Bogianen & Osterie (degustazione di formaggi d'alpeggio e tajarin nel Quadrilatero Romano)
+
+Niente microfoni, niente guide con bandierine colorate, niente folle frettolose. Solo conversazioni intime, bellezza inaspettata e storie che le guide convenzionali tacciono.
+
+🎟️ I posti per ogni data sono strettamente limitati a 8 persone.
+🔗 Prenota il tuo pass e ricevi il voucher immediato su theuntouristclub.com (link in bio)
+
+#Torino #TheUntouristClub #TorinoSegreta #CaffeStorici #Bicerin #VisitPiemonte #TurinTravel #ViaggiAutentici`
+      },
+      en: {
+        s1_tag: "Turin · Italy",
+        s1_kicker: "New 2026 Experiences",
+        s1_title: "Turin Beyond <br><span class='italic font-normal text-[#EAE3D9]'>the Surface.</span>",
+        s1_desc: "A club for slow, thoughtful travelers. 19th-century secret salons, baroque royal courtyards, and centuries-old taverns in small groups capped at 8 guests.",
+        s1_swipe: "Swipe to discover the 3 Chapters →",
+        s2_badge: "OUR PHILOSOPHY",
+        s2_kicker: "The Untourist Way",
+        s2_title: "\"Turin doesn't shout: it whispers to those who wander.\"",
+        s2_p1: "No double-decker buses or pre-recorded headsets.",
+        s2_p2: "No rushed checklists or cookie-cutter tours.",
+        s2_p3: "Only slow walking explorations with resident licensed guides and exquisite culinary stops.",
+        s2_foot: "3 Exclusive Curated Chapters →",
+        s3_kicker: "Salons & Conspirators",
+        s3_title: "The Grand Cafés & Conspirators",
+        s3_desc: "Where Italy was conceived under gilded mirrors and Bohemian chandeliers. From the 1763 Bicerin cup to the secret WWII resistance bunker under Baratti & Milano.",
+        s3_m_label: "Meeting:", s3_m_val: "Piazza Castello 29 (Galleria Subalpina)",
+        s3_d_label: "Included:", s3_d_val: "Authentic hot Bicerin or 1786 Carpano Vermouth",
+        s4_kicker: "Savoy & Hidden Courts",
+        s4_title: "Crown Secrets & Royal Courtyards",
+        s4_desc: "Behind austere brick facades lies Europe's most daring baroque architecture. Secret courtyards of Palazzo Reale and Guarini's geometry.",
+        s4_m_label: "Meeting:", s4_m_val: "Piazza Palazzo di Città (Green Count Monument)",
+        s4_d_label: "Included:", s4_d_val: "Savoy aperitif with a glass of local DOC hillside wine",
+        s5_kicker: "Bogianen & Historic Taverns",
+        s5_title: "The Art of Bogianen & Osterie",
+        s5_desc: "In the Roman Quarter, Piedmontese dialect is the heartbeat of local culture. Artisan workshops and the timeless ritual of a glass of wine in a piòla tavern.",
+        s5_m_label: "Meeting:", s5_m_val: "Piazza della Consolata 5 (in front of Al Bicerin)",
+        s5_d_label: "Included:", s5_d_val: "Tasting of raw-milk alpine cheeses & tajarin pasta",
+        s6_title: "Experience Turin As <br> You've Never Seen It.",
+        s6_desc: "Every walk is strictly limited to 8 travelers. Pick your date and instantly receive your Official Travel Voucher.",
+        s6_foot: "Link in bio to reserve your spot · WhatsApp concierge available",
+        caption: `✨ Turin doesn't shout: it whispers. And we've chosen to listen.
+
+Welcome to The Untourist Club: a slow, intimate, and deeply cultural way to discover Italy's first capital city.
+
+We've designed three independent narrative chapters led exclusively by resident licensed guides, with groups strictly capped at 8 travelers:
+
+☕ Chapter I — Grand Cafés & Conspirators (includes original 1763 hot Bicerin tasting)
+👑 Chapter II — Crown Secrets & Royal Courtyards (private access to noble baroque courtyards)
+🍷 Chapter III — The Art of Bogianen & Osterie (artisanal cheese & fresh tajarin pasta in the Roman Quarter)
+
+No megaphone tour guides, no crowded bus tours. Just unhurried conversations, unexpected beauty, and the untold stories behind Turin's grandest landmarks.
+
+🎟️ Spots are strictly limited to 8 guests per departure.
+🔗 Book your pass and receive your instant voucher at theuntouristclub.com (link in bio)
+
+#Turin #TheUntouristClub #TurinTravel #SecretTurin #HistoricCafes #Bicerin #VisitItaly #SlowTravel`
+      },
+      es: {
+        s1_tag: "Turín · Italia",
+        s1_kicker: "Nuevas Experiencias 2026",
+        s1_title: "Turín Más Allá <br><span class='italic font-normal text-[#EAE3D9]'>de lo Visible.</span>",
+        s1_desc: "Un club para quienes viajan sin prisa. Salones secretos del siglo XIX, cortes barrocas y tabernas históricas en grupos reducidos de máximo 8 personas.",
+        s1_swipe: "Desliza para descubrir los 3 Capítulos →",
+        s2_badge: "NUESTRO ENFOQUE",
+        s2_kicker: "La Filosofía Untourist",
+        s2_title: "\"Turín no grita: susurra a quienes saben perderse.\"",
+        s2_p1: "Sin autobuses turísticos de dos pisos ni audioguías grabadas.",
+        s2_p2: "Sin itinerarios apresurados ni listas de monumentos para tachar.",
+        s2_p3: "Solo paseos a pie con guías habilitados residentes y degustaciones gastronómicas de primer nivel.",
+        s2_foot: "3 Itinerarios Exclusivos de Autor →",
+        s3_kicker: "Salones & Conspiradores",
+        s3_title: "Los Grandes Cafés & Conspiradores",
+        s3_desc: "Donde nació la Unidad de Italia entre espejos dorados y arañas de Bohemia. Desde la taza de Bicerin de 1763 hasta el arsenal secreto bajo Baratti & Milano.",
+        s3_m_label: "Encuentro:", s3_m_val: "Piazza Castello 29 (Galleria Subalpina)",
+        s3_d_label: "Incluido:", s3_d_val: "Degustación de Bicerin caliente original o Vermut de 1786",
+        s4_kicker: "Saboya & Patios Ocultos",
+        s4_title: "Secretos de la Corona & Cortes Reales",
+        s4_desc: "Detrás del austero ladrillo rojo se esconde el barroco más audaz de Europa. Patios secretos del Palazzo Reale y la geometría genial de Guarini.",
+        s4_m_label: "Encuentro:", s4_m_val: "Piazza Palazzo di Città (Monumento al Conte Verde)",
+        s4_d_label: "Incluido:", s4_d_val: "Aperitivo saboyano con copa de vino DOC de colina",
+        s5_kicker: "Bogianen & Tabernas Típicas",
+        s5_title: "El Arte del Bogianen & Osterie",
+        s5_desc: "En el Quadrilatero Romano el dialecto piamontés es el lenguaje vivo del pueblo. Talleres centenarios y el rito del vaso de vino en una piòla tradicional.",
+        s5_m_label: "Encuentro:", s5_m_val: "Piazza della Consolata 5 (frente al Caffè Al Bicerin)",
+        s5_d_label: "Incluido:", s5_d_val: "Cata de quesos alpinos de leche cruda y tajarin frescos",
+        s6_title: "Vive Turín Como <br> Nunca Antes.",
+        s6_desc: "Cada salida está estrictamente limitada a 8 participantes. Elige tu fecha y recibe al instante tu Voucher Oficial de Viaje.",
+        s6_foot: "Enlace en bio para reservar tu lugar · Atención directa por WhatsApp",
+        caption: `✨ Turín no grita: susurra. Y nosotros decidimos escucharla.
+
+Nace oficialmente The Untourist Club: una forma completamente nueva, pausada y auténtica de descubrir la primera capital de Italia.
+
+Diseñamos tres capítulos independientes guiados exclusivamente por historiadores y guías habilitados residentes, en grupos íntimos de máximo 8 personas:
+
+☕ Capítulo I — Los Grandes Cafés & Conspiradores (incluye cata del mítico Bicerin original de 1763)
+👑 Capítulo II — Secretos de la Corona & Cortes Reales (acceso exclusivo a patios nobiliarios cerrados al público)
+🍷 Capítulo III — El Arte del Bogianen & Osterie (degustación de quesos alpinos y tajarin en el Quadrilatero Romano)
+
+Sin megáfonos, sin grupos multitudinarios ni prisas. Solo conversaciones cercanas, belleza inesperada y las historias que las guías convencionales no cuentan.
+
+🎟️ Cupos estrictamente limitados a 8 personas por salida.
+🔗 Reserva tu lugar y recibe tu voucher inmediato en theuntouristclub.com (enlace en bio)
+
+#Turin #TheUntouristClub #TurinSecreta #CafesHistoricos #Bicerin #Piamonte #ViajesDeAutor #ItaliaAutentica`
+      }
+    };
+
+    let activeLang = 'it';
+
+    function changeKitLanguage(lang) {
+      activeLang = lang;
+      ['it', 'en', 'es'].forEach(l => {
+        const btn = document.getElementById('btn-' + l);
+        if (btn) {
+          if (l === lang) {
+            btn.className = "px-3 py-1.5 rounded-lg bg-[#C9A86A] text-black font-bold transition-all";
+          } else {
+            btn.className = "px-3 py-1.5 rounded-lg text-white/70 hover:text-white transition-all";
+          }
+        }
+      });
+
+      const d = CONTENT[lang];
+      document.getElementById('s1-tag').innerText = d.s1_tag;
+      document.getElementById('s1-kicker').innerText = d.s1_kicker;
+      document.getElementById('s1-title').innerHTML = d.s1_title;
+      document.getElementById('s1-desc').innerText = d.s1_desc;
+      document.getElementById('s1-swipe').innerText = d.s1_swipe;
+
+      document.getElementById('s2-badge').innerText = d.s2_badge;
+      document.getElementById('s2-kicker').innerText = d.s2_kicker;
+      document.getElementById('s2-title').innerText = d.s2_title;
+      document.getElementById('s2-p1').innerText = d.s2_p1;
+      document.getElementById('s2-p2').innerText = d.s2_p2;
+      document.getElementById('s2-p3').innerText = d.s2_p3;
+      document.getElementById('s2-foot').innerText = d.s2_foot;
+
+      document.getElementById('s3-kicker').innerText = d.s3_kicker;
+      document.getElementById('s3-title').innerText = d.s3_title;
+      document.getElementById('s3-desc').innerText = d.s3_desc;
+      document.getElementById('s3-m-label').innerText = d.s3_m_label;
+      document.getElementById('s3-m-val').innerText = d.s3_m_val;
+      document.getElementById('s3-d-label').innerText = d.s3_d_label;
+      document.getElementById('s3-d-val').innerText = d.s3_d_val;
+
+      document.getElementById('s4-kicker').innerText = d.s4_kicker;
+      document.getElementById('s4-title').innerText = d.s4_title;
+      document.getElementById('s4-desc').innerText = d.s4_desc;
+      document.getElementById('s4-m-label').innerText = d.s4_m_label;
+      document.getElementById('s4-m-val').innerText = d.s4_m_val;
+      document.getElementById('s4-d-label').innerText = d.s4_d_label;
+      document.getElementById('s4-d-val').innerText = d.s4_d_val;
+
+      document.getElementById('s5-kicker').innerText = d.s5_kicker;
+      document.getElementById('s5-title').innerText = d.s5_title;
+      document.getElementById('s5-desc').innerText = d.s5_desc;
+      document.getElementById('s5-m-label').innerText = d.s5_m_label;
+      document.getElementById('s5-m-val').innerText = d.s5_m_val;
+      document.getElementById('s5-d-label').innerText = d.s5_d_label;
+      document.getElementById('s5-d-val').innerText = d.s5_d_val;
+
+      document.getElementById('s6-title').innerHTML = d.s6_title;
+      document.getElementById('s6-desc').innerText = d.s6_desc;
+      document.getElementById('s6-foot').innerText = d.s6_foot;
+
+      document.getElementById('postCaptionArea').value = d.caption;
+    }
+
+    // 1-Click HD Export (Canvas Scale 2 for pristine 1080x1350 resolution)
+    async function downloadSingleSlide(slideId, filename) {
+      const el = document.getElementById(slideId);
+      if (!el) return;
+      
+      const canvas = await html2canvas(el, {
+        scale: 2, // 540x675 * 2 = 1080 x 1350 HD Instagram ratio
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#1C1917'
+      });
+
+      const link = document.createElement('a');
+      link.download = `${filename}_${activeLang.toUpperCase()}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    async function downloadAllSlides() {
+      const slides = [
+        { id: 'slide-1', name: 'Slide_01_Cover' },
+        { id: 'slide-2', name: 'Slide_02_Manifesto' },
+        { id: 'slide-3', name: 'Slide_03_Capitolo_I' },
+        { id: 'slide-4', name: 'Slide_04_Capitolo_II' },
+        { id: 'slide-5', name: 'Slide_05_Capitolo_III' },
+        { id: 'slide-6', name: 'Slide_06_Call_To_Action' }
+      ];
+
+      for (let i = 0; i < slides.length; i++) {
+        await downloadSingleSlide(slides[i].id, slides[i].name);
+        await new Promise(r => setTimeout(r, 400));
+      }
+      alert('Tutte le 6 slide sono state scaricate in formato HD 1080x1350!');
+    }
+
+    function copyPostText() {
+      const area = document.getElementById('postCaptionArea');
+      area.select();
+      navigator.clipboard.writeText(area.value);
+      const btn = document.getElementById('btnCopyCaption');
+      btn.innerText = "Copiato! ✓";
+      setTimeout(() => btn.innerText = "Copia Didascalia 📋", 2000);
+    }
+
+    // Initialize with Italian
+    document.addEventListener('DOMContentLoaded', () => {
+      changeKitLanguage('it');
+    });
+  </script>
+
+</body>
+</html>
