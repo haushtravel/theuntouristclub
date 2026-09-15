@@ -125,53 +125,62 @@
 <body class="bg-paper-pattern antialiased selection:bg-[#B88746] selection:text-white">
 
   <!-- ========================================================================= -->
-  <!-- 1. NAVIGATION BAR CON SELECTOR DE 4 IDIOMAS & PORTALE GUIDE               -->
+  <!-- 1. NAVIGATION BAR SOTTILE CON DROPDOWN IDIOMI (SLIM REFINED CAPSULE)       -->
   <!-- ========================================================================= -->
-  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-3.5 px-4 sm:px-8 lg:px-12" id="mainHeader">
-    <div class="max-w-7xl mx-auto flex items-center justify-between glass-light rounded-full px-4 sm:px-6 py-2.5 sm:py-3 shadow-sm">
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-2.5 px-3 sm:px-6 lg:px-10" id="mainHeader">
+    <div class="max-w-6xl mx-auto flex items-center justify-between glass-light rounded-full px-4 sm:px-6 py-2 shadow-xs border border-[#EAE3D9]/80">
       
       <!-- Brand Logo -->
-      <a href="#" class="flex items-center gap-2.5 sm:gap-3 group">
-        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#1C1917] text-[#FAF8F5] flex items-center justify-center font-serif text-base sm:text-lg font-bold group-hover:scale-105 transition-transform shadow-sm">
+      <a href="#" class="flex items-center gap-2.5 group">
+        <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#1C1917] text-[#FAF8F5] flex items-center justify-center font-serif text-sm sm:text-base font-bold group-hover:scale-105 transition-transform shadow-xs">
           U
         </div>
         <div class="flex flex-col">
-          <span class="font-serif text-sm sm:text-base font-bold tracking-tight text-[#1C1917] leading-none">THE UNTOURIST CLUB</span>
-          <span class="text-[8px] sm:text-[9px] uppercase tracking-[0.25em] text-[#B88746] font-semibold mt-0.5" data-i18n="tagline_sub">Torino · Esperienze</span>
+          <span class="font-serif text-xs sm:text-sm font-bold tracking-tight text-[#1C1917] leading-none">THE UNTOURIST CLUB</span>
+          <span class="text-[7.5px] sm:text-[8.5px] uppercase tracking-[0.2em] text-[#B88746] font-semibold mt-0.5" data-i18n="tagline_sub">Torino · Esperienze</span>
         </div>
       </a>
 
       <!-- Desktop Nav Links -->
-      <nav class="hidden lg:flex items-center gap-7 text-xs font-semibold uppercase tracking-wider text-[#57534E]">
+      <nav class="hidden md:flex items-center gap-6 text-[11px] font-semibold uppercase tracking-wider text-[#57534E]">
         <a href="#capitoli" class="hover:text-[#1C1917] transition-colors py-1" data-i18n="nav_chapters">I Tre Capitoli</a>
         <a href="#atmosfere" class="hover:text-[#1C1917] transition-colors py-1" data-i18n="nav_atmospheres">Atmosfere</a>
         <a href="#sights" class="hover:text-[#1C1917] transition-colors py-1" data-i18n="nav_sights">Luoghi Storici</a>
       </nav>
 
-      <!-- Action & Language Selector Cluster -->
+      <!-- Right Action Area (Dropdown Idiomas + Botón Prenota con margen) -->
       <div class="flex items-center gap-2 sm:gap-3">
         
-        <!-- 4-Language Switcher (IT / EN / ES / FR) -->
-        <div class="flex items-center bg-[#FAF8F5] border border-[#EAE3D9] rounded-full p-0.5 shadow-sm text-[11px] font-bold">
-          <button onclick="setLanguage('it')" id="lang-it" class="px-2 py-1 rounded-full transition-all text-[#1C1917] bg-white shadow-xs">IT</button>
-          <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded-full transition-all text-[#78716C] hover:text-[#1C1917]">EN</button>
-          <button onclick="setLanguage('es')" id="lang-es" class="px-2 py-1 rounded-full transition-all text-[#78716C] hover:text-[#1C1917]">ES</button>
-          <button onclick="setLanguage('fr')" id="lang-fr" class="px-2 py-1 rounded-full transition-all text-[#78716C] hover:text-[#1C1917]">FR</button>
+        <!-- Language Dropdown -->
+        <div class="relative" id="langDropdownContainer">
+          <button type="button" onclick="toggleLangDropdown(event)" id="langDropdownBtn" class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-white border border-[#EAE3D9] text-[11px] font-bold text-[#1C1917] shadow-xs hover:border-[#B88746] transition-colors">
+            <span id="currentLangLabel">🇮🇹 IT</span>
+            <span class="text-[9px] text-[#78716C]">⌄</span>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div id="langMenu" class="absolute right-0 mt-1.5 w-36 rounded-2xl bg-white border border-[#EAE3D9] shadow-xl py-1.5 hidden z-50 text-xs">
+            <button type="button" onclick="selectLangFromMenu('it')" class="w-full text-left px-3.5 py-1.5 flex items-center justify-between hover:bg-[#FAF8F5] text-[#1C1917] font-semibold">
+              <span>🇮🇹 Italiano</span>
+              <span class="text-[10px] text-[#B88746]" id="check-it">✓</span>
+            </button>
+            <button type="button" onclick="selectLangFromMenu('en')" class="w-full text-left px-3.5 py-1.5 flex items-center justify-between hover:bg-[#FAF8F5] text-[#57534E]">
+              <span>🇬🇧 English</span>
+              <span class="text-[10px] text-[#B88746] hidden" id="check-en">✓</span>
+            </button>
+            <button type="button" onclick="selectLangFromMenu('es')" class="w-full text-left px-3.5 py-1.5 flex items-center justify-between hover:bg-[#FAF8F5] text-[#57534E]">
+              <span>🇪🇸 Español</span>
+              <span class="text-[10px] text-[#B88746] hidden" id="check-es">✓</span>
+            </button>
+            <button type="button" onclick="selectLangFromMenu('fr')" class="w-full text-left px-3.5 py-1.5 flex items-center justify-between hover:bg-[#FAF8F5] text-[#57534E]">
+              <span>🇫🇷 Français</span>
+              <span class="text-[10px] text-[#B88746] hidden" id="check-fr">✓</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Ambient Sound Toggle -->
-        <button id="soundToggleBtn" onclick="toggleAmbientAudio()" class="w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#EAE3D9] flex items-center justify-center text-[#1C1917] hover:border-[#B88746] transition-colors text-xs shadow-sm" title="Attiva Suono Ambiente">
-          <span id="soundIcon">🔇</span>
-        </button>
-
-        <!-- Guide Portal Link (Area Guide) -->
-        <a href="/admin?portal=guide" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#B88746]/40 text-[#B88746] hover:bg-[#B88746] hover:text-white transition-all text-xs font-semibold uppercase tracking-wider" title="Accesso Riservato per Guide Turistiche">
-          <span>👤</span>
-          <span data-i18n="nav_guides">Area Guide</span>
-        </a>
-
-        <!-- Book CTA Button -->
-        <a href="#booking" class="px-4 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#1C1917] text-[#FAF8F5] text-xs font-semibold uppercase tracking-wider hover:bg-[#B88746] transition-all shadow-md hover:shadow-lg whitespace-nowrap" data-i18n="nav_book">
+        <!-- Book CTA Button (con suficiente margen interno y sin pegar al borde) -->
+        <a href="#booking" class="px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-[#1C1917] text-[#FAF8F5] text-[11px] font-bold uppercase tracking-wider hover:bg-[#B88746] transition-all shadow-sm hover:shadow-md whitespace-nowrap ml-1" data-i18n="nav_book">
           Prenota
         </a>
 
@@ -199,7 +208,7 @@
       </video>
       <!-- Video 2: Piazza Palazzo di Città -->
       <video id="heroVid1" class="hero-video" muted loop playsinline poster="assets/photo2_matteo_milan.jpg">
-        <source src="assets/plaza_2.mp4" type="video/mp4">
+        <source src="assets/plaza_4.mp4" type="video/mp4">
       </video>
       <!-- Video 3: Quadrilatero Romano -->
       <video id="heroVid2" class="hero-video" muted loop playsinline poster="assets/photo3_anes_bendia.jpg">
@@ -369,7 +378,7 @@
                   <span class="text-xs text-[#78716C]" data-i18n="label_per_pax">/ partecipante</span>
                 </div>
               </div>
-              <button onclick="selectChapterAndBook('cafes')" class="px-6 sm:px-8 py-3.5 rounded-full bg-[#1C1917] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#B88746] transition-all shadow-md hover:shadow-xl" data-i18n="btn_book_ch1">
+              <button onclick="selectChapterAndBook('cafes')" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1C1917] text-white text-[11px] font-bold uppercase tracking-wider hover:bg-[#B88746] transition-all shadow-sm hover:shadow-md" data-i18n="btn_book_ch1">
                 Prenota Capitolo I →
               </button>
             </div>
@@ -423,7 +432,7 @@
                   <span class="text-xs text-[#78716C]" data-i18n="label_per_pax">/ partecipante</span>
                 </div>
               </div>
-              <button onclick="selectChapterAndBook('palaces')" class="px-6 sm:px-8 py-3.5 rounded-full bg-[#1C1917] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#B88746] transition-all shadow-md hover:shadow-xl" data-i18n="btn_book_ch2">
+              <button onclick="selectChapterAndBook('palaces')" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1C1917] text-white text-[11px] font-bold uppercase tracking-wider hover:bg-[#B88746] transition-all shadow-sm hover:shadow-md" data-i18n="btn_book_ch2">
                 Prenota Capitolo II →
               </button>
             </div>
@@ -432,7 +441,7 @@
 
           <div class="lg:col-span-6 order-1 lg:order-2 relative rounded-2xl overflow-hidden shadow-2xl h-[360px] sm:h-[440px] bg-[#1C1917] group">
             <video autoplay muted loop playsinline poster="assets/photo2_matteo_milan.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-              <source src="assets/plaza_2.mp4" type="video/mp4">
+              <source src="assets/plaza_4.mp4" type="video/mp4">
             </video>
             <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 pointer-events-none"></div>
 
@@ -521,7 +530,7 @@
                   <span class="text-xs text-[#78716C]" data-i18n="label_per_pax">/ partecipante</span>
                 </div>
               </div>
-              <button onclick="selectChapterAndBook('slang')" class="px-6 sm:px-8 py-3.5 rounded-full bg-[#1C1917] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#B88746] transition-all shadow-md hover:shadow-xl" data-i18n="btn_book_ch3">
+              <button onclick="selectChapterAndBook('slang')" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1C1917] text-white text-[11px] font-bold uppercase tracking-wider hover:bg-[#B88746] transition-all shadow-sm hover:shadow-md" data-i18n="btn_book_ch3">
                 Prenota Capitolo III →
               </button>
             </div>
@@ -553,7 +562,7 @@
       <!-- Feature Video 4 Card -->
       <div class="relative rounded-3xl overflow-hidden shadow-2xl h-[420px] lg:h-[480px] bg-[#1C1917] group reveal">
         <video autoplay muted loop playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out">
-          <source src="assets/plaza_4.mp4" type="video/mp4">
+          <source src="assets/turin_ambient.mp4" type="video/mp4">
         </video>
         
         <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
@@ -896,9 +905,7 @@
         <a href="#capitoli" class="hover:text-[#1C1917]" data-i18n="nav_chapters">I Tre Capitoli</a>
         <a href="#atmosfere" class="hover:text-[#1C1917]" data-i18n="nav_atmospheres">Atmosfere</a>
         <a href="#sights" class="hover:text-[#1C1917]" data-i18n="nav_sights">Luoghi Storici</a>
-        <a href="/admin?portal=guide" class="text-[#B88746] hover:text-[#1C1917] font-semibold inline-flex items-center gap-1">
-          <span>👤</span> <span data-i18n="footer_guides_portal">Portale Guide Turistiche</span>
-        </a>
+        
         <a href="/admin" class="hover:text-[#1C1917] text-[#78716C] inline-flex items-center gap-1" title="Area Riservata Direzione">
           <span>🔒</span> <span data-i18n="footer_admin_link">Amministrazione</span>
         </a>
@@ -1295,21 +1302,47 @@
 
     let currentLang = localStorage.getItem('untourist_lang') || 'it';
 
+    
+    // Language Dropdown Logic
+    function toggleLangDropdown(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('langMenu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    function selectLangFromMenu(lang) {
+      setLanguage(lang);
+      const menu = document.getElementById('langMenu');
+      if (menu) menu.classList.add('hidden');
+    }
+
+    document.addEventListener('click', (e) => {
+      const container = document.getElementById('langDropdownContainer');
+      const menu = document.getElementById('langMenu');
+      if (container && !container.contains(e.target) && menu) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    // Update setLanguage to update dropdown label & checks
+    const langLabels = {
+      it: '🇮🇹 IT',
+      en: '🇬🇧 EN',
+      es: '🇪🇸 ES',
+      fr: '🇫🇷 FR'
+    };
+
     function setLanguage(lang) {
       if (!TRANSLATIONS[lang]) lang = 'it';
       currentLang = lang;
       localStorage.setItem('untourist_lang', lang);
 
-      // Update button highlights
+      // Update dropdown label & checkmarks
+      const curLabel = document.getElementById('currentLangLabel');
+      if (curLabel) curLabel.innerText = langLabels[lang] || '🇮🇹 IT';
       ['it', 'en', 'es', 'fr'].forEach(l => {
-        const btn = document.getElementById('lang-' + l);
-        if (btn) {
-          if (l === lang) {
-            btn.className = "px-2 py-1 rounded-full transition-all text-[#1C1917] bg-white shadow-xs font-bold";
-          } else {
-            btn.className = "px-2 py-1 rounded-full transition-all text-[#78716C] hover:text-[#1C1917]";
-          }
-        }
+        const chk = document.getElementById('check-' + l);
+        if (chk) chk.className = l === lang ? "text-[10px] text-[#B88746]" : "text-[10px] text-[#B88746] hidden";
       });
 
       // Update all elements with data-i18n
