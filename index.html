@@ -3,16 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Untourist Club — Turin Chapter | Circolo Privato di Esplorazione Culturale</title>
-  
-  <!-- Favicon & Social Meta -->
-  <link rel="icon" type="image/jpeg" href="logo.jpg">
-  <meta name="description" content="Per chi rifiuta di essere un semplice turista. Tre uscite esclusive nei salotti del 1763, corti segrete sabaude e osterie autentiche di Torino. Massimo 8 persone.">
-  
-  <!-- Google Fonts: Cinzel & Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <title>The Untourist Club · Torino Oltre il Visibile</title>
+  <meta name="description" content="Esplorazioni lente e percorsi narrativi a Torino. Grandi caffè storici, corti sabaude e osterie veraci.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23FAF8F5' stroke='%23B88746' stroke-width='4'/><text x='50' y='62' font-family='serif' font-size='42' font-weight='bold' fill='%231C1917' text-anchor='middle'>U</text></svg>">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -20,529 +13,592 @@
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            serif: ['Cinzel', 'Georgia', 'serif'],
-            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
-          },
           colors: {
-            gold: {
-              300: '#EAD7A1',
-              400: '#D4AF37',
-              500: '#C9A86A',
-              600: '#A88438',
-            },
-            barolo: {
-              800: '#3B0F1A',
-              900: '#25080E',
-            },
-            carbon: {
-              800: '#161514',
-              900: '#0E0D0D',
-            }
+            paper: '#FAF8F5',
+            cream: '#F4EFEA',
+            ink: '#1C1917',
+            charcoal: '#292524',
+            stoneGray: '#57534E',
+            gold: '#B88746',
+            goldLight: '#EAD7A1',
+            barolo: '#781D2A',
+            sage: '#3D5A4C'
           },
-          animation: {
-            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'float': 'float 6s ease-in-out infinite',
-          },
-          keyframes: {
-            float: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-8px)' },
-            }
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+            ogg: ['"Ogg Medium"', '"Playfair Display"', 'serif']
           }
         }
       }
     }
   </script>
 
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <style>
-    /* Custom Scrollbar & Smooth Behavior */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0E0D0D; }
-    ::-webkit-scrollbar-thumb { background: #3B0F1A; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #C9A86A; }
-    
-    /* 3D Tilt Card Base */
-    .tilt-card {
-      transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
-      transform-style: preserve-3d;
-      will-change: transform;
+    @font-face {
+      font-family: "Ogg Medium";
+      src: url("https://dcym8fthxf5uu.cloudfront.net/fonts/247a073c-29f5-4a89-aa3a-741020f346fc/OggText-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
     }
 
-    /* Stagger Fade-in Observer */
-    .reveal-on-scroll {
+    body {
+      background-color: #FAF8F5;
+      color: #1C1917;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Video transitions */
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: opacity;
+    }
+    .hero-video.active {
+      opacity: 1;
+    }
+
+    /* Subtle paper texture feel */
+    .bg-paper-pattern {
+      background-color: #FAF8F5;
+      background-image: radial-gradient(rgba(44, 37, 32, 0.04) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #FAF8F5; }
+    ::-webkit-scrollbar-thumb { background: #D6CEC5; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #B88746; }
+
+    /* Glass light effect */
+    .glass-light {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(232, 226, 217, 0.9);
+    }
+
+    .glass-light-card {
+      background: #FFFFFF;
+      border: 1px solid #EAE3D9;
+      box-shadow: 0 16px 36px -10px rgba(44, 37, 32, 0.06);
+    }
+    .glass-light-card:hover {
+      box-shadow: 0 24px 50px -12px rgba(44, 37, 32, 0.12);
+      border-color: #D8CEBE;
+    }
+
+    /* Progress bar animation */
+    @keyframes heroProgress {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+    .progress-bar-fill.active {
+      animation: heroProgress 7s linear forwards;
+    }
+
+    /* Reveal animations */
+    .reveal {
       opacity: 0;
       transform: translateY(28px);
       transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .reveal-on-scroll.is-revealed {
+    .reveal.active {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* Cinematic Vignette */
-    .hero-vignette {
-      background: radial-gradient(circle at center, rgba(14,13,13,0.3) 0%, rgba(14,13,13,0.75) 70%, #0E0D0D 100%);
-    }
-
-    /* Noise Texture Overlay */
-    .bg-noise {
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
-    }
+    /* Card Sights horizontal scroll */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-
-<body class="bg-[#0E0D0D] text-[#F8F6F0] font-sans antialiased selection:bg-[#C9A86A] selection:text-black min-h-screen relative overflow-x-hidden">
-
-  <!-- Noise Overlay for Cinematic Texture -->
-  <div class="fixed inset-0 pointer-events-none z-40 bg-noise"></div>
+<body class="bg-paper-pattern antialiased selection:bg-[#B88746] selection:text-white">
 
   <!-- ========================================================================= -->
-  <!-- 1. FLOATING MINIMALIST CAPSULE NAV (GLASS HUD)                           -->
+  <!-- 1. NAVIGATION BAR (Light Editorial Glass)                                 -->
   <!-- ========================================================================= -->
-  <header class="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-5xl">
-    <nav class="bg-black/65 backdrop-blur-xl border border-white/10 rounded-full px-4 sm:px-6 py-2.5 shadow-2xl flex items-center justify-between transition-all duration-300 hover:border-[#C9A86A]/40">
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-6 lg:px-12" id="mainHeader">
+    <div class="max-w-7xl mx-auto flex items-center justify-between glass-light rounded-full px-6 py-3.5 shadow-sm">
       
       <!-- Brand Logo -->
       <a href="#" class="flex items-center gap-3 group">
-        <div class="w-8 h-8 rounded-full overflow-hidden border border-[#C9A86A]/50 group-hover:border-[#C9A86A] transition-all duration-300 shadow-[0_0_12px_rgba(201,168,106,0.2)]">
-          <img src="logo.jpg" alt="The Untourist Club" class="w-full h-full object-cover">
+        <div class="w-9 h-9 rounded-full bg-[#1C1917] text-[#FAF8F5] flex items-center justify-center font-serif text-lg font-bold group-hover:scale-105 transition-transform shadow-sm">
+          U
         </div>
         <div class="flex flex-col">
-          <span class="font-serif text-xs tracking-[0.25em] text-[#F8F6F0] uppercase font-bold group-hover:text-[#C9A86A] transition-colors whitespace-nowrap">
-            The Untourist Club
-          </span>
-          <span class="text-[9px] tracking-[0.3em] text-[#C9A86A]/80 uppercase -mt-0.5">
-            Torino · Circolo Privato
-          </span>
+          <span class="font-serif text-base font-bold tracking-tight text-[#1C1917] leading-none">THE UNTOURIST CLUB</span>
+          <span class="text-[9px] uppercase tracking-[0.25em] text-[#B88746] font-semibold mt-1">Torino · Esperienze</span>
         </div>
       </a>
 
-      <!-- Navigation Links (Centered on Three Chapters & Atmospheres) -->
-      <div class="hidden md:flex items-center gap-7 text-xs uppercase tracking-widest text-[#F8F6F0]/70 font-medium">
-        <a href="#experiences" class="hover:text-[#C9A86A] transition-colors" data-i18n="nav_chapters">I 3 Capitoli</a>
-        <a href="#storytelling" class="hover:text-[#C9A86A] transition-colors" data-i18n="nav_lore">Atmosfere</a>
-        <a href="#booking" class="hover:text-[#C9A86A] transition-colors" data-i18n="nav_book">Disponibilità & Prenota</a>
-      </div>
-
-      <!-- Right HUD: Live Clock & Language Switcher & CTA -->
-      <div class="flex items-center gap-3">
-        
-        <!-- Live Torino Clock -->
-        <div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-[#C9A86A] font-mono">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span id="torinoClock">TORINO · --:--</span>
-        </div>
-
-        <!-- Language Switcher Pill -->
-        <div class="flex items-center bg-white/5 border border-white/10 rounded-full p-0.5 text-[10px] font-bold">
-          <button onclick="setLanguage('it')" id="lang-it" class="px-2 py-0.5 rounded-full transition-all text-[#C9A86A] bg-white/15">IT</button>
-          <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-0.5 rounded-full transition-all text-white/60 hover:text-white">EN</button>
-          <button onclick="setLanguage('es')" id="lang-es" class="px-2 py-0.5 rounded-full transition-all text-white/60 hover:text-white">ES</button>
-          <button onclick="setLanguage('fr')" id="lang-fr" class="px-2 py-0.5 rounded-full transition-all text-white/60 hover:text-white">FR</button>
-        </div>
-
-        <!-- Action Button -->
-        <a href="#booking" class="relative group overflow-hidden rounded-full px-4 py-1.5 bg-[#C9A86A] text-[#0E0D0D] font-bold text-xs uppercase tracking-wider hover:bg-[#EAD7A1] transition-all shadow-[0_0_15px_rgba(201,168,106,0.3)] whitespace-nowrap">
-          <span class="relative z-10" data-i18n="nav_cta">Prenota</span>
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-wider text-[#57534E]">
+        <a href="#capitoli" class="hover:text-[#1C1917] transition-colors py-1">I Tre Capitoli</a>
+        <a href="#atmosfere" class="hover:text-[#1C1917] transition-colors py-1">Atmosfere</a>
+        <a href="#sights" class="hover:text-[#1C1917] transition-colors py-1">Luoghi Storici</a>
+        <a href="mostar.html" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF8F5] border border-[#B88746]/40 text-[#B88746] hover:bg-[#B88746] hover:text-white transition-all">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#B88746] animate-pulse"></span>
+          Cinematic Scroll
         </a>
+      </nav>
 
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <!-- Sound Ambient Toggle -->
+        <button id="soundToggleBtn" onclick="toggleAmbientAudio()" class="w-9 h-9 rounded-full bg-[#FAF8F5] border border-[#EAE3D9] flex items-center justify-center text-[#1C1917] hover:border-[#B88746] transition-colors text-sm shadow-sm" title="Attiva Suono Ambiente">
+          <span id="soundIcon">🔇</span>
+        </button>
+
+        <!-- Book CTA Button -->
+        <a href="#booking" class="px-5 py-2 rounded-full bg-[#1C1917] text-[#FAF8F5] text-xs font-semibold uppercase tracking-wider hover:bg-[#B88746] transition-all shadow-md hover:shadow-lg">
+          Prenota
+        </a>
       </div>
-    </nav>
+
+    </div>
   </header>
 
+  <!-- Hidden Audio Element for Ambience -->
+  <audio id="ambientAudio" loop preload="none">
+    <source src="https://actions.google.com/sounds/v1/ambiences/coffee_shop.ogg" type="audio/ogg">
+    <source src="https://actions.google.com/sounds/v1/ambiences/coffee_shop.mp3" type="audio/mpeg">
+  </audio>
+
   <!-- ========================================================================= -->
-  <!-- 2. CINEMATIC HERO (100VH LOOPING VIDEO & BALANCED EDITORIAL HEADLINE)     -->
+  <!-- 2. HERO SECTION CON 3 VIDEOS INTERCALADOS & CROSS-FADE                   -->
   <!-- ========================================================================= -->
-  <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+  <section class="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center pt-24 pb-16 px-6 overflow-hidden">
     
-    <!-- Background Looping Video -->
-    <video autoplay muted loop playsinline poster="assets/photo1_matteo_milan.jpg" class="absolute inset-0 w-full h-full object-cover scale-105 transition-transform duration-1000 ease-out" id="heroPlazaVideo">
-      <source src="assets/plaza_1.mp4" type="video/mp4">
-      <img src="assets/photo1_matteo_milan.jpg" alt="Torino Twilight" class="w-full h-full object-cover">
-    </video>
+    <!-- Video Canvas Background with 3 Stacked Videos -->
+    <div class="absolute inset-0 z-0 bg-[#1C1917]">
+      <!-- Video 1: Piazza Castello -->
+      <video id="heroVid0" class="hero-video active" autoplay muted loop playsinline poster="assets/photo1_matteo_milan.jpg">
+        <source src="assets/plaza_1.mp4" type="video/mp4">
+      </video>
+      <!-- Video 2: Piazza Palazzo di Città -->
+      <video id="heroVid1" class="hero-video" muted loop playsinline poster="assets/photo2_matteo_milan.jpg">
+        <source src="assets/plaza_2.mp4" type="video/mp4">
+      </video>
+      <!-- Video 3: Quadrilatero Romano -->
+      <video id="heroVid2" class="hero-video" muted loop playsinline poster="assets/photo3_anes_bendia.jpg">
+        <source src="assets/plaza_3.mp4" type="video/mp4">
+      </video>
 
-    <!-- Dark Cinematic Vignette & Radial Gradient -->
-    <div class="absolute inset-0 hero-vignette pointer-events-none"></div>
+      <!-- Warm Editorial Gradient Overlays (Soft Ivory & Warm Light) -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#FAF8F5] via-black/35 to-black/50"></div>
+      <div class="absolute inset-0 bg-radial-at-c from-transparent via-[#FAF8F5]/10 to-[#FAF8F5]/30 pointer-events-none"></div>
+    </div>
 
-    <!-- Central Hero HUD Content -->
-    <div class="relative z-20 max-w-5xl mx-auto px-6 text-center flex flex-col items-center">
+    <!-- Content Container -->
+    <div class="relative z-10 max-w-5xl mx-auto text-center mt-12">
       
-      <!-- Top Crest Pill Badge -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/50 border border-[#C9A86A]/40 backdrop-blur-md mb-6 shadow-lg animate-float">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#C9A86A] animate-ping"></span>
-        <span class="text-[11px] font-semibold tracking-[0.25em] text-[#EAD7A1] uppercase" data-i18n="hero_badge">
-          Circolo Privato · Torino Chapter
-        </span>
+      <!-- Top Pill Tag -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-white/60 shadow-sm mb-6 animate-fade-in">
+        <span class="w-2 h-2 rounded-full bg-[#B88746] animate-ping"></span>
+        <span class="text-xs uppercase tracking-[0.25em] text-[#1C1917] font-semibold">Torino Autentica · Piccoli Gruppi</span>
       </div>
 
-      <!-- Single-Line Refined Editorial Title (Cinzel) -->
-      <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#F8F6F0] tracking-[0.08em] sm:tracking-[0.14em] uppercase font-bold leading-tight drop-shadow-2xl mb-5" data-i18n="hero_title">
-        L'Arte di Vivere Torino Fuori dalle Rotte
+      <!-- Main Headline in Display Serif -->
+      <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.05] drop-shadow-md mb-6">
+        Torino Oltre <br>
+        <span class="italic font-normal text-[#F4EFEA]">il Visibile.</span>
       </h1>
 
-      <!-- Elegant Subtitle (Plus Jakarta Sans) -->
-      <p class="max-w-2xl text-sm sm:text-base md:text-lg text-[#F8F6F0]/80 font-light leading-relaxed mb-8 drop-shadow" data-i18n="hero_sub">
-        Salotti storici del 1763, passaggi segreti sabaudi e la sincera ironia del dialetto piemontese in tre capitoli esclusivi di massimo 8 persone.
+      <!-- Subtitle -->
+      <p class="text-base sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto font-light leading-relaxed mb-10 drop-shadow">
+        Tre itinerari cinematici con guide abilitate residenti. Camminare piano tra i salotti dell'Ottocento, le corti barocche e le osterie storiche.
       </p>
 
-      <!-- Hero Call To Actions -->
-      <div class="flex flex-col sm:flex-row items-center gap-4">
-        <a href="#experiences" class="px-8 py-3.5 rounded-full bg-[#3B0F1A] text-[#F8F6F0] border border-[#C9A86A]/50 hover:bg-[#C9A86A] hover:text-[#0E0D0D] font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 shadow-[0_0_25px_rgba(59,15,26,0.6)] flex items-center gap-2 group">
-          <span data-i18n="hero_cta_primary">Esplora i 3 Capitoli</span>
-          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      <!-- Primary Action Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="#capitoli" class="px-8 py-4 rounded-full bg-[#FAF8F5] text-[#1C1917] text-xs font-bold uppercase tracking-wider shadow-xl hover:bg-white hover:scale-[1.02] transition-all flex items-center gap-2">
+          <span>Esplora i 3 Capitoli</span>
+          <span>↓</span>
         </a>
-        <a href="#booking" class="px-7 py-3.5 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-[#F8F6F0] hover:border-[#C9A86A] hover:text-[#C9A86A] font-semibold text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center gap-2">
-          <span data-i18n="hero_cta_secondary">Verifica Date & Orari</span>
+        <a href="#booking" class="px-8 py-4 rounded-full bg-[#B88746] text-white text-xs font-bold uppercase tracking-wider shadow-xl hover:bg-[#a6773a] hover:scale-[1.02] transition-all">
+          Prenota la Tua Uscita
         </a>
       </div>
 
     </div>
 
-    <!-- Bottom Indicators Bar -->
-    <div class="absolute bottom-8 left-0 right-0 z-20 px-8 flex items-center justify-between text-xs text-white/50">
-      
-      <!-- Coordinates -->
-      <div class="hidden sm:flex items-center gap-2 tracking-widest font-mono text-[11px] text-[#C9A86A]/70">
-        <span>45° 04' 14" N</span>
-        <span>·</span>
-        <span>07° 41' 08" E</span>
+    <!-- Video Switcher Floating Dock (Live Plaza Indicators) -->
+    <div class="absolute bottom-8 left-6 right-6 z-20 max-w-3xl mx-auto">
+      <div class="glass-light rounded-2xl p-2.5 sm:p-3 shadow-lg flex items-center justify-between gap-2 sm:gap-4">
+        
+        <!-- Tab 0: Piazza Castello -->
+        <button onclick="setHeroVideo(0)" id="vidTab0" class="flex-1 text-left px-3 py-2 rounded-xl transition-all bg-white shadow-sm border border-[#EAE3D9]">
+          <div class="flex items-center justify-between text-[10px] sm:text-xs font-bold text-[#1C1917] uppercase tracking-wider mb-1">
+            <span>01 · Piazza Castello</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#B88746]"></span>
+          </div>
+          <div class="w-full bg-[#EAE3D9] h-1 rounded-full overflow-hidden">
+            <div id="progress0" class="h-full bg-[#B88746] progress-bar-fill active"></div>
+          </div>
+        </button>
+
+        <!-- Tab 1: Piazza Palazzo di Città -->
+        <button onclick="setHeroVideo(1)" id="vidTab1" class="flex-1 text-left px-3 py-2 rounded-xl transition-all hover:bg-white/60">
+          <div class="flex items-center justify-between text-[10px] sm:text-xs font-bold text-[#57534E] uppercase tracking-wider mb-1">
+            <span>02 · Corti Reali</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-transparent"></span>
+          </div>
+          <div class="w-full bg-[#EAE3D9] h-1 rounded-full overflow-hidden">
+            <div id="progress1" class="h-full bg-[#B88746] progress-bar-fill"></div>
+          </div>
+        </button>
+
+        <!-- Tab 2: Quadrilatero Romano -->
+        <button onclick="setHeroVideo(2)" id="vidTab2" class="flex-1 text-left px-3 py-2 rounded-xl transition-all hover:bg-white/60">
+          <div class="flex items-center justify-between text-[10px] sm:text-xs font-bold text-[#57534E] uppercase tracking-wider mb-1">
+            <span>03 · Quadrilatero</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-transparent"></span>
+          </div>
+          <div class="w-full bg-[#EAE3D9] h-1 rounded-full overflow-hidden">
+            <div id="progress2" class="h-full bg-[#B88746] progress-bar-fill"></div>
+          </div>
+        </button>
+
       </div>
-
-      <!-- Scroll Down Indicator -->
-      <a href="#experiences" class="flex flex-col items-center gap-2 mx-auto hover:text-[#C9A86A] transition-colors">
-        <span class="text-[10px] uppercase tracking-[0.25em]" data-i18n="hero_scroll">Scorri</span>
-        <div class="w-4 h-7 rounded-full border border-white/30 flex items-start justify-center p-1">
-          <div class="w-1 h-2 rounded-full bg-[#C9A86A] animate-bounce"></div>
-        </div>
-      </a>
-
-      <!-- Ambient Sound Toggle (Synthesizer via Web Audio API) -->
-      <button onclick="toggleAmbientAudio()" id="ambientSoundBtn" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/15 hover:border-[#C9A86A] transition-all text-[11px]">
-        <span id="soundIcon">🔇</span>
-        <span id="soundText" class="hidden sm:inline" data-i18n="sound_off">Audio Salotto: Off</span>
-      </button>
-
     </div>
 
   </section>
 
   <!-- ========================================================================= -->
-  <!-- 3. I TRE CAPITOLI DI TORINO (FOCUS TOTALE SULL'IDENTITÀ CULTURALE)         -->
+  <!-- 3. I TRE CAPITOLI CON VIDEO DIRETTO (Direct Video Layout)                  -->
   <!-- ========================================================================= -->
-  <section id="experiences" class="py-24 px-6 max-w-6xl mx-auto relative z-20">
+  <section id="capitoli" class="py-24 px-6 lg:px-12 max-w-7xl mx-auto">
     
-    <!-- Section Header -->
-    <div class="text-center max-w-2xl mx-auto mb-12 reveal-on-scroll">
-      <span class="text-xs uppercase tracking-[0.3em] text-[#C9A86A] font-semibold" data-i18n="exp_tag">Esperienze Esclusive</span>
-      <h2 class="font-serif text-3xl sm:text-4xl text-[#F8F6F0] font-bold tracking-wider uppercase mt-2 mb-4" data-i18n="exp_title">
+    <!-- Section Introduction -->
+    <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+      <span class="text-xs uppercase tracking-[0.3em] text-[#B88746] font-bold block mb-2">Percorsi d'Autore</span>
+      <h2 class="font-serif text-3xl sm:text-5xl text-[#1C1917] font-bold tracking-tight mb-4">
         I Tre Capitoli di Torino
       </h2>
-      <p class="text-sm text-white/70 leading-relaxed font-light" data-i18n="exp_desc">
-        Passeggiate immersive con guide abilitate residenti e narratori locali. Ogni uscita include degustazione guidata in un locale storico.
+      <p class="text-base text-[#57534E] font-light leading-relaxed">
+        Ogni capitolo è un viaggio sensoriale indipendente. I video qui sotto mostrano le vere piazze e le atmosfere che attraverseremo insieme.
       </p>
-
-      <!-- Animated Chapter Switcher Tabs -->
-      <div class="flex flex-wrap justify-center gap-2 mt-8 p-1.5 bg-white/5 border border-white/10 rounded-full max-w-xl mx-auto backdrop-blur-md">
-        <button onclick="switchChapterTab('cafes')" id="chtab-cafes" class="px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all bg-[#C9A86A] text-[#0E0D0D]">
-          I. Grandi Caffè & Cospiratori
-        </button>
-        <button onclick="switchChapterTab('palaces')" id="chtab-palaces" class="px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all text-white/70 hover:text-white">
-          II. Corti & Parchi Reali
-        </button>
-        <button onclick="switchChapterTab('slang')" id="chtab-slang" class="px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all text-white/70 hover:text-white">
-          III. Bogianen & Osterie
-        </button>
-      </div>
     </div>
 
-    <!-- Morphing Chapter Detail Card (3D Tilt) -->
-    <div id="chapterShowcaseCard" class="tilt-card bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/15 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl relative overflow-hidden reveal-on-scroll">
-      
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        
-        
-        <div class="lg:col-span-6 relative rounded-2xl overflow-hidden group shadow-2xl h-80 sm:h-96 bg-black">
-          <!-- Looping Plaza Video -->
-          <video id="chapterVideo" autoplay muted loop playsinline poster="assets/photo7_elif_topal.jpg" class="w-full h-full object-cover transition-all duration-700">
-            <source id="chapterVideoSrc" src="assets/plaza_1.mp4" type="video/mp4">
-          </video>
-          <img id="chapterImg" src="assets/photo7_elif_topal.jpg" alt="Capitolo I" class="hidden w-full h-full object-cover">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
+    <div class="space-y-24">
+
+      <!-- ===================================================================== -->
+      <!-- CAPITOLO I: GRANDI CAFFÈ & COSPIRATORI (Video: plaza_1.mp4 Direct)    -->
+      <!-- ===================================================================== -->
+      <div class="glass-light-card rounded-3xl p-6 sm:p-10 lg:p-12 reveal">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          <!-- Video / Photo Badge -->
-          <div class="absolute top-4 left-4 flex items-center gap-2 pointer-events-none">
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-[#C9A86A]/40 text-[10px] text-[#EAD7A1] font-semibold uppercase tracking-wider">
-              <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span> Live Plaza View
-            </span>
-          </div>
+          <!-- Direct Video Box (Left) -->
+          <div class="lg:col-span-6 relative rounded-2xl overflow-hidden shadow-2xl h-[360px] sm:h-[440px] bg-[#1C1917] group">
+            <video autoplay muted loop playsinline poster="assets/photo7_elif_topal.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <source src="assets/plaza_1.mp4" type="video/mp4">
+            </video>
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 pointer-events-none"></div>
 
-          <!-- Photographer / Location Badge -->
-          <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] text-white/80 pointer-events-none">
-            <span id="chapterPhotoCredit" class="bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/15 font-light">
-              Piazza Castello & Galleria Subalpina
-            </span>
-            <span id="chapterDurationBadge" class="bg-[#3B0F1A]/90 px-3 py-1 rounded-full border border-[#C9A86A]/40 text-[#EAD7A1] font-semibold">
-              2h 30m · Max 8 pax
-            </span>
-          </div>
-        </div>
-
-        <!-- Right: Chapter Lore & Story -->
-        <div class="lg:col-span-6 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center gap-2 mb-3">
-              <span id="chapterNumberLabel" class="text-xs font-serif font-bold text-[#C9A86A] tracking-[0.2em] uppercase">Capitolo I</span>
-              <span class="text-white/30">·</span>
-              <span id="chapterSubtitleLabel" class="text-xs text-white/60 tracking-wider">Salotti & Cospiratori</span>
+            <!-- Live Plaza Badge -->
+            <div class="absolute top-4 left-4 pointer-events-none">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-bold text-[#1C1917] shadow-sm uppercase tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> Piazza Castello & Galleria
+              </span>
             </div>
 
-            <h3 id="chapterTitleDisplay" class="font-serif text-2xl sm:text-3xl text-white font-bold tracking-wide mb-4">
-              I Grandi Caffè & Cospiratori
-            </h3>
-
-            <p id="chapterStoryDisplay" class="text-sm text-white/80 leading-relaxed font-light mb-6">
-              Nell'Ottocento, l'Unità d'Italia non fu decisa nei parlamenti: fu cospirata attorno a tavolini di marmo, sotto lampadari di Boemia e specchi dorati. Entreremo nei santuari dove Cavour, Nietzsche e le spie sabaude si incontravano. Degusteremo l'autentico Bicerin del 1763 e sveleremo il deposito segreto d'armi della Seconda Guerra Mondiale nascosto nei sotterranei di Baratti & Milano.
-            </p>
-
-            <div class="space-y-2 mb-8 text-xs text-white/70">
-              <div class="flex items-center gap-2">
-                <span class="text-[#C9A86A]">✦</span>
-                <span id="chapterPoint1">Degustazione inclusa: Bicerin originale o Vermut Carpano</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-[#C9A86A]">✦</span>
-                <span id="chapterPoint2">Ritrovo: Piazza Castello 29 (Galleria Subalpina)</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-[#C9A86A]">✦</span>
-                <span id="chapterPoint3">Gruppo esclusivo: minimo 2, massimo 8 partecipanti</span>
-              </div>
+            <!-- Footer Badge -->
+            <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-white/90 pointer-events-none">
+              <span class="bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 font-light">
+                Salotti Storici Sabaudi
+              </span>
+              <span class="bg-[#B88746] text-white px-3 py-1 rounded-full font-bold">
+                2h 30m · Max 8 pax
+              </span>
             </div>
           </div>
 
-          <!-- Price & Book Action -->
-          <div class="flex items-center justify-between pt-6 border-t border-white/10">
+          <!-- Story & Details (Right) -->
+          <div class="lg:col-span-6 flex flex-col justify-between">
             <div>
-              <span class="text-[11px] uppercase tracking-widest text-white/50 block" data-i18n="card_from">Tariffa a persona</span>
-              <span id="chapterPriceDisplay" class="text-3xl font-serif font-bold text-[#EAD7A1]">€42</span>
-              <span class="text-xs text-white/60">/ pax</span>
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-xs font-serif font-bold text-[#B88746] tracking-[0.2em] uppercase">Capitolo I</span>
+                <span class="text-[#57534E]/30">·</span>
+                <span class="text-xs text-[#57534E] font-medium tracking-wider uppercase">Salotti & Cospiratori</span>
+              </div>
+
+              <h3 class="font-serif text-3xl sm:text-4xl text-[#1C1917] font-bold tracking-tight mb-4">
+                I Grandi Caffè & Cospiratori
+              </h3>
+
+              <p class="text-[#57534E] leading-relaxed text-sm sm:text-base font-light mb-6">
+                Nell'Ottocento, l'Unità d'Italia non fu decisa nei parlamenti: fu cospirata attorno a tavolini di marmo, sotto lampadari di Boemia e specchi dorati. Entreremo nei santuari dove Cavour, Nietzsche e le spie sabaude si incontravano. Degusteremo l'autentico Bicerin del 1763 e sveleremo il deposito segreto d'armi della Seconda Guerra Mondiale nascosto nei sotterranei di Baratti & Milano.
+              </p>
+
+              <!-- Bullet Points -->
+              <div class="space-y-3 mb-8">
+                <div class="flex items-start gap-3">
+                  <span class="w-5 h-5 rounded-full bg-[#B88746]/15 text-[#B88746] flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                  <span class="text-xs sm:text-sm text-[#292524] font-medium">Degustazione inclusa: Bicerin originale o Vermut Carpano del 1786</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="w-5 h-5 rounded-full bg-[#B88746]/15 text-[#B88746] flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                  <span class="text-xs sm:text-sm text-[#292524] font-medium">Ritrovo: Piazza Castello 29, Galleria Subalpina</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="w-5 h-5 rounded-full bg-[#B88746]/15 text-[#B88746] flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                  <span class="text-xs sm:text-sm text-[#292524] font-medium">Piccolo gruppo esclusivo: minimo 2, massimo 8 partecipanti</span>
+                </div>
+              </div>
             </div>
-            <button onclick="selectTourAndBook('cafes')" class="px-7 py-3 rounded-full bg-[#C9A86A] text-[#0E0D0D] font-bold text-xs uppercase tracking-[0.2em] hover:bg-[#EAD7A1] transition-all shadow-[0_0_20px_rgba(201,168,106,0.3)]">
-              <span data-i18n="card_book_now">Prenota Questo Capitolo</span>
-            </button>
+
+            <!-- Price and Booking Action -->
+            <div class="pt-6 border-t border-[#EAE3D9] flex items-center justify-between gap-4">
+              <div>
+                <span class="text-xs text-[#78716C] uppercase tracking-wider block">Tariffa per persona</span>
+                <div class="flex items-baseline gap-1">
+                  <span class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€42</span>
+                  <span class="text-xs text-[#78716C]">/ partecipante</span>
+                </div>
+              </div>
+              <button onclick="selectChapterAndBook('cafes')" class="px-6 sm:px-8 py-3.5 rounded-full bg-[#1C1917] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#B88746] transition-all shadow-md hover:shadow-xl">
+                Prenota Capitolo I →
+              </button>
+            </div>
+
           </div>
 
         </div>
-
       </div>
 
-    </div>
+      <!-- ===================================================================== -->
+      <!-- CAPITOLO II: CORTI & PARCHI REALI (Video: plaza_2.mp4 Direct)         -->
+      <!-- ===================================================================== -->
+      <div class="glass-light-card rounded-3xl p-6 sm:p-10 lg:p-12 reveal">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          <!-- Story & Details (Left on desktop) -->
+          <div class="lg:col-span-6 order-2 lg:order-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-xs font-serif font-bold text-[#B88746] tracking-[0.2em] uppercase">Capitolo II</span>
+                <span class="text-[#57534E]/30">·</span>
+                <span class="text-xs text-[#57534E] font-medium tracking-wider uppercase">Savoia & Corti Nascoste</span>
+              </div>
 
-  </section>
+              <h3 class="font-serif text-3xl sm:text-4xl text-[#1C1917] font-bold tracking-tight mb-4">
+                Segreti della Corona & Corti Reali
+              </h3>
 
-  <!-- ========================================================================= -->
-  <!-- 4. ATMOSFERE DEL CLUB (LA BELLEZZA DELL'INASPETTATO)                       -->
-  <!-- ========================================================================= -->
-  <section id="storytelling" class="py-24 px-6 max-w-6xl mx-auto relative z-20">
-    
-    <div class="text-center max-w-2xl mx-auto mb-16 reveal-on-scroll">
-      <span class="text-xs uppercase tracking-[0.3em] text-[#C9A86A] font-semibold" data-i18n="story_tag">Atmosfere & Dettagli</span>
-      <h2 class="font-serif text-3xl sm:text-4xl text-[#F8F6F0] font-bold tracking-wider uppercase mt-2 mb-4" data-i18n="story_title">
-        La Bellezza dell'Inaspettato
-      </h2>
-      <p class="text-sm text-white/70 leading-relaxed font-light" data-i18n="story_desc">
-        Torino non urla: sussurra. Si rivela a chi sa perdersi tra portici infiniti, botteghe centenarie e conversazioni non affrettate.
-      </p>
-    </div>
+              <p class="text-[#57534E] leading-relaxed text-sm sm:text-base font-light mb-6">
+                Dietro le austere facciate in mattoni rossi della dinastia sabauda si cela il paesaggio barocco più audace d'Europa. Esploreremo i cortili nascosti di Palazzo Reale, la spettacolare facciata ondulata di Palazzo Carignano e le gallerie di luce progettate da Guarino Guarini e Filippo Juvarra, con aneddoti mai comparsi nelle guide turistiche.
+              </p>
 
-    
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-      
-      <!-- Card 1: Mole Sunset (Matteo Milan) -->
-      <div class="md:col-span-7 tilt-card relative rounded-3xl overflow-hidden h-96 group shadow-xl border border-white/10 reveal-on-scroll">
-        <img src="assets/photo1_matteo_milan.jpg" alt="Mole Antonelliana" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
-        <div class="absolute bottom-6 left-6 right-6">
-          <span class="text-[10px] uppercase tracking-widest text-[#C9A86A] font-bold block mb-1">Il Simbolo Inespugnabile</span>
-          <h4 class="font-serif text-xl text-white font-bold">La Mole Antonelliana e la Corona delle Alpi</h4>
-          <span class="inline-block mt-3 px-2.5 py-0.5 rounded-full bg-black/60 border border-white/10 text-[10px] text-white/70">
-            Fotografia: Matteo Milan
-          </span>
-        </div>
-      </div>
+              <!-- Bullet Points -->
+              <div class="space-y-3 mb-8">
+                <div class="flex items-start gap-3">
+                  <span class="w-5 h-5 rounded-full bg-[#B88746]/15 text-[#B88746] flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                  <span class="text-xs sm:text-sm text-[#292524] font-medium">Accesso esclusivo a cortili nobiliari normalmente preclusi al pubblico</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="w-5 h-5 rounded-full bg-[#B88746]/15 text-[#B88746] flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                  <span class="text-xs sm:text-sm text-[#292524] font-medium">Ritrovo: Piazza Palazzo di Città (Monumento al Conte Verde)</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="w-5 h-5 rounded-full bg-[#B88746]/15 text-[#B88746] flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                  <span class="text-xs sm:text-sm text-[#292524] font-medium">Aperitivo sabaudo con calice di vino DOC delle colline torinesi</span>
+                </div>
+              </div>
+            </div>
 
-      <!-- Card 2: Tram Storico 2872 (Efrem Efre) -->
-      <div class="md:col-span-5 tilt-card relative rounded-3xl overflow-hidden h-96 group shadow-xl border border-white/10 reveal-on-scroll">
-        <img src="assets/photo4_efrem_efre.jpg" alt="Tram 2872 in Via Po" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
-        <div class="absolute bottom-6 left-6 right-6">
-          <span class="text-[10px] uppercase tracking-widest text-[#C9A86A] font-bold block mb-1">Ritmo d'Epoca</span>
-          <h4 class="font-serif text-lg text-white font-bold">Il Tram 2872 sotto i portici di Via Po</h4>
-          <span class="inline-block mt-3 px-2.5 py-0.5 rounded-full bg-black/60 border border-white/10 text-[10px] text-white/70">
-            Fotografia: Efrem Efre
-          </span>
-        </div>
-      </div>
+            <!-- Price and Booking Action -->
+            <div class="pt-6 border-t border-[#EAE3D9] flex items-center justify-between gap-4">
+              <div>
+                <span class="text-xs text-[#78716C] uppercase tracking-wider block">Tariffa per persona</span>
+                <div class="flex items-baseline gap-1">
+                  <span class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€38</span>
+                  <span class="text-xs text-[#78716C]">/ partecipante</span>
+                </div>
+              </div>
+              <button onclick="selectChapterAndBook('palaces')" class="px-6 sm:px-8 py-3.5 rounded-full bg-[#1C1917] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#B88746] transition-all shadow-md hover:shadow-xl">
+                Prenota Capitolo II →
+              </button>
+            </div>
 
-      <!-- Card 3: Piazza Vittorio & Gran Madre (Anes Bendia) -->
-      <div class="md:col-span-4 tilt-card relative rounded-3xl overflow-hidden h-80 group shadow-xl border border-white/10 reveal-on-scroll">
-        <img src="assets/photo3_anes_bendia.jpg" alt="Piazza Vittorio Veneto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
-        <div class="absolute bottom-6 left-6 right-6">
-          <span class="text-[10px] uppercase tracking-widest text-[#C9A86A] font-bold block mb-1">Scenografia Teatrale</span>
-          <h4 class="font-serif text-base text-white font-bold">Piazza Vittorio Veneto e la Gran Madre</h4>
-          <span class="inline-block mt-2 px-2.5 py-0.5 rounded-full bg-black/60 border border-white/10 text-[10px] text-white/70">
-            Fotografia: Anes Bendia
-          </span>
-        </div>
-      </div>
-
-      <!-- Card 4: Spirito Untourist (Mateo Tocci) -->
-      <div class="md:col-span-4 tilt-card relative rounded-3xl overflow-hidden h-80 group shadow-xl border border-white/10 reveal-on-scroll">
-        <img src="assets/photo5_mateo_tocci.jpg" alt="Piazza Castello e spirito untourist" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
-        <div class="absolute bottom-6 left-6 right-6">
-          <span class="text-[10px] uppercase tracking-widest text-[#C9A86A] font-bold block mb-1">Il Flâneur Sabaudo</span>
-          <h4 class="font-serif text-base text-white font-bold">L'Attitudine del Viaggiatore Solitario</h4>
-          <span class="inline-block mt-2 px-2.5 py-0.5 rounded-full bg-black/60 border border-white/10 text-[10px] text-white/70">
-            Fotografia: Mateo Tocci
-          </span>
-        </div>
-      </div>
-
-      <!-- Card 6: Piazza San Carlo & Portici al Crepuscolo (Video Cinema) -->
-      <div class="md:col-span-12 tilt-card relative rounded-3xl overflow-hidden h-[340px] group shadow-2xl border border-[#C9A86A]/30 reveal-on-scroll">
-        <video autoplay muted loop playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out">
-          <source src="assets/plaza_4.mp4" type="video/mp4">
-        </video>
-        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-        <div class="absolute top-6 right-6">
-          <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-[#C9A86A]/40 text-xs text-[#EAD7A1] font-serif">
-            <span class="w-2 h-2 rounded-full bg-[#C9A86A] animate-pulse"></span> Video 4K Atmosfere
-          </span>
-        </div>
-        <div class="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div>
-            <span class="text-[10px] uppercase tracking-widest text-[#C9A86A] font-bold block mb-1">Il Salotto di Torino</span>
-            <h4 class="font-serif text-2xl text-white font-bold">Piazza San Carlo & I Portici della Luce Dorata</h4>
-            <p class="text-xs text-white/75 max-w-xl font-light mt-1">Lo splendore barocco delle facciate gemelle di Santa Cristina e San Carlo Borromeo nel silenzio del crepuscolo.</p>
           </div>
-          <a href="mostar.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#C9A86A] text-[#0E0D0D] text-xs font-bold uppercase tracking-wider shadow-lg hover:bg-[#d6b77d] transition-all whitespace-nowrap self-start sm:self-auto">
-            <span>Guarda Cinematic Story</span>
-            <span>↗</span>
-          </a>
+
+          <!-- Direct Video Box (Right on desktop) -->
+          <div class="lg:col-span-6 order-1 lg:order-2 relative rounded-2xl overflow-hidden shadow-2xl h-[360px] sm:h-[440px] bg-[#1C1917] group">
+            <video autoplay muted loop playsinline poster="assets/photo2_matteo_milan.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <source src="assets/plaza_2.mp4" type="video/mp4">
+            </video>
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 pointer-events-none"></div>
+
+            <!-- Live Plaza Badge -->
+            <div class="absolute top-4 left-4 pointer-events-none">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-bold text-[#1C1917] shadow-sm uppercase tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> Piazza Palazzo di Città
+              </span>
+            </div>
+
+            <!-- Footer Badge -->
+            <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-white/90 pointer-events-none">
+              <span class="bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 font-light">
+                Architettura Barocca Sabauda
+              </span>
+              <span class="bg-[#B88746] text-white px-3 py-1 rounded-full font-bold">
+                2h 15m · Max 8 pax
+              </span>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <!-- Card 5: Osteria & Vini (Ipekpinar Calik) -->
-      <div class="md:col-span-4 tilt-card relative rounded-3xl overflow-hidden h-80 group shadow-xl border border-white/10 reveal-on-scroll">
-        <img src="assets/photo6_ipekpinar_calik.jpg" alt="Tavola tradizionale e bicchieri di vino" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
-        <div class="absolute bottom-6 left-6 right-6">
-          <span class="text-[10px] uppercase tracking-widest text-[#C9A86A] font-bold block mb-1">Spirito di Piòla</span>
-          <h4 class="font-serif text-base text-white font-bold">Il Rito del Calice di Nebbiolo</h4>
-          <span class="inline-block mt-2 px-2.5 py-0.5 rounded-full bg-black/60 border border-white/10 text-[10px] text-white/70">
-            Fotografia: Ipekpinar Calik
-          </span>
+      <!-- ===================================================================== -->
+      <!-- CAPITOLO III: BOGIANEN & OSTERIE (Video: plaza_3.mp4 Direct)           -->
+      <!-- ===================================================================== -->
+      <div class="glass-light-card rounded-3xl p-6 sm:p-10 lg:p-12 reveal">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          <!-- Direct Video Box (Left) -->
+          <div class="lg:col-span-6 relative rounded-2xl overflow-hidden shadow-2xl h-[360px] sm:h-[440px] bg-[#1C1917] group">
+            <video autoplay muted loop playsinline poster="assets/photo3_anes_bendia.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <source src="assets/plaza_3.mp4" type="video/mp4">
+            </video>
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 pointer-events-none"></div>
+
+            <!-- Live Plaza Badge -->
+            <div class="absolute top-4 left-4 pointer-events-none">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-bold text-[#1C1917] shadow-sm uppercase tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> Quadrilatero & Consolata
+              </span>
+            </div>
+
+            <!-- Footer Badge -->
+            <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-white/90 pointer-events-none">
+              <span class="bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 font-light">
+                Anima Popolare Piemontese
+              </span>
+              <span class="bg-[#B88746] text-white px-3 py-1 rounded-full font-bold">
+                2h 00m · Max 8 pax
+              </span>
+            </div>
+          </div>
+
+          <!-- Story & Details (Right) -->
+          <div class="lg:col-span-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-xs font-serif font-bold text-[#B88746] tracking-[0.2em] uppercase">Capitolo III</span>
+                <span class="text-[#57534E]/30">·</span>
+                <span class="text-xs text-[#57534E] font-medium tracking-wider uppercase">Bogianen & Piòle Storiche</span>
+              </div>
+
+              <h3 class="font-serif text-3xl sm:text-4xl text-[#1C1917] font-bold tracking-tight mb-4">
+                L'Arte del Bogianen & Osterie
+              </h3>
+
+              <p class="text-[#57534E] leading-relaxed text-sm sm:text-base font-light mb-6">
+                A Torino la riservatezza è un'arte e il "Bogianen" (colui che non indietreggia mai di fronte alle intemperie) è l'anima del popolo piemontese. Attraverseremo le vie medievali del Quadrilatero Romano tra botteghe di ciabattini, vecchie legatorie e storiche piòle dove il tempo si è fermato agli anni Cinquanta.
+              </p>
+
+              <!-- Bullet Points -->
+              <div class="space-y-3 mb-8">
+                <div class="flex items-start gap-3">
+                  <span class="w-5 h-5 rounded-full bg-[#B88746]/15 text-[#B88746] flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                  <span class="text-xs sm:text-sm text-[#292524] font-medium">Spiegazione vivace ed autentica delle espressioni dialettali sabaude</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="w-5 h-5 rounded-full bg-[#B88746]/15 text-[#B88746] flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                  <span class="text-xs sm:text-sm text-[#292524] font-medium">Ritrovo: Piazza della Consolata 5 (di fronte allo storico Caffè Al Bicerin)</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="w-5 h-5 rounded-full bg-[#B88746]/15 text-[#B88746] flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                  <span class="text-xs sm:text-sm text-[#292524] font-medium">Assaggio guidato di formaggi piemontesi d'alpeggio e tajarin freschi</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Price and Booking Action -->
+            <div class="pt-6 border-t border-[#EAE3D9] flex items-center justify-between gap-4">
+              <div>
+                <span class="text-xs text-[#78716C] uppercase tracking-wider block">Tariffa per persona</span>
+                <div class="flex items-baseline gap-1">
+                  <span class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€26</span>
+                  <span class="text-xs text-[#78716C]">/ partecipante</span>
+                </div>
+              </div>
+              <button onclick="selectChapterAndBook('slang')" class="px-6 sm:px-8 py-3.5 rounded-full bg-[#1C1917] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#B88746] transition-all shadow-md hover:shadow-xl">
+                Prenota Capitolo III →
+              </button>
+            </div>
+
+          </div>
+
         </div>
       </div>
 
     </div>
-
   </section>
 
   <!-- ========================================================================= -->
-  <!-- 5. ENGINE DI PRENOTAZIONE, CHECKOUT & VOUCHER                            -->
+  <!-- 4. ATMOSFERE & VIDEO 4 (Piazza San Carlo al Crepuscolo)                   -->
   <!-- ========================================================================= -->
-  <section id="booking" class="py-24 bg-carbon-900 border-t border-white/10 relative z-20">
-    <div class="max-w-4xl mx-auto px-6">
+  <section id="atmosfere" class="py-20 px-6 lg:px-12 bg-[#F4EFEA] border-y border-[#EAE3D9]">
+    <div class="max-w-7xl mx-auto">
       
-      <div class="text-center max-w-xl mx-auto mb-12 reveal-on-scroll">
-        <span class="text-xs uppercase tracking-[0.3em] text-[#C9A86A] font-semibold" data-i18n="book_tag">Pianifica la Tua Esperienza</span>
-        <h2 class="font-serif text-3xl sm:text-4xl text-[#F8F6F0] font-bold tracking-wider uppercase mt-2 mb-3" data-i18n="book_title">
-          Verifica Disponibilità & Prenota
+      <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+        <span class="text-xs uppercase tracking-[0.3em] text-[#B88746] font-bold block mb-2">Momenti Sospesi</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-[#1C1917] font-bold">
+          La Bellezza della Luce Torinese
         </h2>
-        <p class="text-xs sm:text-sm text-white/60 font-light" data-i18n="book_desc">
-          I turni visibili sono sincronizzati in tempo reale con le agende delle guide abilitate del Club.
+        <p class="text-sm text-[#57534E] font-light mt-2">
+          La città regala il meglio di sé all'ora dorata, quando i portici riflettono il chiarore delle Alpi.
         </p>
       </div>
 
-      <!-- Booking Card Box -->
-      <div class="bg-gradient-to-br from-white/[0.06] to-white/[0.02] border border-white/15 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl reveal-on-scroll">
+      <!-- Feature Video 4 Card -->
+      <div class="relative rounded-3xl overflow-hidden shadow-2xl h-[420px] lg:h-[480px] bg-[#1C1917] group reveal">
+        <video autoplay muted loop playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out">
+          <source src="assets/plaza_4.mp4" type="video/mp4">
+        </video>
         
-        <!-- Step 1: Select Chapter -->
-        <div class="mb-8">
-          <label class="block text-xs uppercase tracking-widest text-[#C9A86A] font-semibold mb-3" data-i18n="book_step1">
-            1. Scegli il Capitolo
-          </label>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <button onclick="setBookingChapter('cafes')" id="btn-chapter-cafes" class="p-3.5 rounded-xl border-2 border-[#C9A86A] bg-[#C9A86A]/10 text-left transition-all">
-              <span class="block text-xs font-bold text-white">I. Grandi Caffè</span>
-              <span class="text-[11px] text-[#C9A86A]">€42 / persona</span>
-            </button>
-            <button onclick="setBookingChapter('palaces')" id="btn-chapter-palaces" class="p-3.5 rounded-xl border border-white/10 hover:border-[#C9A86A]/50 bg-black/30 text-left transition-all">
-              <span class="block text-xs font-bold text-white">II. Parchi & Corti</span>
-              <span class="text-[11px] text-[#C9A86A]">€38 / persona</span>
-            </button>
-            <button onclick="setBookingChapter('slang')" id="btn-chapter-slang" class="p-3.5 rounded-xl border border-white/10 hover:border-[#C9A86A]/50 bg-black/30 text-left transition-all">
-              <span class="block text-xs font-bold text-white">III. Bogianen & Osterie</span>
-              <span class="text-[11px] text-[#C9A86A]">€26 / persona</span>
-            </button>
-          </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
+
+        <div class="absolute top-6 right-6">
+          <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md text-xs font-serif font-bold text-[#1C1917] shadow-lg">
+            <span class="w-2 h-2 rounded-full bg-[#B88746] animate-pulse"></span> Video 4K Atmosfera Sabauda
+          </span>
         </div>
 
-        <!-- Step 2: Date & Slot Pickers -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-          
-          <div>
-            <label class="block text-xs uppercase tracking-widest text-[#C9A86A] font-semibold mb-2" data-i18n="book_step2">
-              2. Seleziona la Data
-            </label>
-            <input type="date" id="bookingDate" onchange="onBookingDateChange()" class="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/20 text-white text-sm focus:border-[#C9A86A] outline-none">
-            <p id="guideStatusHint" class="text-[11px] text-emerald-400 mt-2">✓ Guide abilitate confermate per questa data.</p>
+        <div class="absolute bottom-8 left-8 right-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div class="max-w-xl">
+            <span class="text-xs uppercase tracking-[0.25em] text-[#EAD7A1] font-bold block mb-1">Il Salotto Barocco</span>
+            <h3 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-white font-bold mb-2">
+              Piazza San Carlo & I Portici della Luce Dorata
+            </h3>
+            <p class="text-xs sm:text-sm text-white/80 font-light leading-relaxed">
+              Lo splendore delle chiese gemelle di Santa Cristina e San Carlo Borromeo nel silenzio del crepuscolo. Camminare sotto i 18 chilometri di portici continui ideati per permettere ai re di passeggiare all'asciutto.
+            </p>
           </div>
 
-          <div>
-            <label class="block text-xs uppercase tracking-widest text-[#C9A86A] font-semibold mb-2" data-i18n="book_step3">
-              3. Turno Orario
-            </label>
-            <div class="grid grid-cols-2 gap-3">
-              <button onclick="setBookingSlot('10:00')" id="slot-10" class="py-3 px-2 rounded-xl border-2 border-[#C9A86A] bg-[#C9A86A]/10 text-center text-xs font-bold text-white">
-                10:00 Mattina
-              </button>
-              <button onclick="setBookingSlot('15:30')" id="slot-15" class="py-3 px-2 rounded-xl border border-white/15 text-center text-xs font-semibold text-white/80 hover:border-[#C9A86A]">
-                15:30 Pomeriggio
-              </button>
-            </div>
-            <p id="noGuideAlert" class="text-[11px] text-rose-400 mt-2 hidden">Nessuna guida disponibile per questo turno.</p>
-          </div>
-
-        </div>
-
-        <!-- Step 3: Guests Counter & Summary -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
-          
-          <div class="flex items-center gap-4">
-            <span class="text-xs uppercase tracking-wider text-white/70 font-semibold" data-i18n="book_guests">Ospiti (Max 8):</span>
-            <div class="flex items-center gap-3 bg-black/40 border border-white/20 rounded-full px-3 py-1">
-              <button onclick="changeGuests(-1)" class="text-lg text-[#C9A86A] font-bold px-2 hover:opacity-75">-</button>
-              <span id="guestCountDisplay" class="font-mono text-sm font-bold text-white">2</span>
-              <button onclick="changeGuests(1)" class="text-lg text-[#C9A86A] font-bold px-2 hover:opacity-75">+</button>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-6">
-            <div class="text-right">
-              <span class="text-[10px] uppercase tracking-widest text-white/40 block" data-i18n="book_total">Totale Confermato</span>
-              <span id="bookingTotalPrice" class="text-2xl sm:text-3xl font-serif font-bold text-[#EAD7A1]">€84.00</span>
-            </div>
-
-            <button onclick="proceedToCheckoutModal()" class="px-8 py-3.5 rounded-full bg-[#C9A86A] text-[#0E0D0D] font-bold text-xs uppercase tracking-[0.2em] hover:bg-[#EAD7A1] transition-all shadow-[0_0_25px_rgba(201,168,106,0.3)]">
-              <span data-i18n="book_confirm_btn">Procedi al Checkout</span>
-            </button>
-          </div>
-
+          <a href="mostar.html" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#B88746] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#a6773a] shadow-xl hover:scale-105 transition-all whitespace-nowrap self-start md:self-auto">
+            <span>Esplora Cinematic Scroll</span>
+            <span>↗</span>
+          </a>
         </div>
 
       </div>
@@ -551,772 +607,573 @@
   </section>
 
   <!-- ========================================================================= -->
-  <!-- 6. FOOTER CON IDENTIDAD TURÍN & ENLACE SUTIL A ADMIN.HTML                  -->
+  <!-- 5. LUOGHI STORICI & CAFFÈ (Sights Grid & Carousel)                       -->
   <!-- ========================================================================= -->
-  <footer class="py-12 bg-black border-t border-white/10 text-xs text-white/50 relative z-20">
-    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+  <section id="sights" class="py-24 px-6 lg:px-12 max-w-7xl mx-auto">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 reveal">
+      <div>
+        <span class="text-xs uppercase tracking-[0.3em] text-[#B88746] font-bold block mb-2">Punti di Riferimento</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-[#1C1917] font-bold">
+          I Santuari del Gusto e della Storia
+        </h2>
+      </div>
+      <p class="text-xs sm:text-sm text-[#57534E] max-w-md font-light leading-relaxed">
+        Locali custodi di ricette immutate, arredi liberty e architettura regale dove faremo sosta durante le nostre passeggiate.
+      </p>
+    </div>
+
+    <!-- 4 Editorial Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       
-      <!-- Brand & Copyright -->
-      <div class="flex items-center gap-3">
-        <img src="logo.jpg" alt="Logo" class="w-6 h-6 rounded-full opacity-60">
-        <span>© 2026 The Untourist Club · Circolo Privato di Torino. Tutti i diritti riservati.</span>
+      <!-- Card 1: Caffè Baratti & Milano -->
+      <div class="glass-light-card rounded-2xl overflow-hidden p-5 flex flex-col justify-between group reveal">
+        <div class="rounded-xl overflow-hidden h-44 mb-4 relative bg-[#1C1917]">
+          <img src="assets/cafe_baratti.jpg" alt="Caffè Baratti & Milano" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <span class="absolute bottom-2 left-2 text-[10px] px-2.5 py-0.5 rounded-full bg-white/90 font-bold text-[#1C1917]">Dal 1858</span>
+        </div>
+        <div>
+          <span class="text-[10px] uppercase tracking-wider text-[#B88746] font-bold block mb-1">Galleria Subalpina</span>
+          <h4 class="font-serif text-lg font-bold text-[#1C1917] mb-2">Baratti & Milano</h4>
+          <p class="text-xs text-[#57534E] font-light leading-relaxed mb-4">
+            Fornitore della Real Casa Savoia, celebre per il cremino a tre strati e i candelabri in bronzo dorato.
+          </p>
+        </div>
+        <div class="pt-3 border-t border-[#EAE3D9] flex items-center justify-between text-[11px] text-[#78716C]">
+          <span>Specialità: Cremino</span>
+          <span class="text-[#B88746] font-semibold">Capitolo I</span>
+        </div>
       </div>
 
-      <!-- Subtle Discrete Link directly to admin.html -->
-      <div class="flex items-center gap-4 text-[11px]">
-        <span class="text-white/30 hidden md:inline">Via Po · Piazza Castello · Quadrilatero Romano</span>
-        <!-- Discrete lock icon button linking to admin.html -->
-        <a href="admin.html" title="Accesso Riservato (Ctrl + Shift + A)" class="opacity-25 hover:opacity-100 transition-opacity p-1.5 rounded-lg hover:bg-white/10 text-[#C9A86A]">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      <!-- Card 2: Caffè Al Bicerin -->
+      <div class="glass-light-card rounded-2xl overflow-hidden p-5 flex flex-col justify-between group reveal">
+        <div class="rounded-xl overflow-hidden h-44 mb-4 relative bg-[#1C1917]">
+          <img src="assets/photo7_elif_topal.jpg" alt="Caffè Al Bicerin" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <span class="absolute bottom-2 left-2 text-[10px] px-2.5 py-0.5 rounded-full bg-white/90 font-bold text-[#1C1917]">Dal 1763</span>
+        </div>
+        <div>
+          <span class="text-[10px] uppercase tracking-wider text-[#B88746] font-bold block mb-1">Piazza della Consolata</span>
+          <h4 class="font-serif text-lg font-bold text-[#1C1917] mb-2">Caffè Al Bicerin</h4>
+          <p class="text-xs text-[#57534E] font-light leading-relaxed mb-4">
+            Un gioiello di sole 8 tavole di marmo dove nacque la leggendaria bevanda calda di caffè, cioccolato e fior di latte.
+          </p>
+        </div>
+        <div class="pt-3 border-t border-[#EAE3D9] flex items-center justify-between text-[11px] text-[#78716C]">
+          <span>Specialità: Bicerin DOC</span>
+          <span class="text-[#B88746] font-semibold">Capitolo I & III</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Caffè San Carlo -->
+      <div class="glass-light-card rounded-2xl overflow-hidden p-5 flex flex-col justify-between group reveal">
+        <div class="rounded-xl overflow-hidden h-44 mb-4 relative bg-[#1C1917]">
+          <img src="assets/photo2_matteo_milan.jpg" alt="Caffè San Carlo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <span class="absolute bottom-2 left-2 text-[10px] px-2.5 py-0.5 rounded-full bg-white/90 font-bold text-[#1C1917]">Dal 1822</span>
+        </div>
+        <div>
+          <span class="text-[10px] uppercase tracking-wider text-[#B88746] font-bold block mb-1">Piazza San Carlo</span>
+          <h4 class="font-serif text-lg font-bold text-[#1C1917] mb-2">Caffè San Carlo</h4>
+          <p class="text-xs text-[#57534E] font-light leading-relaxed mb-4">
+            Primo locale in Italia illuminato a gas, ritrovo dei patrioti risorgimentali e specchi intarsiati in foglia d'oro.
+          </p>
+        </div>
+        <div class="pt-3 border-t border-[#EAE3D9] flex items-center justify-between text-[11px] text-[#78716C]">
+          <span>Specialità: Caffè Sabaudo</span>
+          <span class="text-[#B88746] font-semibold">Capitolo II</span>
+        </div>
+      </div>
+
+      <!-- Card 4: Piòla del Quadrilatero -->
+      <div class="glass-light-card rounded-2xl overflow-hidden p-5 flex flex-col justify-between group reveal">
+        <div class="rounded-xl overflow-hidden h-44 mb-4 relative bg-[#1C1917]">
+          <img src="assets/photo6_ipekpinar_calik.jpg" alt="Piòla Tradizionale" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <span class="absolute bottom-2 left-2 text-[10px] px-2.5 py-0.5 rounded-full bg-white/90 font-bold text-[#1C1917]">Tradizione Popolare</span>
+        </div>
+        <div>
+          <span class="text-[10px] uppercase tracking-wider text-[#B88746] font-bold block mb-1">Quadrilatero Romano</span>
+          <h4 class="font-serif text-lg font-bold text-[#1C1917] mb-2">Osteria delle Piòle</h4>
+          <p class="text-xs text-[#57534E] font-light leading-relaxed mb-4">
+            Tovaglie a quadri, vino rosso della casa servito nel "gotto" e l'inconfondibile profumo della bagna càuda fatta a regola d'arte.
+          </p>
+        </div>
+        <div class="pt-3 border-t border-[#EAE3D9] flex items-center justify-between text-[11px] text-[#78716C]">
+          <span>Specialità: Tajarin & Nebbiolo</span>
+          <span class="text-[#B88746] font-semibold">Capitolo III</span>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 6. ENGINE DI PRENOTAZIONE & CHECKOUT MODERNO                             -->
+  <!-- ========================================================================= -->
+  <section id="booking" class="py-24 px-6 lg:px-12 bg-[#F4EFEA] border-t border-[#EAE3D9]">
+    <div class="max-w-5xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+        <span class="text-xs uppercase tracking-[0.3em] text-[#B88746] font-bold block mb-2">Prenotazione Diretta</span>
+        <h2 class="font-serif text-3xl sm:text-5xl text-[#1C1917] font-bold tracking-tight">
+          Assicura il Tuo Posto
+        </h2>
+        <p class="text-sm text-[#57534E] font-light mt-3">
+          Gruppi di massimo 8 persone per garantire un'esperienza intima e conversazioni reali.
+        </p>
+      </div>
+
+      <!-- Booking Interactive Card -->
+      <div class="glass-light-card rounded-3xl p-6 sm:p-10 shadow-2xl reveal">
+        <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
+          
+          <!-- Step 1: Choose Chapter -->
+          <div class="mb-10">
+            <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917] mb-4">
+              1. Seleziona il Capitolo Desiderato
+            </label>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              
+              <!-- Option 1 -->
+              <label class="relative flex flex-col p-4 rounded-2xl border-2 border-[#B88746] bg-white cursor-pointer transition-all shadow-sm" id="label-cafes">
+                <input type="radio" name="chapterOption" value="cafes" checked onchange="updateBookingCalculation()" class="sr-only">
+                <span class="text-xs font-bold text-[#B88746] uppercase">Capitolo I</span>
+                <span class="font-serif text-lg font-bold text-[#1C1917] mt-1">Grandi Caffè & Cospiratori</span>
+                <span class="text-xs text-[#78716C] mt-1">2h 30m · Piazza Castello</span>
+                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3">€42 <span class="text-xs font-normal text-[#78716C]">/ pax</span></span>
+              </label>
+
+              <!-- Option 2 -->
+              <label class="relative flex flex-col p-4 rounded-2xl border border-[#EAE3D9] bg-white/70 hover:bg-white cursor-pointer transition-all shadow-sm" id="label-palaces">
+                <input type="radio" name="chapterOption" value="palaces" onchange="updateBookingCalculation()" class="sr-only">
+                <span class="text-xs font-bold text-[#78716C] uppercase">Capitolo II</span>
+                <span class="font-serif text-lg font-bold text-[#1C1917] mt-1">Corti & Parchi Reali</span>
+                <span class="text-xs text-[#78716C] mt-1">2h 15m · Palazzo di Città</span>
+                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3">€38 <span class="text-xs font-normal text-[#78716C]">/ pax</span></span>
+              </label>
+
+              <!-- Option 3 -->
+              <label class="relative flex flex-col p-4 rounded-2xl border border-[#EAE3D9] bg-white/70 hover:bg-white cursor-pointer transition-all shadow-sm" id="label-slang">
+                <input type="radio" name="chapterOption" value="slang" onchange="updateBookingCalculation()" class="sr-only">
+                <span class="text-xs font-bold text-[#78716C] uppercase">Capitolo III</span>
+                <span class="font-serif text-lg font-bold text-[#1C1917] mt-1">Bogianen & Osterie</span>
+                <span class="text-xs text-[#78716C] mt-1">2h 00m · Quadrilatero</span>
+                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3">€26 <span class="text-xs font-normal text-[#78716C]">/ pax</span></span>
+              </label>
+
+            </div>
+          </div>
+
+          <!-- Step 2: Date, Time & Guests -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+            
+            <!-- Date Picker -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917] mb-2">
+                2. Data dell'Uscita
+              </label>
+              <input type="date" id="bookingDate" required class="w-full px-4 py-3 rounded-xl border border-[#EAE3D9] bg-white text-sm text-[#1C1917] focus:outline-none focus:border-[#B88746] transition-colors shadow-sm">
+            </div>
+
+            <!-- Time Slot -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917] mb-2">
+                3. Orario
+              </label>
+              <select id="bookingTime" required class="w-full px-4 py-3 rounded-xl border border-[#EAE3D9] bg-white text-sm text-[#1C1917] focus:outline-none focus:border-[#B88746] transition-colors shadow-sm">
+                <option value="10:00">10:00 (Uscita Mattutina)</option>
+                <option value="15:30" selected>15:30 (Pomeriggio & Caffè)</option>
+                <option value="18:00">18:00 (Ora Dorata & Aperitivo)</option>
+              </select>
+            </div>
+
+            <!-- Guests Counter -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917] mb-2">
+                4. Partecipanti (Max 8)
+              </label>
+              <div class="flex items-center border border-[#EAE3D9] bg-white rounded-xl overflow-hidden shadow-sm">
+                <button type="button" onclick="changeGuests(-1)" class="px-4 py-3 text-lg font-bold text-[#1C1917] hover:bg-[#FAF8F5] transition-colors">-</button>
+                <input type="number" id="bookingGuests" value="2" min="1" max="8" readonly class="w-full text-center text-sm font-bold text-[#1C1917] bg-transparent focus:outline-none">
+                <button type="button" onclick="changeGuests(1)" class="px-4 py-3 text-lg font-bold text-[#1C1917] hover:bg-[#FAF8F5] transition-colors">+</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Step 3: Contact Info -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917] mb-2">
+                Nome e Cognome
+              </label>
+              <input type="text" id="guestName" required placeholder="Mario Rossi" class="w-full px-4 py-3 rounded-xl border border-[#EAE3D9] bg-white text-sm text-[#1C1917] focus:outline-none focus:border-[#B88746] transition-colors shadow-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917] mb-2">
+                Indirizzo Email
+              </label>
+              <input type="email" id="guestEmail" required placeholder="mario.rossi@email.it" class="w-full px-4 py-3 rounded-xl border border-[#EAE3D9] bg-white text-sm text-[#1C1917] focus:outline-none focus:border-[#B88746] transition-colors shadow-sm">
+            </div>
+          </div>
+
+          <!-- Calculation Summary & Action Button -->
+          <div class="p-6 rounded-2xl bg-[#FAF8F5] border border-[#EAE3D9] flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+              <span class="text-xs text-[#78716C] uppercase tracking-wider block">Riepilogo Totale</span>
+              <div class="flex items-baseline gap-2">
+                <span id="totalAmountDisplay" class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€84</span>
+                <span id="calculationDetails" class="text-xs text-[#78716C]">(2 partecipanti × €42)</span>
+              </div>
+              <span class="text-[11px] text-[#3D5A4C] font-semibold block mt-1">✓ Cancellazione gratuita fino a 24h prima</span>
+            </div>
+
+            <button type="submit" class="w-full sm:w-auto px-8 py-4 rounded-full bg-[#1C1917] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#B88746] transition-all shadow-xl hover:scale-105">
+              Conferma & Ricevi Voucher →
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 7. VOUCHER MODAL CONFIRMATION                                            -->
+  <!-- ========================================================================= -->
+  <div id="voucherModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl border border-[#EAE3D9] relative max-h-[90vh] overflow-y-auto">
+      
+      <button onclick="closeVoucherModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#FAF8F5] text-[#1C1917] hover:bg-[#EAE3D9] flex items-center justify-center text-sm font-bold">
+        ✕
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-14 h-14 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-2xl mx-auto mb-3 shadow-inner">
+          ✓
+        </div>
+        <span class="text-xs uppercase tracking-[0.25em] text-[#B88746] font-bold">Prenotazione Confermata</span>
+        <h3 class="font-serif text-2xl font-bold text-[#1C1917] mt-1">Voucher Ufficiale di Viaggio</h3>
+        <p class="text-xs text-[#78716C] mt-1">Codice Prenotazione: <strong id="voucherCode" class="text-[#1C1917]">UTC-2026-8941</strong></p>
+      </div>
+
+      <!-- Voucher Ticket Body -->
+      <div class="border border-dashed border-[#B88746] rounded-2xl p-5 bg-[#FAF8F5] mb-6 space-y-3 text-xs">
+        <div class="flex justify-between border-b border-[#EAE3D9] pb-2">
+          <span class="text-[#78716C]">Titolare:</span>
+          <span id="voucherHolder" class="font-bold text-[#1C1917]">Mario Rossi</span>
+        </div>
+        <div class="flex justify-between border-b border-[#EAE3D9] pb-2">
+          <span class="text-[#78716C]">Esperienza:</span>
+          <span id="voucherTour" class="font-bold text-[#1C1917]">I Grandi Caffè & Cospiratori</span>
+        </div>
+        <div class="flex justify-between border-b border-[#EAE3D9] pb-2">
+          <span class="text-[#78716C]">Data & Orario:</span>
+          <span id="voucherDateTime" class="font-bold text-[#1C1917]">16 Settembre 2026 · 15:30</span>
+        </div>
+        <div class="flex justify-between border-b border-[#EAE3D9] pb-2">
+          <span class="text-[#78716C]">Partecipanti:</span>
+          <span id="voucherPax" class="font-bold text-[#1C1917]">2 Persone</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-[#78716C]">Punto di Ritrovo:</span>
+          <span id="voucherMeeting" class="font-bold text-[#1C1917] text-right max-w-[200px]">Piazza Castello 29 (Galleria Subalpina)</span>
+        </div>
+      </div>
+
+      <!-- Actions inside modal -->
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button onclick="window.print()" class="flex-1 py-3 rounded-full border border-[#1C1917] text-[#1C1917] text-xs font-bold uppercase tracking-wider hover:bg-[#FAF8F5] transition-colors">
+          Stampa Voucher
+        </button>
+        <button onclick="downloadCalendarInvite()" class="flex-1 py-3 rounded-full bg-[#1C1917] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#B88746] transition-colors shadow-md">
+          Aggiungi al Calendario (.ics)
+        </button>
+      </div>
+
+      <p class="text-[11px] text-center text-[#78716C] mt-4">
+        Una copia di conferma è stata inviata all'indirizzo email indicato.
+      </p>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 8. FOOTER EDITORIALE (Light & Clean)                                     -->
+  <!-- ========================================================================= -->
+  <footer class="bg-white border-t border-[#EAE3D9] py-16 px-6 lg:px-12 text-[#1C1917]">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+      
+      <!-- Brand & Manifesto -->
+      <div class="text-center md:text-left max-w-sm">
+        <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+          <div class="w-6 h-6 rounded-full bg-[#1C1917] text-white text-xs font-serif font-bold flex items-center justify-center">U</div>
+          <span class="font-serif font-bold text-sm tracking-wide">THE UNTOURIST CLUB</span>
+        </div>
+        <p class="text-xs text-[#57534E] font-light leading-relaxed">
+          Un approccio lento e rispettoso alla scoperta di Torino. Fuori dai flussi standard, dentro le memorie viventi della città.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="flex flex-wrap justify-center gap-6 text-xs text-[#57534E]">
+        <a href="#capitoli" class="hover:text-[#1C1917]">I Tre Capitoli</a>
+        <a href="#atmosfere" class="hover:text-[#1C1917]">Atmosfere</a>
+        <a href="#sights" class="hover:text-[#1C1917]">Luoghi Storici</a>
+        <a href="mostar.html" class="hover:text-[#B88746] font-semibold">Cinematic Scroll</a>
+        <a href="/admin" class="hover:text-[#1C1917] text-[#78716C] inline-flex items-center gap-1" title="Area Riservata">
+          <span>🔒</span> Portale Gestionale
         </a>
+      </div>
+
+      <!-- Copyright -->
+      <div class="text-xs text-[#78716C] text-center md:text-right">
+        <p>© 2026 The Untourist Club. Tutti i diritti riservati.</p>
+        <p class="text-[11px] mt-1 text-[#78716C]/70">Torino, Piemonte · Italia</p>
       </div>
 
     </div>
   </footer>
 
   <!-- ========================================================================= -->
-  <!-- 7. TRAVELER MODALS (CHECKOUT & VOUCHER ONLY)                              -->
-  <!-- ========================================================================= -->
-
-  <!-- Modal Checkout -->
-  <div id="checkoutModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
-    <div class="bg-[#161514] border border-white/15 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
-      <button onclick="closeCheckoutModal()" class="absolute top-5 right-5 text-white/50 hover:text-white text-xl">✕</button>
-      
-      <div class="text-center mb-6">
-        <span class="text-[10px] uppercase tracking-[0.25em] text-[#C9A86A] font-bold">Stripe Checkout Pro</span>
-        <h3 class="font-serif text-xl text-white font-bold mt-1" data-i18n="checkout_title">Finalizza la Tua Prenotazione</h3>
-        <p class="text-xs text-white/60 mt-1" id="checkoutSubtitle">Capitolo I · 2 Ospiti · €84.00</p>
-      </div>
-
-      <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4 text-xs">
-        <div>
-          <label class="block text-white/70 mb-1">Nome Completo</label>
-          <input type="text" id="custName" required placeholder="Giacomo Casanova" class="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/20 text-white outline-none focus:border-[#C9A86A]">
-        </div>
-        <div>
-          <label class="block text-white/70 mb-1">Email di Conferma</label>
-          <input type="email" id="custEmail" required placeholder="viaggiatore@esempio.it" class="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/20 text-white outline-none focus:border-[#C9A86A]">
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-white/70 mb-1">Telefono / WhatsApp</label>
-            <input type="tel" id="custPhone" required placeholder="+39 333 1234567" class="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/20 text-white outline-none focus:border-[#C9A86A]">
-          </div>
-          <div>
-            <label class="block text-white/70 mb-1">Lingua del Tour</label>
-            <select id="custLang" class="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/20 text-white outline-none focus:border-[#C9A86A]">
-              <option value="it">Italiano</option>
-              <option value="en">English</option>
-              <option value="es">Español</option>
-              <option value="fr">Français</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Simulated Card Element (Stripe UI) -->
-        <div class="p-3.5 rounded-xl bg-black/60 border border-white/20">
-          <div class="flex items-center justify-between text-[11px] text-white/50 mb-2">
-            <span>Numero Carta (Simulazione)</span>
-            <span>🔒 Crittografia TLS 256-bit</span>
-          </div>
-          <input type="text" value="•••• •••• •••• 4242" readonly class="w-full bg-transparent text-sm text-[#EAD7A1] font-mono tracking-widest outline-none">
-          <div class="flex justify-between text-[11px] text-white/40 mt-2">
-            <span>MM/AA: 12/28</span>
-            <span>CVC: •••</span>
-          </div>
-        </div>
-
-        <button type="submit" class="w-full py-3.5 rounded-xl bg-[#C9A86A] text-[#0E0D0D] font-bold text-xs uppercase tracking-[0.2em] hover:bg-[#EAD7A1] transition-all shadow-lg">
-          Conferma & Genera Voucher
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal Voucher -->
-  <div id="voucherModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
-    <div class="bg-[#161514] border border-[#C9A86A]/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative text-xs">
-      <button onclick="closeVoucherModal()" class="absolute top-5 right-5 text-white/50 hover:text-white text-xl">✕</button>
-
-      <div class="text-center pb-5 border-b border-white/10">
-        <span class="text-[10px] tracking-[0.3em] text-[#C9A86A] uppercase font-bold">Voucher di Accesso Ufficiale</span>
-        <h3 class="font-serif text-2xl text-white font-bold mt-1">The Untourist Club</h3>
-        <p class="text-white/60 text-[11px]">Torino · Circolo Privato di Esplorazione</p>
-      </div>
-
-      <div class="py-5 space-y-3">
-        <div class="flex justify-between">
-          <span class="text-white/50">Codice Voucher:</span>
-          <span id="vCodeDisplay" class="font-mono font-bold text-[#EAD7A1]">UNT-TRN-8841</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-white/50">Titolare:</span>
-          <span id="vNameDisplay" class="font-semibold text-white">Giacomo Casanova</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-white/50">Capitolo:</span>
-          <span id="vTourTitleDisplay" class="font-semibold text-white">I Grandi Caffè & Cospiratori</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-white/50">Data & Ora:</span>
-          <span id="vDateTimeDisplay" class="text-[#C9A86A] font-bold">2026-09-18 · 10:00 h</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-white/50">Punto di Ritrovo:</span>
-          <span id="vMeetingDisplay" class="text-right text-white max-w-[220px]">Piazza Castello 29, Galleria Subalpina</span>
-        </div>
-      </div>
-
-      <!-- Dynamic SVG QR Code -->
-      <div class="flex flex-col items-center justify-center p-4 rounded-2xl bg-white/5 border border-white/10 my-2">
-        <svg class="w-24 h-24 text-[#C9A86A]" viewBox="0 0 100 100" fill="currentColor">
-          <path d="M10 10h30v30H10V10zm6 6v18h18V16H16zm44-6h30v30H60V10zm6 6v18h18V16H66zm-56 44h30v30H10V60zm6 6v18h18V66H16zm48 0h8v8h-8zm14 0h8v8h-8zm-14 14h8v8h-8zm14 0h8v8h-8zm10-20h6v6h-6zm-6 26h12v6H78z"/>
-        </svg>
-        <span id="vQrString" class="text-[10px] text-white/50 font-mono mt-2">ID: UNT-TRN-8841 · CONFERMATO</span>
-      </div>
-
-      <!-- Calendar Integration Buttons -->
-      <div class="grid grid-cols-2 gap-3 pt-4 border-t border-white/10">
-        <a id="btnGoogleCalendar" href="#" target="_blank" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-center font-bold text-white transition-all">
-          📅 Google Calendar
-        </a>
-        <button onclick="downloadIcsFile()" class="py-2.5 rounded-xl bg-[#3B0F1A] hover:bg-[#C9A86A] hover:text-black border border-[#C9A86A]/40 text-center font-bold text-white transition-all">
-          📥 Scarica .ICS
-        </button>
-      </div>
-
-      <button onclick="triggerEmailSimulation()" class="w-full mt-3 py-2 text-[11px] text-center text-white/40 hover:text-white">
-        ✉️ Invia nuovamente l'email di conferma
-      </button>
-
-    </div>
-  </div>
-
-  <!-- ========================================================================= -->
-  <!-- 8. JAVASCRIPT & LOGICA OPERATIVA                                         -->
+  <!-- 9. JAVASCRIPT LOGIC (Hero Intercalation, Sound, Booking)                   -->
   <!-- ========================================================================= -->
   <script>
-    // --- 1. MULTILINGUAL DICTIONARY (IT, EN, ES, FR) ---
-    const TRANSLATIONS = {
-      it: {
-        nav_chapters: "I 3 Capitoli",
-        nav_lore: "Atmosfere",
-        nav_book: "Disponibilità & Prenota",
-        nav_cta: "Prenota",
-        hero_badge: "Circolo Privato · Torino Chapter",
-        hero_title: "L'Arte di Vivere Torino Fuori dalle Rotte",
-        hero_sub: "Salotti storici del 1763, passaggi segreti sabaudi e la sincera ironia del dialetto piemontese in tre capitoli esclusivi di massimo 8 persone.",
-        hero_cta_primary: "Esplora i 3 Capitoli",
-        hero_cta_secondary: "Verifica Date & Orari",
-        hero_scroll: "Scorri",
-        sound_off: "Audio Salotto: Off",
-        sound_on: "Audio Salotto: On",
-        exp_tag: "Esperienze Esclusive",
-        exp_title: "I Tre Capitoli di Torino",
-        exp_desc: "Passeggiate immersive con guide abilitate residenti e narratori locali. Ogni uscita include degustazione guidata in un locale storico.",
-        card_from: "Tariffa a persona",
-        card_book_now: "Prenota Questo Capitolo",
-        story_tag: "Atmosfere & Dettagli",
-        story_title: "La Bellezza dell'Inaspettato",
-        story_desc: "Torino non urla: sussurra. Si rivela a chi sa perdersi tra portici infiniti, botteghe centenarie e conversazioni non affrettate.",
-        book_tag: "Pianifica la Tua Esperienza",
-        book_title: "Verifica Disponibilità & Prenota",
-        book_desc: "I turni visibili sono sincronizzati in tempo reale con le agende delle guide abilitate del Club.",
-        book_step1: "1. Scegli il Capitolo",
-        book_step2: "2. Seleziona la Data",
-        book_step3: "3. Turno Orario",
-        book_guests: "Ospiti (Max 8):",
-        book_total: "Totale Confermato",
-        book_confirm_btn: "Procedi al Checkout",
-        checkout_title: "Finalizza la Tua Prenotazione"
-      },
-      en: {
-        nav_chapters: "The 3 Chapters",
-        nav_lore: "Atmospheres",
-        nav_book: "Availability & Book",
-        nav_cta: "Book Now",
-        hero_badge: "Private Club · Turin Chapter",
-        hero_title: "The Art of Living Turin Beyond the Obvious",
-        hero_sub: "Historic 1763 salons, secret Savoy corridors, and the genuine wit of Piedmontese dialect in three bespoke chapters of maximum 8 guests.",
-        hero_cta_primary: "Explore the 3 Chapters",
-        hero_cta_secondary: "Check Dates & Times",
-        hero_scroll: "Scroll",
-        sound_off: "Salon Audio: Off",
-        sound_on: "Salon Audio: On",
-        exp_tag: "Bespoke Walks",
-        exp_title: "The Three Chapters of Turin",
-        exp_desc: "Immersive explorations with licensed local guides and Turin narrators. Each chapter includes curated tastings in a landmark salon.",
-        card_from: "Rate per person",
-        card_book_now: "Book This Chapter",
-        story_tag: "Atmospheres & Details",
-        story_title: "The Quiet Elegance of Turin",
-        story_desc: "Turin does not shout: it whispers. It unfolds to those who stroll under endless royal arcades and century-old ateliers.",
-        book_tag: "Schedule Your Journey",
-        book_title: "Check Live Slots & Book",
-        book_desc: "All visible slots directly mirror the confirmed availability of our licensed club guides.",
-        book_step1: "1. Select Chapter",
-        book_step2: "2. Select Date",
-        book_step3: "3. Time Slot",
-        book_guests: "Guests (Max 8):",
-        book_total: "Confirmed Total",
-        book_confirm_btn: "Proceed to Checkout",
-        checkout_title: "Complete Your Reservation"
-      },
-      es: {
-        nav_chapters: "Los 3 Capítulos",
-        nav_lore: "Atmósferas",
-        nav_book: "Disponibilidad & Reserva",
-        nav_cta: "Reservar",
-        hero_badge: "Círculo Privado · Capítulo Turín",
-        hero_title: "El Arte de Vivir Turín Lejos de las Masas",
-        hero_sub: "Salones históricos de 1763, pasajes secretos de los Saboya y la sincera ironía del dialecto piamontés en tres capítulos de máximo 8 personas.",
-        hero_cta_primary: "Explorar los 3 Capítulos",
-        hero_cta_secondary: "Consultar Fechas & Horarios",
-        hero_scroll: "Desplazar",
-        sound_off: "Audio Salón: Desactivado",
-        sound_on: "Audio Salón: Activo",
-        exp_tag: "Experiencias Exclusivas",
-        exp_title: "Los Tres Capítulos de Turín",
-        exp_desc: "Paseos inmersivos con guías habilitados locales y anfitriones turineses. Cada salida incluye degustación guiada en un salón histórico.",
-        card_from: "Tarifa por persona",
-        card_book_now: "Reservar Este Capítulo",
-        story_tag: "Atmósferas & Detalles",
-        story_title: "La Belleza de lo Inesperado",
-        story_desc: "Turín no grita: susurra. Se revela ante quien disfruta perderse bajo pórticos infinitos, boticas centenarias y charlas pausadas.",
-        book_tag: "Planifica Tu Experiencia",
-        book_title: "Verifica Disponibilidad & Reserva",
-        book_desc: "Los turnos visibles responden en tiempo real a las agendas de los guías habilitados del Club.",
-        book_step1: "1. Elige el Capítulo",
-        book_step2: "2. Selecciona la Fecha",
-        book_step3: "3. Turno Horario",
-        book_guests: "Huéspedes (Máx 8):",
-        book_total: "Total Confirmado",
-        book_confirm_btn: "Proceder al Checkout",
-        checkout_title: "Finaliza Tu Reserva"
-      },
-      fr: {
-        nav_chapters: "Les 3 Chapitres",
-        nav_lore: "Atmosphères",
-        nav_book: "Disponibilité & Réserver",
-        nav_cta: "Réserver",
-        hero_badge: "Cercle Privé · Chapitre Turin",
-        hero_title: "L'Art de Vivre Turin Hors des Sentiers Battus",
-        hero_sub: "Salons historiques de 1763, passages secrets des Savoie et la franche ironie du dialecte piémontais en trois chapitres intimes de 8 personnes.",
-        hero_cta_primary: "Explorer les 3 Chapitres",
-        hero_cta_secondary: "Consulter Dates & Horaires",
-        hero_scroll: "Défiler",
-        sound_off: "Ambiance Salon: Muet",
-        sound_on: "Ambiance Salon: Active",
-        exp_tag: "Expériences Exclusives",
-        exp_title: "Les Trois Chapitres de Turin",
-        exp_desc: "Promenades immersives avec des guides agréés résidents. Chaque chapitre comprend une dégustation guidée dans un salon d'époque.",
-        card_from: "Tarif par personne",
-        card_book_now: "Réserver ce Chapitre",
-        story_tag: "Atmosphères & Détails",
-        story_title: "L'Élégance Secrète de Turin",
-        story_desc: "Turin ne crie pas : elle murmure. Elle s'offre à ceux qui savent flâner sous les arcades royales et les ateliers centenaires.",
-        book_tag: "Planifiez Votre Expérience",
-        book_title: "Vérifiez la Disponibilité & Réservez",
-        book_desc: "Les créneaux indiqués reflètent en direct les disponibilités confirmées des guides de notre Club.",
-        book_step1: "1. Choisissez le Chapitre",
-        book_step2: "2. Sélectionnez la Date",
-        book_step3: "3. Créneau Horaire",
-        book_guests: "Invités (Max 8):",
-        book_total: "Total Confirmé",
-        book_confirm_btn: "Passer au Paiement",
-        checkout_title: "Finaliser Votre Réservation"
-      }
-    };
+    // 1. HERO VIDEO ROTATION & INTERCALATION
+    let currentHeroVideo = 0;
+    const totalHeroVideos = 3;
+    let heroRotationTimer = null;
 
-    let currentLang = 'it';
+    function setHeroVideo(index) {
+      if (index === currentHeroVideo) return;
 
-    function setLanguage(lang) {
-      if (!TRANSLATIONS[lang]) return;
-      currentLang = lang;
-      ['it', 'en', 'es', 'fr'].forEach(l => {
-        const btn = document.getElementById('lang-' + l);
-        if (btn) {
-          if (l === lang) {
-            btn.className = "px-2 py-0.5 rounded-full transition-all text-[#C9A86A] bg-white/20 font-bold";
-          } else {
-            btn.className = "px-2 py-0.5 rounded-full transition-all text-white/60 hover:text-white";
-          }
-        }
-      });
+      // Update video elements
+      for (let i = 0; i < totalHeroVideos; i++) {
+        const vid = document.getElementById('heroVid' + i);
+        const tab = document.getElementById('vidTab' + i);
+        const prog = document.getElementById('progress' + i);
 
-      // Update text nodes with data-i18n attribute
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (TRANSLATIONS[lang][key]) {
-          el.innerText = TRANSLATIONS[lang][key];
-        }
-      });
-      localStorage.setItem('untourist_lang', lang);
-    }
-
-    // --- 2. LIVE TURIN LOCAL CLOCK ---
-    function updateTorinoClock() {
-      const now = new Date();
-      const options = { timeZone: 'Europe/Rome', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-      const timeStr = new Intl.DateTimeFormat([], options).format(now);
-      const el = document.getElementById('torinoClock');
-      if (el) el.innerText = `TORINO · ${timeStr} CET`;
-    }
-    setInterval(updateTorinoClock, 1000);
-    updateTorinoClock();
-
-    // --- 3. CHAPTER SHOWCASE MORPHING ---
-    const CHAPTERS_DATA = {
-      cafes: {
-        num: "Capitolo I",
-        sub: "Salotti & Cospiratori",
-        title: "I Grandi Caffè & Cospiratori",
-        price: 42,
-        duration: "2h 30m · Max 8 pax",
-        photo: "assets/photo7_elif_topal.jpg",
-        video: "assets/plaza_1.mp4",
-        credit: "Piazza Castello & Galleria Subalpina",
-        story: "Nell'Ottocento, l'Unità d'Italia non fu decisa nei parlamenti: fu cospirata attorno a tavolini di marmo, sotto lampadari di Boemia e specchi dorati. Entreremo nei santuari dove Cavour, Nietzsche e le spie sabaude si incontravano. Degusteremo l'autentico Bicerin del 1763 e sveleremo il deposito segreto d'armi della Seconda Guerra Mondiale nascosto nei sotterranei di Baratti & Milano.",
-        p1: "Degustazione inclusa: Bicerin originale o Vermut Carpano",
-        p2: "Ritrovo: Piazza Castello 29, Galleria Subalpina",
-        p3: "Gruppo esclusivo: minimo 2, massimo 8 partecipanti"
-      },
-      palaces: {
-        num: "Capitolo II",
-        sub: "Savoia & Corti Nascoste",
-        title: "Segreti della Corona & Parchi Reali",
-        price: 38,
-        duration: "2h 15m · Max 8 pax",
-        photo: "assets/photo2_matteo_milan.jpg",
-        video: "assets/plaza_2.mp4",
-        credit: "Piazza Palazzo di Città & Corti Reali",
-        story: "Dietro le austere facciate in mattoni rossi della dinastia sabauda si cela il paesaggio barocco più audace d'Europa. Esploreremo i cortili nascosti di Palazzo Reale, la spettacolare facciata ondulata di Palazzo Carignano e le gallerie di luce progettate da Guarino Guarini e Filippo Juvarra.",
-        p1: "Accesso a cortili nobiliari normalmente preclusi al pubblico",
-        p2: "Ritrovo: Piazza Palazzo di Città (Monumento al Conte Verde)",
-        p3: "Aperitivo con calice di vino DOC delle colline torinesi"
-      },
-      slang: {
-        num: "Capitolo III",
-        sub: "Bogianen & Osterie Storiche",
-        title: "L'Arte del Bogianen & Osterie",
-        price: 26,
-        duration: "2h 00m · Max 8 pax",
-        photo: "assets/photo6_ipekpinar_calik.jpg",
-        video: "assets/plaza_3.mp4",
-        credit: "Quadrilatero Romano & Piazza Consolata",
-        story: "A Torino la riservatezza è un'arte e il 'Bogianen' (colui che non indietreggia) è l'anima del popolo piemontese. Attraverseremo le vie medievali del Quadrilatero Romano tra botteghe di ciabattini, vecchie legatorie e storiche piòle dove il tempo si è fermato agli anni Cinquanta.",
-        p1: "Spiegazione autentica delle espressioni dialettali sabaude",
-        p2: "Ritrovo: Piazza della Consolata (davanti al Santuario)",
-        p3: "Assaggio di formaggi piemontesi a latte crudo e tajarin"
-      }
-    };
-
-    let activeChapterKey = 'cafes';
-
-    function switchChapterTab(key) {
-      activeChapterKey = key;
-      ['cafes', 'palaces', 'slang'].forEach(k => {
-        const btn = document.getElementById('chtab-' + k);
-        if (btn) {
-          if (k === key) {
-            btn.className = "px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all bg-[#C9A86A] text-[#0E0D0D]";
-          } else {
-            btn.className = "px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all text-white/70 hover:text-white";
-          }
-        }
-      });
-
-      const d = CHAPTERS_DATA[key];
-      const card = document.getElementById('chapterShowcaseCard');
-      if (card) {
-        card.style.opacity = '0.5';
-        setTimeout(() => {
-          const chVid = document.getElementById('chapterVideo');
-          if (chVid && d.video) {
-            chVid.pause();
-            chVid.src = d.video;
-            chVid.load();
-            chVid.play().catch(e => console.log(e));
-          }
-          const chImg = document.getElementById('chapterImg');
-          if (chImg) chImg.src = d.photo;
-          document.getElementById('chapterPhotoCredit').innerText = d.credit;
-          document.getElementById('chapterDurationBadge').innerText = d.duration;
-          document.getElementById('chapterNumberLabel').innerText = d.num;
-          document.getElementById('chapterSubtitleLabel').innerText = d.sub;
-          document.getElementById('chapterTitleDisplay').innerText = d.title;
-          document.getElementById('chapterStoryDisplay').innerText = d.story;
-          document.getElementById('chapterPoint1').innerText = d.p1;
-          document.getElementById('chapterPoint2').innerText = d.p2;
-          document.getElementById('chapterPoint3').innerText = d.p3;
-          document.getElementById('chapterPriceDisplay').innerText = '€' + d.price;
-          card.style.opacity = '1';
-        }, 200);
-      }
-    }
-
-    function selectTourAndBook(chKey) {
-      setBookingChapter(chKey);
-      const el = document.getElementById('booking');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // --- 4. BOOKING ENGINE & GUIDES SYNC ---
-    const INITIAL_GUIDES = [
-      {
-        id: "g1",
-        name: "Elena Rostagno",
-        email: "elena.guida@untourist.it",
-        fee: 90,
-        active: true,
-        availability: {
-          mon: { morning: true, afternoon: true },
-          tue: { morning: true, afternoon: false },
-          wed: { morning: true, afternoon: true },
-          thu: { morning: true, afternoon: true },
-          fri: { morning: true, afternoon: true },
-          sat: { morning: true, afternoon: true },
-          sun: { morning: false, afternoon: true }
-        }
-      },
-      {
-        id: "g2",
-        name: "Marco Della Rocca",
-        email: "marco.guida@untourist.it",
-        fee: 85,
-        active: true,
-        availability: {
-          mon: { morning: false, afternoon: true },
-          tue: { morning: true, afternoon: true },
-          wed: { morning: true, afternoon: false },
-          thu: { morning: true, afternoon: true },
-          fri: { morning: true, afternoon: true },
-          sat: { morning: true, afternoon: true },
-          sun: { morning: true, afternoon: false }
+        if (i === index) {
+          vid.classList.add('active');
+          vid.play().catch(e => console.log(e));
+          tab.className = "flex-1 text-left px-3 py-2 rounded-xl transition-all bg-white shadow-sm border border-[#EAE3D9]";
+          prog.classList.remove('active');
+          void prog.offsetWidth; // trigger reflow
+          prog.classList.add('active');
+        } else {
+          vid.classList.remove('active');
+          tab.className = "flex-1 text-left px-3 py-2 rounded-xl transition-all hover:bg-white/60";
+          prog.classList.remove('active');
         }
       }
-    ];
 
-    function getGuides() {
-      const stored = localStorage.getItem('untourist_guides');
-      return stored ? JSON.parse(stored) : INITIAL_GUIDES;
+      currentHeroVideo = index;
+      resetHeroTimer();
     }
 
-    let currentBooking = {
-      chapter: 'cafes',
-      chapterName: 'I Grandi Caffè & Cospiratori',
-      unitPrice: 42,
-      date: '',
-      slot: '10:00',
-      guests: 2,
-      total: 84
-    };
-
-    function setBookingChapter(ch) {
-      currentBooking.chapter = ch;
-      currentBooking.unitPrice = CHAPTERS_DATA[ch].price;
-      currentBooking.chapterName = CHAPTERS_DATA[ch].title;
-
-      ['cafes', 'palaces', 'slang'].forEach(k => {
-        const btn = document.getElementById('btn-chapter-' + k);
-        if (btn) {
-          if (k === ch) {
-            btn.className = "p-3.5 rounded-xl border-2 border-[#C9A86A] bg-[#C9A86A]/10 text-left transition-all";
-          } else {
-            btn.className = "p-3.5 rounded-xl border border-white/10 hover:border-[#C9A86A]/50 bg-black/30 text-left transition-all";
-          }
-        }
-      });
-      recalcBookingTotal();
+    function autoAdvanceHeroVideo() {
+      const next = (currentHeroVideo + 1) % totalHeroVideos;
+      setHeroVideo(next);
     }
 
-    function setBookingSlot(slot) {
-      currentBooking.slot = slot;
-      const s10 = document.getElementById('slot-10');
-      const s15 = document.getElementById('slot-15');
-      if (slot === '10:00') {
-        s10.className = "py-3 px-2 rounded-xl border-2 border-[#C9A86A] bg-[#C9A86A]/10 text-center text-xs font-bold text-white";
-        s15.className = "py-3 px-2 rounded-xl border border-white/15 text-center text-xs font-semibold text-white/80 hover:border-[#C9A86A]";
+    function resetHeroTimer() {
+      if (heroRotationTimer) clearInterval(heroRotationTimer);
+      heroRotationTimer = setInterval(autoAdvanceHeroVideo, 7000);
+    }
+
+    // Initialize Hero Timer
+    resetHeroTimer();
+
+    // 2. AMBIENT AUDIO PLAYER
+    let isAudioPlaying = false;
+    function toggleAmbientAudio() {
+      const audio = document.getElementById('ambientAudio');
+      const icon = document.getElementById('soundIcon');
+      if (!audio) return;
+
+      if (!isAudioPlaying) {
+        audio.play().then(() => {
+          isAudioPlaying = true;
+          icon.innerText = '🔊';
+        }).catch(err => {
+          console.log('Audio play permission:', err);
+        });
       } else {
-        s15.className = "py-3 px-2 rounded-xl border-2 border-[#C9A86A] bg-[#C9A86A]/10 text-center text-xs font-bold text-white";
-        s10.className = "py-3 px-2 rounded-xl border border-white/15 text-center text-xs font-semibold text-white/80 hover:border-[#C9A86A]";
+        audio.pause();
+        isAudioPlaying = false;
+        icon.innerText = '🔇';
+      }
+    }
+
+    // 3. BOOKING ENGINE PRICING & LOGIC
+    const CHAPTER_PRICES = {
+      cafes: 42,
+      palaces: 38,
+      slang: 26
+    };
+
+    const CHAPTER_NAMES = {
+      cafes: "I Grandi Caffè & Cospiratori",
+      palaces: "Segreti della Corona & Corti Reali",
+      slang: "L'Arte del Bogianen & Osterie"
+    };
+
+    const CHAPTER_MEETINGS = {
+      cafes: "Piazza Castello 29, Galleria Subalpina",
+      palaces: "Piazza Palazzo di Città (Monumento Conte Verde)",
+      slang: "Piazza della Consolata 5 (davanti a Caffè Al Bicerin)"
+    };
+
+    function selectChapterAndBook(key) {
+      const radio = document.querySelector(`input[name="chapterOption"][value="${key}"]`);
+      if (radio) {
+        radio.checked = true;
+        updateBookingCalculation();
+      }
+      const bookingSec = document.getElementById('booking');
+      if (bookingSec) {
+        bookingSec.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function updateBookingCalculation() {
+      const selectedChapter = document.querySelector('input[name="chapterOption"]:checked')?.value || 'cafes';
+      const guests = parseInt(document.getElementById('bookingGuests')?.value || 2);
+      const pricePerPax = CHAPTER_PRICES[selectedChapter];
+      const total = pricePerPax * guests;
+
+      // Update card visual styles
+      ['cafes', 'palaces', 'slang'].forEach(k => {
+        const label = document.getElementById('label-' + k);
+        if (label) {
+          if (k === selectedChapter) {
+            label.className = "relative flex flex-col p-4 rounded-2xl border-2 border-[#B88746] bg-white cursor-pointer transition-all shadow-sm";
+          } else {
+            label.className = "relative flex flex-col p-4 rounded-2xl border border-[#EAE3D9] bg-white/70 hover:bg-white cursor-pointer transition-all shadow-sm";
+          }
+        }
+      });
+
+      const totalDisplay = document.getElementById('totalAmountDisplay');
+      if (totalDisplay) totalDisplay.innerText = '€' + total;
+
+      const calcDetails = document.getElementById('calculationDetails');
+      if (calcDetails) {
+        calcDetails.innerText = `(${guests} partecipanti × €${pricePerPax})`;
       }
     }
 
     function changeGuests(delta) {
-      let g = currentBooking.guests + delta;
-      if (g < 1) g = 1;
-      if (g > 8) g = 8;
-      currentBooking.guests = g;
-      document.getElementById('guestCountDisplay').innerText = g;
-      recalcBookingTotal();
+      const input = document.getElementById('bookingGuests');
+      if (!input) return;
+      let val = parseInt(input.value) + delta;
+      if (val < 1) val = 1;
+      if (val > 8) val = 8;
+      input.value = val;
+      updateBookingCalculation();
     }
 
-    function recalcBookingTotal() {
-      currentBooking.total = currentBooking.unitPrice * currentBooking.guests;
-      document.getElementById('bookingTotalPrice').innerText = '€' + currentBooking.total.toFixed(2);
-    }
-
-    function onBookingDateChange() {
-      const dateVal = document.getElementById('bookingDate').value;
-      currentBooking.date = dateVal;
-      if (!dateVal) return;
-
-      const dateObj = new Date(dateVal + 'T00:00:00');
-      const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-      const dayKey = days[dateObj.getDay()];
-
-      const guides = getGuides().filter(g => g.active);
-      let morningAvail = false;
-      let afternoonAvail = false;
-
-      guides.forEach(g => {
-        if (g.availability && g.availability[dayKey]) {
-          if (g.availability[dayKey].morning) morningAvail = true;
-          if (g.availability[dayKey].afternoon) afternoonAvail = true;
-        }
-      });
-
-      const s10 = document.getElementById('slot-10');
-      const s15 = document.getElementById('slot-15');
-      const noGuide = document.getElementById('noGuideAlert');
-      const hint = document.getElementById('guideStatusHint');
-
-      s10.disabled = !morningAvail;
-      s15.disabled = !afternoonAvail;
-
-      if (!morningAvail) s10.classList.add('opacity-40', 'line-through', 'cursor-not-allowed');
-      else s10.classList.remove('opacity-40', 'line-through', 'cursor-not-allowed');
-
-      if (!afternoonAvail) s15.classList.add('opacity-40', 'line-through', 'cursor-not-allowed');
-      else s15.classList.remove('opacity-40', 'line-through', 'cursor-not-allowed');
-
-      if (!morningAvail && !afternoonAvail) {
-        noGuide.classList.remove('hidden');
-        hint.innerText = "Nessuna guida abilitata per questa data.";
-      } else {
-        noGuide.classList.add('hidden');
-        hint.innerText = "✓ Guide abilitate confermate per questa data.";
-        if (morningAvail) setBookingSlot('10:00');
-        else if (afternoonAvail) setBookingSlot('15:30');
+    // Set Default Tomorrow Date in DatePicker
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateInput = document.getElementById('bookingDate');
+      if (dateInput) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        dateInput.value = tomorrow.toISOString().split('T')[0];
+        dateInput.min = tomorrow.toISOString().split('T')[0];
       }
-    }
+      updateBookingCalculation();
+    });
 
-    // --- 5. CHECKOUT & VOUCHER GENERATION ---
-    function proceedToCheckoutModal() {
-      document.getElementById('checkoutSubtitle').innerText = `${currentBooking.chapterName} · ${currentBooking.guests} Ospiti · €${currentBooking.total.toFixed(2)}`;
-      const modal = document.getElementById('checkoutModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
+    // 4. BOOKING FORM SUBMISSION & VOUCHER DISPLAY
+    let lastBookingDetails = null;
 
-    function closeCheckoutModal() {
-      const modal = document.getElementById('checkoutModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    let lastBooking = null;
-
-    function handleCheckoutSubmit(e) {
+    function handleBookingSubmit(e) {
       e.preventDefault();
-      const name = document.getElementById('custName').value.trim();
-      const email = document.getElementById('custEmail').value.trim();
-      const phone = document.getElementById('custPhone').value.trim();
-      const lang = document.getElementById('custLang').value;
+      
+      const chapterKey = document.querySelector('input[name="chapterOption"]:checked')?.value || 'cafes';
+      const guests = document.getElementById('bookingGuests').value;
+      const date = document.getElementById('bookingDate').value;
+      const time = document.getElementById('bookingTime').value;
+      const name = document.getElementById('guestName').value;
+      const email = document.getElementById('guestEmail').value;
+      const code = 'UTC-2026-' + Math.floor(1000 + Math.random() * 9000);
 
-      const guides = getGuides().filter(g => g.active);
-      const assigned = guides[Math.floor(Math.random() * guides.length)] || { id: "g1", name: "Elena Rostagno" };
+      lastBookingDetails = { chapterKey, guests, date, time, name, email, code };
 
-      const code = 'UNT-TRN-' + Math.floor(1000 + Math.random() * 9000);
-      const bookingData = {
-        vCode: code,
-        name: name,
-        email: email,
-        phone: phone,
-        lang: lang,
-        chapter: currentBooking.chapter,
-        chapterName: currentBooking.chapterName,
-        date: currentBooking.date,
-        slot: currentBooking.slot,
-        guests: currentBooking.guests,
-        amount: currentBooking.total,
-        guideId: assigned.id,
-        guideName: assigned.name,
-        meetingPoint: CHAPTERS_DATA[currentBooking.chapter].p2.replace('Ritrovo: ', ''),
-        paid: true,
-        createdAt: new Date().toISOString().substring(0, 10)
-      };
+      // Fill Voucher Modal
+      document.getElementById('voucherCode').innerText = code;
+      document.getElementById('voucherHolder').innerText = name;
+      document.getElementById('voucherTour').innerText = CHAPTER_NAMES[chapterKey];
+      document.getElementById('voucherDateTime').innerText = `${date} · ore ${time}`;
+      document.getElementById('voucherPax').innerText = `${guests} ${guests > 1 ? 'Persone' : 'Persona'}`;
+      document.getElementById('voucherMeeting').innerText = CHAPTER_MEETINGS[chapterKey];
 
-      // Save to CRM list
-      const stored = JSON.parse(localStorage.getItem('untourist_crm') || '[]');
-      stored.unshift(bookingData);
-      localStorage.setItem('untourist_crm', JSON.stringify(stored));
-      lastBooking = bookingData;
-
-      closeCheckoutModal();
-      openVoucherModal(bookingData);
-    }
-
-    function openVoucherModal(b) {
-      document.getElementById('vCodeDisplay').innerText = b.vCode;
-      document.getElementById('vNameDisplay').innerText = b.name;
-      document.getElementById('vTourTitleDisplay').innerText = b.chapterName;
-      document.getElementById('vDateTimeDisplay').innerText = `${b.date} · ${b.slot} h`;
-      document.getElementById('vMeetingDisplay').innerText = b.meetingPoint;
-      document.getElementById('vQrString').innerText = `ID: ${b.vCode} · GUIDA: ${b.guideName}`;
-
-      // Google Calendar link
-      const startIso = b.date.replace(/-/g, '') + 'T' + b.slot.replace(':', '') + '00Z';
-      const endH = b.slot === '10:00' ? '123000Z' : '180000Z';
-      const endIso = b.date.replace(/-/g, '') + 'T' + endH;
-      const gcal = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('The Untourist Club: ' + b.chapterName)}&dates=${startIso}/${endIso}&details=${encodeURIComponent('Incontro The Untourist Club. Guida: ' + b.guideName + '. Codice Voucher: ' + b.vCode)}&location=${encodeURIComponent(b.meetingPoint + ', Torino')}`;
-      document.getElementById('btnGoogleCalendar').href = gcal;
-
-      const modal = document.getElementById('voucherModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+      // Show Modal
+      document.getElementById('voucherModal').classList.remove('hidden');
     }
 
     function closeVoucherModal() {
-      const modal = document.getElementById('voucherModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
+      document.getElementById('voucherModal').classList.add('hidden');
     }
 
-    function downloadIcsFile() {
-      const b = lastBooking || JSON.parse(localStorage.getItem('untourist_crm') || '[]')[0];
-      if (!b) return;
+    // 5. CALENDAR .ICS FILE DOWNLOAD GENERATOR
+    function downloadCalendarInvite() {
+      if (!lastBookingDetails) return;
+      const d = lastBookingDetails;
+      const tourTitle = CHAPTER_NAMES[d.chapterKey];
+      const meeting = CHAPTER_MEETINGS[d.chapterKey];
 
-      const dtStart = b.date.replace(/-/g, '') + 'T' + b.slot.replace(':', '') + '00';
-      const endH = b.slot === '10:00' ? '123000' : '180000';
-      const dtEnd = b.date.replace(/-/g, '') + 'T' + endH;
+      const start = d.date.replace(/-/g, '') + 'T' + d.time.replace(':', '') + '00';
+      const end = d.date.replace(/-/g, '') + 'T' + (parseInt(d.time.split(':')[0]) + 2).toString().padStart(2, '0') + d.time.split(':')[1] + '00';
 
-      const ics = [
+      const icsData = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
-        'PRODID:-//The Untourist Club//Torino Chapter//IT',
-        'CALSCALE:GREGORIAN',
-        'METHOD:PUBLISH',
+        'PRODID:-//The Untourist Club//Torino Tours//IT',
         'BEGIN:VEVENT',
-        `UID:${b.vCode}@theuntouristclub.com`,
-        `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`,
-        `DTSTART;TZID=Europe/Rome:${dtStart}`,
-        `DTEND;TZID=Europe/Rome:${dtEnd}`,
-        `SUMMARY:The Untourist Club — ${b.chapterName}`,
-        `DESCRIPTION:Esperienza esclusiva per ${b.guests} ospiti. Voucher: ${b.vCode}. Guida: ${b.guideName}.`,
-        `LOCATION:${b.meetingPoint}, Torino, Italia`,
+        `UID:${d.code}@theuntouristclub.com`,
+        `DTSTAMP:${start}Z`,
+        `DTSTART:${start}`,
+        `DTEND:${end}`,
+        `SUMMARY:The Untourist Club · ${tourTitle}`,
+        `DESCRIPTION:Esperienza esclusiva con The Untourist Club a Torino. Partecipanti: ${d.guests}. Codice: ${d.code}.`,
+        `LOCATION:${meeting}`,
         'STATUS:CONFIRMED',
         'END:VEVENT',
         'END:VCALENDAR'
       ].join('\r\n');
 
-      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+      const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      link.setAttribute('download', `Untourist_${b.vCode}.ics`);
+      link.setAttribute('download', `Untourist_Torino_${d.code}.ics`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
 
-    function triggerEmailSimulation() {
-      const b = lastBooking || JSON.parse(localStorage.getItem('untourist_crm') || '[]')[0];
-      alert(`✉️ EMAIL DI CONFERMA INVIATA CON SUCCESSO!\n\nDestinatario: ${b.email}\nOggetto: Il tuo pass The Untourist Club (#${b.vCode})\n\nContenuto trasmesso:\n- Voucher ufficiale PDF\n- File calendario (.ics)\n- Indicazioni della guida (${b.guideName})`);
-    }
-
-    // Keyboard shortcut to jump directly to admin.html: Ctrl + Shift + A
-    window.addEventListener('keydown', e => {
-      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
-        e.preventDefault();
-        window.location.href = 'admin.html';
-      }
-    });
-
-    // --- 6. SYNTHESIZED AMBIENT SOUNDSCAPE (WEB AUDIO API) ---
-    let audioCtx = null;
-    let isPlayingSound = false;
-
-    function toggleAmbientAudio() {
-      const btnText = document.getElementById('soundText');
-      const btnIcon = document.getElementById('soundIcon');
-
-      if (!isPlayingSound) {
-        if (!audioCtx) {
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // 6. SCROLL REVEAL OBSERVER
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
         }
-        const bufferSize = audioCtx.sampleRate * 2;
-        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const output = noiseBuffer.getChannelData(0);
-        let lastOut = 0.0;
-        for (let i = 0; i < bufferSize; i++) {
-          const white = Math.random() * 2 - 1;
-          output[i] = (lastOut + (0.02 * white)) / 1.02;
-          lastOut = output[i];
-          output[i] *= 0.08;
-        }
-        const whiteNoise = audioCtx.createBufferSource();
-        whiteNoise.buffer = noiseBuffer;
-        whiteNoise.loop = true;
-        whiteNoise.connect(audioCtx.destination);
-        whiteNoise.start();
-
-        isPlayingSound = true;
-        if (btnIcon) btnIcon.innerText = "🔊";
-        if (btnText) btnText.innerText = TRANSLATIONS[currentLang].sound_on;
-      } else {
-        if (audioCtx) audioCtx.suspend();
-        isPlayingSound = false;
-        if (btnIcon) btnIcon.innerText = "🔇";
-        if (btnText) btnText.innerText = TRANSLATIONS[currentLang].sound_off;
-      }
-    }
-
-    // --- 7. 3D TILT EFFECT FOR CARDS ---
-    function initTiltEffects() {
-      document.querySelectorAll('.tilt-card').forEach(card => {
-        card.addEventListener('mousemove', e => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-          card.style.transform = `perspective(1000px) rotateX(${-y / 28}deg) rotateY(${x / 28}deg) scale3d(1.015, 1.015, 1.015)`;
-        });
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-        });
       });
-    }
+    }, { threshold: 0.1 });
 
-    // --- 8. SCROLL REVEAL OBSERVER ---
-    function initScrollObserver() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-revealed');
-          }
-        });
-      }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-      document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
-    }
-
-    // --- 9. INITIALIZATION ON DOM READY ---
-    window.addEventListener('DOMContentLoaded', () => {
-      const d = new Date();
-      d.setDate(d.getDate() + 2);
-      const yyyy = d.getFullYear();
-      const mm = String(d.getMonth() + 1).padStart(2, '0');
-      const dd = String(d.getDate()).padStart(2, '0');
-      document.getElementById('bookingDate').value = `${yyyy}-${mm}-${dd}`;
-
-      initTiltEffects();
-      initScrollObserver();
-      setBookingChapter('cafes');
-      onBookingDateChange();
-
-      const savedLang = localStorage.getItem('untourist_lang') || 'it';
-      setLanguage(savedLang);
+    // 7. HEADER SHADOW ON SCROLL
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('mainHeader');
+      if (window.scrollY > 50) {
+        header.classList.add('py-2');
+        header.classList.remove('py-4');
+      } else {
+        header.classList.add('py-4');
+        header.classList.remove('py-2');
+      }
     });
   </script>
 
