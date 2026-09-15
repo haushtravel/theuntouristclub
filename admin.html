@@ -67,21 +67,26 @@
   <div id="loginScreen" class="min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-[#0E0D0D] via-[#161514] to-[#0E0D0D]">
     <div class="bg-carbon-900 border border-white/15 rounded-3xl p-8 sm:p-10 max-w-md w-full shadow-2xl relative">
       
-      <div class="text-center mb-8">
+      <div class="text-center mb-6">
         <div class="w-14 h-14 rounded-full overflow-hidden border border-[#C9A86A]/50 mx-auto mb-3 shadow-[0_0_15px_rgba(201,168,106,0.3)]">
           <img src="logo.jpg" alt="Logo" class="w-full h-full object-cover">
         </div>
-        <span class="text-[10px] tracking-[0.3em] uppercase text-[#C9A86A] font-bold">Portale Direzionale Riservato</span>
+        <span id="portalBadgeLabel" class="text-[10px] tracking-[0.3em] uppercase text-[#C9A86A] font-bold">Accesso Riservato</span>
         <h1 class="font-serif text-2xl text-white font-bold mt-1">The Untourist Club</h1>
-        <p class="text-xs text-white/50 mt-1">Capitolo di Torino · Circolo Privato</p>
+        <p id="portalSubLabel" class="text-xs text-white/50 mt-1">Torino · Area Gestionale & Operativa</p>
       </div>
 
-      <!-- Demo Credentials Notice (Visible for tests as requested) -->
-      <div class="p-3.5 rounded-2xl bg-[#3B0F1A]/30 border border-[#C9A86A]/30 mb-6 text-xs space-y-1">
-        <p class="text-[11px] text-[#C9A86A] font-bold uppercase tracking-wider">Credenziali di Accesso:</p>
-        <p class="text-white/80"><b class="text-white">Admin:</b> haushtravel@gmail.com</p>
-        <p class="text-white/80"><b class="text-white">Password:</b> Matute2026@</p>
+      <!-- Portal Mode Selector Tabs -->
+      <div class="flex rounded-xl bg-white/5 p-1 border border-white/10 mb-6 text-xs font-semibold">
+        <button type="button" onclick="switchLoginPortal('admin')" id="tabLoginAdmin" class="flex-1 py-2 rounded-lg transition-all bg-[#C9A86A] text-black font-bold flex items-center justify-center gap-1.5">
+          <span>🔒</span> Amministrazione
+        </button>
+        <button type="button" onclick="switchLoginPortal('guide')" id="tabLoginGuide" class="flex-1 py-2 rounded-lg transition-all text-white/70 hover:text-white flex items-center justify-center gap-1.5">
+          <span>👤</span> Portale Guide
+        </button>
       </div>
+
+      
 
       <form onsubmit="handleLogin(event)" class="space-y-4 text-xs">
         <div>
@@ -551,6 +556,194 @@
   <!-- ========================================================================= -->
   <!-- 4. PRINTABLE MANIFEST CONTAINER (USED FOR PDF EXPORT)                     -->
   <!-- ========================================================================= -->
+  
+  <!-- ========================================================================= -->
+  <!-- PORTALE GUIDE TURISTICHE (DEDICATED GUIDE WORKSPACE)                      -->
+  <!-- ========================================================================= -->
+  <div id="guideWorkspace" class="min-h-screen flex flex-col bg-[#0E0D0D] text-white hidden">
+    
+    <!-- Top Header for Guide -->
+    <header class="border-b border-white/10 bg-carbon-900/90 backdrop-blur-md px-6 py-4 flex items-center justify-between sticky top-0 z-30">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-[#C9A86A] text-black flex items-center justify-center font-bold text-sm">
+          👤
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 id="guideHeaderName" class="font-serif text-lg font-bold text-white">Elena Rostagno</h2>
+            <span class="px-2 py-0.5 rounded-full bg-[#C9A86A]/20 text-[#EAD7A1] text-[10px] font-bold uppercase tracking-wider">
+              Guida Ufficiale
+            </span>
+          </div>
+          <p class="text-[11px] text-white/50">The Untourist Club · Portale Personale Guida</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="/" class="px-3 py-1.5 rounded-xl border border-white/15 text-xs hover:bg-white/5 transition-colors">
+          Torna al Sito
+        </a>
+        <button onclick="handleLogout()" class="px-4 py-1.5 rounded-xl bg-red-950/40 border border-red-800/40 text-red-300 hover:bg-red-900/60 transition-colors text-xs font-semibold">
+          Disconnetti
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Guide Content Grid -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-6 sm:p-8 space-y-8">
+      
+      <!-- Section 1: Guide Profile & Circuit Specializations -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/10">
+          <div>
+            <span class="text-[10px] uppercase tracking-[0.25em] text-[#C9A86A] font-bold">Profilo & Competenze</span>
+            <h3 class="font-serif text-2xl font-bold text-white mt-1">Circuiti Assegnabili & Specializzazioni</h3>
+            <p class="text-xs text-white/60 mt-1">Indica quali itinerari sei abilitata/o a guidare per ricevere le relative assegnazioni dalla direzione.</p>
+          </div>
+          <button onclick="saveGuideProfilePreferences()" class="px-5 py-2.5 rounded-xl bg-[#C9A86A] text-black font-bold text-xs hover:bg-[#d6b77d] transition-all shadow-md self-start sm:self-auto">
+            Salva Profilo & Competenze
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Circuit 1 Checkbox -->
+          <label class="p-5 rounded-2xl border-2 transition-all cursor-pointer bg-white/[0.02]" id="cardSpecCafes">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-[10px] uppercase tracking-wider text-[#C9A86A] font-bold">Capitolo I</span>
+                <h4 class="font-serif text-base font-bold text-white mt-1">I Grandi Caffè & Cospiratori</h4>
+                <p class="text-xs text-white/60 mt-2 font-light leading-relaxed">
+                  Piazza Castello, Galleria Subalpina, Caffè storici, degustazione Bicerin 1763 e aneddoti risorgimentali.
+                </p>
+              </div>
+              <input type="checkbox" id="checkSpecCafes" onchange="toggleCircuitSpec('cafes')" class="w-5 h-5 accent-[#C9A86A] rounded mt-1">
+            </div>
+            <span class="inline-block mt-4 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-white/70">
+              Tariffa Guida: €90 / tour
+            </span>
+          </label>
+
+          <!-- Circuit 2 Checkbox -->
+          <label class="p-5 rounded-2xl border-2 transition-all cursor-pointer bg-white/[0.02]" id="cardSpecPalaces">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-[10px] uppercase tracking-wider text-[#C9A86A] font-bold">Capitolo II</span>
+                <h4 class="font-serif text-base font-bold text-white mt-1">Corti & Parchi Reali</h4>
+                <p class="text-xs text-white/60 mt-2 font-light leading-relaxed">
+                  Piazza Palazzo di Città, architettura barocca di Guarini e Juvarra, cortili nobiliari e giardini sabaudi.
+                </p>
+              </div>
+              <input type="checkbox" id="checkSpecPalaces" onchange="toggleCircuitSpec('palaces')" class="w-5 h-5 accent-[#C9A86A] rounded mt-1">
+            </div>
+            <span class="inline-block mt-4 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-white/70">
+              Tariffa Guida: €85 / tour
+            </span>
+          </label>
+
+          <!-- Circuit 3 Checkbox -->
+          <label class="p-5 rounded-2xl border-2 transition-all cursor-pointer bg-white/[0.02]" id="cardSpecSlang">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-[10px] uppercase tracking-wider text-[#C9A86A] font-bold">Capitolo III</span>
+                <h4 class="font-serif text-base font-bold text-white mt-1">Bogianen & Osterie</h4>
+                <p class="text-xs text-white/60 mt-2 font-light leading-relaxed">
+                  Quadrilatero Romano, Consolata, piòle storiche, espressioni dialettali piemontesi e cata gastronomica.
+                </p>
+              </div>
+              <input type="checkbox" id="checkSpecSlang" onchange="toggleCircuitSpec('slang')" class="w-5 h-5 accent-[#C9A86A] rounded mt-1">
+            </div>
+            <span class="inline-block mt-4 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-white/70">
+              Tariffa Guida: €80 / tour
+            </span>
+          </label>
+
+        </div>
+
+        <!-- Contact & Languages -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 pt-6 border-t border-white/10 text-xs">
+          <div>
+            <label class="block text-white/60 mb-1">Telefono / WhatsApp Guida</label>
+            <input type="text" id="guideInputPhone" class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/15 text-white">
+          </div>
+          <div>
+            <label class="block text-white/60 mb-1">Lingue Parlate Abilitate</label>
+            <input type="text" id="guideInputLangs" class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/15 text-white">
+          </div>
+          <div>
+            <label class="block text-white/60 mb-1">Email di Contatto</label>
+            <input type="email" id="guideInputEmail" readonly class="w-full px-3 py-2 rounded-xl bg-black/20 border border-white/10 text-white/60">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Section 2: Weekly Availability Matrix -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/10">
+          <div>
+            <span class="text-[10px] uppercase tracking-[0.25em] text-[#C9A86A] font-bold">Pianificazione Oraria</span>
+            <h3 class="font-serif text-2xl font-bold text-white mt-1">Matrice Settimanale di Disponibilità</h3>
+            <p class="text-xs text-white/60 mt-1">Clicca sui turni per attivare o disattivare la tua presenza. Le prenotazioni della web terranno conto di questi orari.</p>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <button onclick="setQuickAvailability('all')" class="px-3 py-1.5 rounded-xl border border-white/20 text-xs hover:bg-white/10 transition-colors">
+              Disponibile Sempre
+            </button>
+            <button onclick="setQuickAvailability('afternoon')" class="px-3 py-1.5 rounded-xl border border-white/20 text-xs hover:bg-white/10 transition-colors">
+              Solo Pomeriggi
+            </button>
+            <button onclick="saveGuideAvailability()" class="px-5 py-2.5 rounded-xl bg-[#C9A86A] text-black font-bold text-xs hover:bg-[#d6b77d] transition-all shadow-md">
+              Salva Disponibilità
+            </button>
+          </div>
+        </div>
+
+        <!-- Weekly Matrix Grid -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="border-b border-white/10 text-white/60 uppercase tracking-wider text-[11px]">
+                <th class="py-3 px-4">Turno Orario</th>
+                <th class="py-3 px-2 text-center">Lun</th>
+                <th class="py-3 px-2 text-center">Mar</th>
+                <th class="py-3 px-2 text-center">Mer</th>
+                <th class="py-3 px-2 text-center">Gio</th>
+                <th class="py-3 px-2 text-center">Ven</th>
+                <th class="py-3 px-2 text-center">Sab</th>
+                <th class="py-3 px-2 text-center">Dom</th>
+              </tr>
+            </thead>
+            <tbody id="guideAvailabilityMatrixBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section 3: My Assigned Tours -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 shadow-xl">
+        <div class="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
+          <div>
+            <span class="text-[10px] uppercase tracking-[0.25em] text-[#C9A86A] font-bold">Calendario Uscite</span>
+            <h3 class="font-serif text-2xl font-bold text-white mt-1">I Miei Tour Assegnati</h3>
+            <p class="text-xs text-white/60 mt-1">Uscite confermate e assegnate dalla direzione in base alla tua specializzazione di circuito.</p>
+          </div>
+          <span id="guideToursCountBadge" class="px-3 py-1 rounded-full bg-[#C9A86A]/20 text-[#EAD7A1] text-xs font-bold">
+            0 uscite assegnate
+          </span>
+        </div>
+
+        <div id="guideAssignedToursList" class="space-y-4">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
   <div id="printableManifest" class="hidden p-8 font-sans">
     <div style="border-bottom: 2px solid #C9A86A; padding-bottom: 15px; margin-bottom: 20px;">
       <h1 style="font-family: serif; font-size: 24px; font-weight: bold; margin: 0; color: #111;">THE UNTOURIST CLUB — TURIN CHAPTER</h1>
@@ -598,37 +791,133 @@
   <!-- ========================================================================= -->
   <script>
     // --- 1. SESSION AUTHENTICATION GUARD ---
+    let currentLoginPortal = 'admin'; // 'admin' or 'guide'
+    let currentLoggedGuide = null;
+
+    function switchLoginPortal(mode) {
+      currentLoginPortal = mode;
+      const tabAdmin = document.getElementById('tabLoginAdmin');
+      const tabGuide = document.getElementById('tabLoginGuide');
+      const badge = document.getElementById('portalBadgeLabel');
+      const sub = document.getElementById('portalSubLabel');
+      const err = document.getElementById('loginErrorMsg');
+      if (err) err.classList.add('hidden');
+
+      if (mode === 'admin') {
+        tabAdmin.className = "flex-1 py-2 rounded-lg transition-all bg-[#C9A86A] text-black font-bold flex items-center justify-center gap-1.5";
+        tabGuide.className = "flex-1 py-2 rounded-lg transition-all text-white/70 hover:text-white flex items-center justify-center gap-1.5";
+        badge.innerText = "Accesso Riservato Direzione";
+        sub.innerText = "The Untourist Club · Consola Amministrazione";
+      } else {
+        tabGuide.className = "flex-1 py-2 rounded-lg transition-all bg-[#C9A86A] text-black font-bold flex items-center justify-center gap-1.5";
+        tabAdmin.className = "flex-1 py-2 rounded-lg transition-all text-white/70 hover:text-white flex items-center justify-center gap-1.5";
+        badge.innerText = "Portale Guide Turistiche";
+        sub.innerText = "Accedi con la tua email per gestire disponibilità e circuiti";
+      }
+    }
+
     function checkAuth() {
-      const isAuth = sessionStorage.getItem('untourist_admin_logged') === 'true';
+      const isAdminAuth = sessionStorage.getItem('untourist_admin_logged') === 'true';
+      const loggedGuideId = sessionStorage.getItem('untourist_guide_logged');
       const loginScr = document.getElementById('loginScreen');
       const workScr = document.getElementById('adminWorkspace');
-      if (isAuth) {
+      const guideScr = document.getElementById('guideWorkspace');
+
+      // Check URL param ?portal=guide
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('portal') === 'guide') {
+        switchLoginPortal('guide');
+      }
+
+      if (isAdminAuth) {
         loginScr.classList.add('hidden');
+        guideScr.classList.add('hidden');
         workScr.classList.remove('hidden');
         loadAllData();
+      } else if (loggedGuideId) {
+        const guides = getGuides();
+        const found = guides.find(g => g.id === loggedGuideId);
+        if (found) {
+          currentLoggedGuide = found;
+          loginScr.classList.add('hidden');
+          workScr.classList.add('hidden');
+          guideScr.classList.remove('hidden');
+          loadGuidePortalData(found);
+        } else {
+          sessionStorage.removeItem('untourist_guide_logged');
+          loginScr.classList.remove('hidden');
+          workScr.classList.add('hidden');
+          guideScr.classList.add('hidden');
+        }
       } else {
         loginScr.classList.remove('hidden');
         workScr.classList.add('hidden');
+        guideScr.classList.add('hidden');
       }
     }
 
     function handleLogin(e) {
       e.preventDefault();
-      const email = document.getElementById('loginEmail').value.trim();
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
       const pass = document.getElementById('loginPassword').value.trim();
       const err = document.getElementById('loginErrorMsg');
 
-      if (email === 'haushtravel@gmail.com' && pass === 'Matute2026@') {
-        sessionStorage.setItem('untourist_admin_logged', 'true');
-        err.classList.add('hidden');
-        checkAuth();
+      if (currentLoginPortal === 'admin') {
+        if (email === 'haushtravel@gmail.com' && pass === 'Matute2026@') {
+          sessionStorage.setItem('untourist_admin_logged', 'true');
+          sessionStorage.removeItem('untourist_guide_logged');
+          err.classList.add('hidden');
+          checkAuth();
+        } else {
+          err.innerText = "Credenziali di amministrazione non corrette.";
+          err.classList.remove('hidden');
+        }
       } else {
-        err.classList.remove('hidden');
+        // Guide Login
+        const guides = getGuides();
+        const guide = guides.find(g => g.email.toLowerCase() === email && (g.pass === pass || pass === 'Guida2026!'));
+        if (guide) {
+          sessionStorage.setItem('untourist_guide_logged', guide.id);
+          sessionStorage.removeItem('untourist_admin_logged');
+          currentLoggedGuide = guide;
+          err.classList.add('hidden');
+          checkAuth();
+        } else {
+          // If not found, let's create or register new guide easily
+          if (email.includes('@') && pass.length >= 4) {
+            const newG = {
+              id: 'g_' + Date.now(),
+              name: email.split('@')[0].replace('.', ' ').toUpperCase(),
+              rank: 'Guida Abilitata',
+              specialties: ['cafes', 'palaces', 'slang'],
+              specialty: 'I Tre Capitoli di Torino',
+              phone: '+39 340 0000000',
+              email: email,
+              pass: pass,
+              languages: 'Italiano, Inglese',
+              fee: 85,
+              bio: 'Guida turistica abilitata della Regione Piemonte.',
+              active: true,
+              availability: getDefaultAvailability()
+            };
+            guides.push(newG);
+            saveGuides(guides);
+            sessionStorage.setItem('untourist_guide_logged', newG.id);
+            currentLoggedGuide = newG;
+            err.classList.add('hidden');
+            checkAuth();
+          } else {
+            err.innerText = "Credenziali guida non valide. Verifica email o password.";
+            err.classList.remove('hidden');
+          }
+        }
       }
     }
 
     function handleLogout() {
       sessionStorage.removeItem('untourist_admin_logged');
+      sessionStorage.removeItem('untourist_guide_logged');
+      currentLoggedGuide = null;
       checkAuth();
     }
 
@@ -820,32 +1109,48 @@
     }
 
     // --- 5. ABM GUIDE CONTROLLER (ALTA, BAJA, EDICIÓN) ---
+    function getDefaultAvailability() {
+      return {
+        lun: { m: true, p: true, s: false },
+        mar: { m: true, p: true, s: false },
+        mer: { m: true, p: true, s: false },
+        gio: { m: true, p: true, s: true },
+        ven: { m: true, p: true, s: true },
+        sab: { m: true, p: true, s: true },
+        dom: { m: true, p: true, s: true }
+      };
+    }
+
     const DEFAULT_GUIDES_DATA = [
       {
         id: "g1",
         name: "Elena Rostagno",
         rank: "Guida Ufficiale Regione Piemonte",
-        specialty: "Salotti del Risorgimento & Letteratura Sabauda",
+        specialties: ["cafes", "slang"],
+        specialty: "Capitolo I (Caffè) & Capitolo III (Bogianen)",
         phone: "+39 347 8899123",
         email: "elena.guida@untourist.it",
         pass: "Guida2026!",
         languages: "Italiano, Inglese, Francese",
         fee: 90,
         bio: "Laurea in Beni Culturali all'Università di Torino. Guida abilitata dal 2012, esperta custode degli aneddoti di Cavour e dei caffè risorgimentali.",
-        active: true
+        active: true,
+        availability: getDefaultAvailability()
       },
       {
         id: "g2",
         name: "Marco Della Rocca",
         rank: "Architetto & Guida Turistica",
-        specialty: "Barocco Sabaudo, Guarini & Parchi Reali",
+        specialties: ["palaces", "cafes"],
+        specialty: "Capitolo II (Corti Reali) & Capitolo I (Caffè)",
         phone: "+39 335 4411990",
         email: "marco.guida@untourist.it",
         pass: "Guida2026!",
         languages: "Italiano, Spagnolo, Inglese",
         fee: 85,
         bio: "Specialista in storia dell'architettura barocca. Guida camminate tra i cortili segreti di Palazzo Reale e Palazzo Carignano dal 2016.",
-        active: true
+        active: true,
+        availability: getDefaultAvailability()
       }
     ];
 
@@ -881,8 +1186,17 @@
 
             <p class="text-xs text-white/70 mt-2 font-light leading-relaxed mb-4">${g.bio}</p>
 
-            <div class="space-y-1 text-xs text-white/60 border-t border-white/10 pt-3">
-              <p><b>Specialità:</b> ${g.specialty}</p>
+            <div class="space-y-2 text-xs text-white/60 border-t border-white/10 pt-3">
+              <div>
+                <b class="text-white/80 block mb-1">Circuiti Abilitati:</b>
+                <div class="flex flex-wrap gap-1">
+                  ${(g.specialties || ['cafes']).map(s => `
+                    <span class="px-2 py-0.5 rounded-md bg-[#C9A86A]/15 text-[#EAD7A1] text-[10px] font-bold">
+                      ${s === 'cafes' ? 'Cap. I: Caffè' : s === 'palaces' ? 'Cap. II: Corti Reali' : 'Cap. III: Bogianen'}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
               <p><b>Lingue:</b> ${g.languages}</p>
               <p><b>Contatto:</b> ${g.phone} · ${g.email}</p>
               <p><b>Tariffa:</b> <span class="text-[#EAD7A1] font-bold">€${g.fee} / tour</span></p>
@@ -1032,6 +1346,180 @@
     }
 
     // --- 7. INITIALIZATION ON READY ---
+    
+    // =========================================================================
+    // GUIDE PORTAL WORKSPACE LOGIC
+    // =========================================================================
+    function loadGuidePortalData(guide) {
+      document.getElementById('guideHeaderName').innerText = guide.name;
+      document.getElementById('guideInputPhone').value = guide.phone || '';
+      document.getElementById('guideInputLangs').value = guide.languages || '';
+      document.getElementById('guideInputEmail').value = guide.email || '';
+
+      const specs = guide.specialties || ['cafes'];
+      document.getElementById('checkSpecCafes').checked = specs.includes('cafes');
+      document.getElementById('checkSpecPalaces').checked = specs.includes('palaces');
+      document.getElementById('checkSpecSlang').checked = specs.includes('slang');
+      updateCircuitSpecCards();
+
+      renderGuideAvailabilityMatrix(guide);
+      renderGuideAssignedTours(guide);
+    }
+
+    function toggleCircuitSpec(key) {
+      updateCircuitSpecCards();
+    }
+
+    function updateCircuitSpecCards() {
+      const c1 = document.getElementById('checkSpecCafes').checked;
+      const c2 = document.getElementById('checkSpecPalaces').checked;
+      const c3 = document.getElementById('checkSpecSlang').checked;
+
+      document.getElementById('cardSpecCafes').className = c1
+        ? "p-5 rounded-2xl border-2 border-[#C9A86A] bg-[#C9A86A]/10 transition-all cursor-pointer"
+        : "p-5 rounded-2xl border-2 border-white/10 bg-white/[0.02] transition-all cursor-pointer opacity-70";
+
+      document.getElementById('cardSpecPalaces').className = c2
+        ? "p-5 rounded-2xl border-2 border-[#C9A86A] bg-[#C9A86A]/10 transition-all cursor-pointer"
+        : "p-5 rounded-2xl border-2 border-white/10 bg-white/[0.02] transition-all cursor-pointer opacity-70";
+
+      document.getElementById('cardSpecSlang').className = c3
+        ? "p-5 rounded-2xl border-2 border-[#C9A86A] bg-[#C9A86A]/10 transition-all cursor-pointer"
+        : "p-5 rounded-2xl border-2 border-white/10 bg-white/[0.02] transition-all cursor-pointer opacity-70";
+    }
+
+    function saveGuideProfilePreferences() {
+      if (!currentLoggedGuide) return;
+      const guides = getGuides();
+      const g = guides.find(x => x.id === currentLoggedGuide.id);
+      if (!g) return;
+
+      const specs = [];
+      if (document.getElementById('checkSpecCafes').checked) specs.push('cafes');
+      if (document.getElementById('checkSpecPalaces').checked) specs.push('palaces');
+      if (document.getElementById('checkSpecSlang').checked) specs.push('slang');
+
+      g.specialties = specs;
+      g.phone = document.getElementById('guideInputPhone').value.trim();
+      g.languages = document.getElementById('guideInputLangs').value.trim();
+      currentLoggedGuide = g;
+      saveGuides(guides);
+
+      alert('Profilo e specializzazioni di circuito salvate con successo!');
+    }
+
+    function renderGuideAvailabilityMatrix(guide) {
+      const avail = guide.availability || getDefaultAvailability();
+      const tbody = document.getElementById('guideAvailabilityMatrixBody');
+      const days = [
+        { k: 'lun', l: 'Lunedì' },
+        { k: 'mar', l: 'Martedì' },
+        { k: 'mer', l: 'Mercoledì' },
+        { k: 'gio', l: 'Giovedì' },
+        { k: 'ven', l: 'Venerdì' },
+        { k: 'sab', l: 'Sabato' },
+        { k: 'dom', l: 'Domenica' }
+      ];
+
+      const slots = [
+        { k: 'm', name: 'Mattina (10:00 - 12:30)' },
+        { k: 'p', name: 'Pomeriggio (15:30 - 18:00)' },
+        { k: 's', name: 'Crepuscolo (18:00 - 20:30)' }
+      ];
+
+      tbody.innerHTML = slots.map(slot => `
+        <tr class="border-b border-white/5 hover:bg-white/[0.02]">
+          <td class="py-3 px-4 font-semibold text-white/80">${slot.name}</td>
+          ${days.map(d => {
+            const isAvail = avail[d.k] && avail[d.k][slot.k];
+            return `
+              <td class="py-3 px-2 text-center">
+                <button type="button" onclick="toggleGuideSlot('${d.k}', '${slot.k}')" id="slot_${d.k}_${slot.k}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all ${isAvail ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-white/5 text-white/30 border border-white/5 hover:border-white/20'}">
+                  ${isAvail ? 'Sì' : 'No'}
+                </button>
+              </td>
+            `;
+          }).join('')}
+        </tr>
+      `).join('');
+    }
+
+    function toggleGuideSlot(day, slot) {
+      if (!currentLoggedGuide) return;
+      if (!currentLoggedGuide.availability) currentLoggedGuide.availability = getDefaultAvailability();
+      if (!currentLoggedGuide.availability[day]) currentLoggedGuide.availability[day] = {};
+      currentLoggedGuide.availability[day][slot] = !currentLoggedGuide.availability[day][slot];
+      renderGuideAvailabilityMatrix(currentLoggedGuide);
+    }
+
+    function setQuickAvailability(mode) {
+      if (!currentLoggedGuide) return;
+      const days = ['lun', 'mar', 'mer', 'gio', 'ven', 'sab', 'dom'];
+      const avail = {};
+      days.forEach(d => {
+        if (mode === 'all') {
+          avail[d] = { m: true, p: true, s: true };
+        } else if (mode === 'afternoon') {
+          avail[d] = { m: false, p: true, s: true };
+        }
+      });
+      currentLoggedGuide.availability = avail;
+      renderGuideAvailabilityMatrix(currentLoggedGuide);
+    }
+
+    function saveGuideAvailability() {
+      if (!currentLoggedGuide) return;
+      const guides = getGuides();
+      const g = guides.find(x => x.id === currentLoggedGuide.id);
+      if (g) {
+        g.availability = currentLoggedGuide.availability;
+        saveGuides(guides);
+        alert('Disponibilità oraria settimanale salvata nel sistema!');
+      }
+    }
+
+    function renderGuideAssignedTours(guide) {
+      const tours = getCalendarTours();
+      const myTours = tours.filter(t => t.guideId === guide.id || t.guideName.toLowerCase().includes(guide.name.split(' ')[0].toLowerCase()));
+      const cont = document.getElementById('guideAssignedToursList');
+      const badge = document.getElementById('guideToursCountBadge');
+
+      if (badge) badge.innerText = `${myTours.length} uscite assegnate`;
+
+      if (myTours.length === 0) {
+        cont.innerHTML = `
+          <div class="p-8 text-center text-xs text-white/50 border border-dashed border-white/10 rounded-2xl">
+            Nessuna uscita attualmente assegnata. La direzione ti assegnerà i tour dei capitoli in base alla tua disponibilità.
+          </div>
+        `;
+        return;
+      }
+
+      cont.innerHTML = myTours.map(t => `
+        <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-[#C9A86A]/20 text-[#EAD7A1] text-[10px] font-bold">
+                ${t.tourName}
+              </span>
+              <span class="text-xs text-white/50">· ${t.date} · ore ${t.time}</span>
+            </div>
+            <p class="text-xs text-white/80 font-medium">Ritrovo: ${t.meeting}</p>
+            <p class="text-[11px] text-white/60 mt-1">Passeggeri Confermati: <b>${t.pax}</b> · Compenso Guida: <b>€${t.fee}</b></p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="printManifest('${t.id}')" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-colors">
+              📄 Foglio Presenze
+            </button>
+            <button class="px-4 py-2 rounded-xl bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
+              ✓ In Carico
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
     function loadAllData() {
       renderFinance();
       renderCalendar();
