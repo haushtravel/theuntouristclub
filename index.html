@@ -157,8 +157,8 @@
   <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
     
     <!-- Background Looping Video -->
-    <video autoplay muted loop playsinline poster="assets/photo1_matteo_milan.jpg" class="absolute inset-0 w-full h-full object-cover scale-105 transition-transform duration-1000 ease-out">
-      <source src="assets/turin_ambient.mp4" type="video/mp4">
+    <video autoplay muted loop playsinline poster="assets/photo1_matteo_milan.jpg" class="absolute inset-0 w-full h-full object-cover scale-105 transition-transform duration-1000 ease-out" id="heroPlazaVideo">
+      <source src="assets/plaza_1.mp4" type="video/mp4">
       <img src="assets/photo1_matteo_milan.jpg" alt="Torino Twilight" class="w-full h-full object-cover">
     </video>
 
@@ -262,14 +262,25 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         
         
-        <div class="lg:col-span-6 relative rounded-2xl overflow-hidden group shadow-2xl h-80 sm:h-96">
-          <img id="chapterImg" src="assets/photo7_elif_topal.jpg" alt="Capitolo I" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+        <div class="lg:col-span-6 relative rounded-2xl overflow-hidden group shadow-2xl h-80 sm:h-96 bg-black">
+          <!-- Looping Plaza Video -->
+          <video id="chapterVideo" autoplay muted loop playsinline poster="assets/photo7_elif_topal.jpg" class="w-full h-full object-cover transition-all duration-700">
+            <source id="chapterVideoSrc" src="assets/plaza_1.mp4" type="video/mp4">
+          </video>
+          <img id="chapterImg" src="assets/photo7_elif_topal.jpg" alt="Capitolo I" class="hidden w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
           
-          <!-- Photographer Badge -->
-          <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] text-white/80">
+          <!-- Video / Photo Badge -->
+          <div class="absolute top-4 left-4 flex items-center gap-2 pointer-events-none">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-[#C9A86A]/40 text-[10px] text-[#EAD7A1] font-semibold uppercase tracking-wider">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span> Live Plaza View
+            </span>
+          </div>
+
+          <!-- Photographer / Location Badge -->
+          <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] text-white/80 pointer-events-none">
             <span id="chapterPhotoCredit" class="bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/15 font-light">
-              Fotografia: Elif Topal
+              Piazza Castello & Galleria Subalpina
             </span>
             <span id="chapterDurationBadge" class="bg-[#3B0F1A]/90 px-3 py-1 rounded-full border border-[#C9A86A]/40 text-[#EAD7A1] font-semibold">
               2h 30m · Max 8 pax
@@ -397,6 +408,30 @@
           <span class="inline-block mt-2 px-2.5 py-0.5 rounded-full bg-black/60 border border-white/10 text-[10px] text-white/70">
             Fotografia: Mateo Tocci
           </span>
+        </div>
+      </div>
+
+      <!-- Card 6: Piazza San Carlo & Portici al Crepuscolo (Video Cinema) -->
+      <div class="md:col-span-12 tilt-card relative rounded-3xl overflow-hidden h-[340px] group shadow-2xl border border-[#C9A86A]/30 reveal-on-scroll">
+        <video autoplay muted loop playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out">
+          <source src="assets/plaza_4.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+        <div class="absolute top-6 right-6">
+          <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-[#C9A86A]/40 text-xs text-[#EAD7A1] font-serif">
+            <span class="w-2 h-2 rounded-full bg-[#C9A86A] animate-pulse"></span> Video 4K Atmosfere
+          </span>
+        </div>
+        <div class="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <span class="text-[10px] uppercase tracking-widest text-[#C9A86A] font-bold block mb-1">Il Salotto di Torino</span>
+            <h4 class="font-serif text-2xl text-white font-bold">Piazza San Carlo & I Portici della Luce Dorata</h4>
+            <p class="text-xs text-white/75 max-w-xl font-light mt-1">Lo splendore barocco delle facciate gemelle di Santa Cristina e San Carlo Borromeo nel silenzio del crepuscolo.</p>
+          </div>
+          <a href="mostar.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#C9A86A] text-[#0E0D0D] text-xs font-bold uppercase tracking-wider shadow-lg hover:bg-[#d6b77d] transition-all whitespace-nowrap self-start sm:self-auto">
+            <span>Guarda Cinematic Story</span>
+            <span>↗</span>
+          </a>
         </div>
       </div>
 
@@ -840,7 +875,8 @@
         price: 42,
         duration: "2h 30m · Max 8 pax",
         photo: "assets/photo7_elif_topal.jpg",
-        credit: "Fotografia: Elif Topal",
+        video: "assets/plaza_1.mp4",
+        credit: "Piazza Castello & Galleria Subalpina",
         story: "Nell'Ottocento, l'Unità d'Italia non fu decisa nei parlamenti: fu cospirata attorno a tavolini di marmo, sotto lampadari di Boemia e specchi dorati. Entreremo nei santuari dove Cavour, Nietzsche e le spie sabaude si incontravano. Degusteremo l'autentico Bicerin del 1763 e sveleremo il deposito segreto d'armi della Seconda Guerra Mondiale nascosto nei sotterranei di Baratti & Milano.",
         p1: "Degustazione inclusa: Bicerin originale o Vermut Carpano",
         p2: "Ritrovo: Piazza Castello 29, Galleria Subalpina",
@@ -853,7 +889,8 @@
         price: 38,
         duration: "2h 15m · Max 8 pax",
         photo: "assets/photo2_matteo_milan.jpg",
-        credit: "Fotografia: Matteo Milan",
+        video: "assets/plaza_2.mp4",
+        credit: "Piazza Palazzo di Città & Corti Reali",
         story: "Dietro le austere facciate in mattoni rossi della dinastia sabauda si cela il paesaggio barocco più audace d'Europa. Esploreremo i cortili nascosti di Palazzo Reale, la spettacolare facciata ondulata di Palazzo Carignano e le gallerie di luce progettate da Guarino Guarini e Filippo Juvarra.",
         p1: "Accesso a cortili nobiliari normalmente preclusi al pubblico",
         p2: "Ritrovo: Piazza Palazzo di Città (Monumento al Conte Verde)",
@@ -866,11 +903,12 @@
         price: 26,
         duration: "2h 00m · Max 8 pax",
         photo: "assets/photo6_ipekpinar_calik.jpg",
-        credit: "Fotografia: Ipekpinar Calik",
-        story: "Ispirato alle radici popolari del Piemonte verace. L'italiano serve per la diplomazia; il piemontese è la lingua delle passioni viscerali. Cammineremo tra le viuzze del Quadrilatero Romano per scoprire perché i torinesi sono fieri di essere 'Bogianen' ('coloro che non indietreggiano'). Termineremo con un gotto di vino in una piòla centenaria.",
-        p1: "Degustazione di vino rosso piemontese in osteria tipica",
-        p2: "Ritrovo: Piazza della Consolata 5",
-        p3: "Dizionario tascabile delle espressioni tipiche in omaggio"
+        video: "assets/plaza_3.mp4",
+        credit: "Quadrilatero Romano & Piazza Consolata",
+        story: "A Torino la riservatezza è un'arte e il 'Bogianen' (colui che non indietreggia) è l'anima del popolo piemontese. Attraverseremo le vie medievali del Quadrilatero Romano tra botteghe di ciabattini, vecchie legatorie e storiche piòle dove il tempo si è fermato agli anni Cinquanta.",
+        p1: "Spiegazione autentica delle espressioni dialettali sabaude",
+        p2: "Ritrovo: Piazza della Consolata (davanti al Santuario)",
+        p3: "Assaggio di formaggi piemontesi a latte crudo e tajarin"
       }
     };
 
@@ -894,7 +932,15 @@
       if (card) {
         card.style.opacity = '0.5';
         setTimeout(() => {
-          document.getElementById('chapterImg').src = d.photo;
+          const chVid = document.getElementById('chapterVideo');
+          if (chVid && d.video) {
+            chVid.pause();
+            chVid.src = d.video;
+            chVid.load();
+            chVid.play().catch(e => console.log(e));
+          }
+          const chImg = document.getElementById('chapterImg');
+          if (chImg) chImg.src = d.photo;
           document.getElementById('chapterPhotoCredit').innerText = d.credit;
           document.getElementById('chapterDurationBadge').innerText = d.duration;
           document.getElementById('chapterNumberLabel').innerText = d.num;
