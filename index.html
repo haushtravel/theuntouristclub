@@ -370,7 +370,7 @@
               <div>
                 <span class="text-xs text-[#78716C] uppercase tracking-wider block" data-i18n="label_fee">Tariffa per persona</span>
                 <div class="flex items-baseline gap-1">
-                  <span class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€75</span>
+                  <span id="heroCardPrice-cafes" class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€75</span>
                   <span class="text-xs text-[#78716C]" data-i18n="label_per_pax">/ partecipante</span>
                 </div>
               </div>
@@ -424,7 +424,7 @@
               <div>
                 <span class="text-xs text-[#78716C] uppercase tracking-wider block" data-i18n="label_fee">Tariffa per persona</span>
                 <div class="flex items-baseline gap-1">
-                  <span class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€69</span>
+                  <span id="heroCardPrice-palaces" class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€69</span>
                   <span class="text-xs text-[#78716C]" data-i18n="label_per_pax">/ partecipante</span>
                 </div>
               </div>
@@ -522,7 +522,7 @@
               <div>
                 <span class="text-xs text-[#78716C] uppercase tracking-wider block" data-i18n="label_fee">Tariffa per persona</span>
                 <div class="flex items-baseline gap-1">
-                  <span class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€65</span>
+                  <span id="heroCardPrice-slang" class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€65</span>
                   <span class="text-xs text-[#78716C]" data-i18n="label_per_pax">/ partecipante</span>
                 </div>
               </div>
@@ -761,7 +761,7 @@
                 <span class="text-xs font-bold text-[#B88746] uppercase">Capitolo I</span>
                 <span class="font-serif text-lg font-bold text-[#1C1917] mt-1" data-i18n="opt1_title">Grandi Caffè & Cospiratori</span>
                 <span class="text-xs text-[#78716C] mt-1">2h 30m · Piazza Castello</span>
-                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3">€75 <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
+                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3" id="displayPrice-cafes">€75 <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
               </label>
 
               <!-- Option 2 -->
@@ -770,7 +770,7 @@
                 <span class="text-xs font-bold text-[#78716C] uppercase">Capitolo II</span>
                 <span class="font-serif text-lg font-bold text-[#1C1917] mt-1" data-i18n="opt2_title">Corti & Parchi Reali</span>
                 <span class="text-xs text-[#78716C] mt-1">2h 15m · Piazza Castello</span>
-                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3">€69 <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
+                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3" id="displayPrice-palaces">€69 <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
               </label>
 
               <!-- Option 3 -->
@@ -779,7 +779,7 @@
                 <span class="text-xs font-bold text-[#78716C] uppercase">Capitolo III</span>
                 <span class="font-serif text-lg font-bold text-[#1C1917] mt-1" data-i18n="opt3_title">Bogianen & Osterie</span>
                 <span class="text-xs text-[#78716C] mt-1">2h 00m · Piazza Castello</span>
-                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3">€65 <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
+                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3" id="displayPrice-slang">€65 <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
               </label>
 
             </div>
@@ -792,7 +792,7 @@
               <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917] mb-2" data-i18n="book_step2_date">
                 2. Data dell'Uscita
               </label>
-              <input type="date" id="bookingDate" required class="w-full px-4 py-3 rounded-xl border border-[#EAE3D9] bg-white text-sm text-[#1C1917] focus:outline-none focus:border-[#B88746] transition-colors shadow-sm">
+              <input type="date" id="bookingDate" required min="2026-09-01" max="2027-12-31" class="w-full px-4 py-3 rounded-xl border border-[#EAE3D9] bg-white text-sm text-[#1C1917] focus:outline-none focus:border-[#B88746] transition-colors shadow-sm">
             </div>
 
             <div>
@@ -849,44 +849,8 @@
               </label>
               <span class="text-[10px] text-[#B88746] uppercase font-bold tracking-wider" data-i18n="addons_optional_tag">Opzionali</span>
             </div>
-            <div class="space-y-3">
-              
-              <!-- Add-on 1: Vermut -->
-              <label class="flex items-start sm:items-center justify-between p-3.5 rounded-xl border border-[#EAE3D9] hover:border-[#B88746] cursor-pointer transition-colors bg-[#FAF8F5]/60 hover:bg-white text-xs">
-                <div class="flex items-start sm:items-center gap-3">
-                  <input type="checkbox" id="clientAddonVermouth" onchange="updateBookingCalculation()" class="mt-0.5 sm:mt-0 w-4 h-4 rounded text-[#B88746] accent-[#B88746]">
-                  <div>
-                    <span class="font-bold text-[#1C1917] block" data-i18n="addon1_title">🍷 Degustazione di Vermut di Torino (Solo Bicchiere)</span>
-                    <span class="text-[11px] text-[#78716C]" data-i18n="addon1_desc">Un calice aggiuntivo del celebre vino aromatizzato sabaudo.</span>
-                  </div>
-                </div>
-                <span class="font-serif font-bold text-[#1C1917] text-sm whitespace-nowrap ml-3">+€12 <span class="text-[10px] font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
-              </label>
-
-              <!-- Add-on 2: Monginevro Cultura -->
-              <label class="flex items-start sm:items-center justify-between p-3.5 rounded-xl border border-[#EAE3D9] hover:border-[#B88746] cursor-pointer transition-colors bg-[#FAF8F5]/60 hover:bg-white text-xs">
-                <div class="flex items-start sm:items-center gap-3">
-                  <input type="checkbox" id="clientAddonMonginevro" onchange="updateBookingCalculation()" class="mt-0.5 sm:mt-0 w-4 h-4 rounded text-[#B88746] accent-[#B88746]">
-                  <div>
-                    <span class="font-bold text-[#1C1917] block" data-i18n="addon2_title">🏛️ Guida ai Bar Storici & Palazzi (Ed. Monginevro Cultura)</span>
-                    <span class="text-[11px] text-[#78716C]" data-i18n="addon2_desc">Pubblicazione storica d'autore sulle botteghe e dimore sabaude.</span>
-                  </div>
-                </div>
-                <span class="font-serif font-bold text-[#1C1917] text-sm whitespace-nowrap ml-3">+€18 <span class="text-[10px] font-normal text-[#78716C]">/ vol.</span></span>
-              </label>
-
-              <!-- Add-on 3: Paulin Sirot -->
-              <label class="flex items-start sm:items-center justify-between p-3.5 rounded-xl border border-[#EAE3D9] hover:border-[#B88746] cursor-pointer transition-colors bg-[#FAF8F5]/60 hover:bg-white text-xs">
-                <div class="flex items-start sm:items-center gap-3">
-                  <input type="checkbox" id="clientAddonSirot" onchange="updateBookingCalculation()" class="mt-0.5 sm:mt-0 w-4 h-4 rounded text-[#B88746] accent-[#B88746]">
-                  <div>
-                    <span class="font-bold text-[#1C1917] block" data-i18n="addon3_title">📖 Libro "L'Insultario Piemontese" di Paulin Sirot</span>
-                    <span class="text-[11px] text-[#78716C]" data-i18n="addon3_desc">Divertente compendio dell'arguzia popolare e dei modi di dire piemontesi.</span>
-                  </div>
-                </div>
-                <span class="font-serif font-bold text-[#1C1917] text-sm whitespace-nowrap ml-3">+€16 <span class="text-[10px] font-normal text-[#78716C]">/ vol.</span></span>
-              </label>
-
+            <div class="space-y-3" id="bookingAddonsContainer">
+              <!-- Rendered dynamically by renderBookingAddons() -->
             </div>
           </div>
 
@@ -1521,6 +1485,10 @@
 
       // Update document title
       document.title = `The Untourist Club · ${dict.hero_title_line1} ${dict.hero_title_line2}`;
+
+      renderBookingAddons();
+      updatePricesUI();
+      updateBookingCalculation();
     }
 
     // 2. HERO VIDEO ROTATION & INTERCALATION
@@ -1586,12 +1554,71 @@
       }
     }
 
-    // 4. BOOKING ENGINE PRICING & LOGIC
-    const CHAPTER_PRICES = {
+    // 4. BOOKING ENGINE PRICING & DYNAMIC CATALOG
+    const DEFAULT_CHAPTER_PRICES = {
       cafes: 75,
       palaces: 69,
       slang: 65
     };
+
+    function getChapterPrices() {
+      try {
+        const stored = localStorage.getItem('untourist_chapter_prices');
+        if (!stored) return { ...DEFAULT_CHAPTER_PRICES };
+        const parsed = JSON.parse(stored);
+        return {
+          cafes: Number(parsed.cafes) || 75,
+          palaces: Number(parsed.palaces) || 69,
+          slang: Number(parsed.slang) || 65
+        };
+      } catch (e) {
+        return { ...DEFAULT_CHAPTER_PRICES };
+      }
+    }
+
+    const DEFAULT_ADDONS = [
+      {
+        id: "addon_vermouth",
+        icon: "🍷",
+        name: "Degustazione Vermut di Torino Storico",
+        desc: "Degustazione del Vermut originale Chazalettes & Anselmo.",
+        pvp: 12.00,
+        cost: 4.00,
+        type: "pax",
+        active: true
+      },
+      {
+        id: "addon_monginevro",
+        icon: "🏛️",
+        name: "Guida Monginevro: Bar & Palazzi",
+        desc: "Volume monografico edito da Monginevro Cultura.",
+        pvp: 18.00,
+        cost: 7.00,
+        type: "fixed",
+        active: true
+      },
+      {
+        id: "addon_sirot",
+        icon: "📖",
+        name: "Insultario Piemontese (Paulin Sirot)",
+        desc: "Raro trattato di espressioni, modi di dire e ironia sabauda.",
+        pvp: 16.00,
+        cost: 6.00,
+        type: "fixed",
+        active: true
+      }
+    ];
+
+    function getAddonsConfig() {
+      try {
+        const stored = localStorage.getItem('untourist_addons_config');
+        if (!stored) return DEFAULT_ADDONS;
+        const parsed = JSON.parse(stored);
+        return Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_ADDONS;
+      } catch (e) {
+        return DEFAULT_ADDONS;
+      }
+    }
 
     const CHAPTER_NAMES = {
       cafes: "I Grandi Caffè & Cospiratori",
@@ -1617,27 +1644,96 @@
       }
     }
 
+    function updatePricesUI() {
+      const prices = getChapterPrices();
+      const dict = TRANSLATIONS[currentLang] || TRANSLATIONS.it;
+      const perPaxLabel = dict.label_per_pax || '/ pax';
+
+      // Booking selectors
+      const dispCafes = document.getElementById('displayPrice-cafes');
+      if (dispCafes) dispCafes.innerHTML = `€${prices.cafes} <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">${perPaxLabel}</span>`;
+
+      const dispPalaces = document.getElementById('displayPrice-palaces');
+      if (dispPalaces) dispPalaces.innerHTML = `€${prices.palaces} <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">${perPaxLabel}</span>`;
+
+      const dispSlang = document.getElementById('displayPrice-slang');
+      if (dispSlang) dispSlang.innerHTML = `€${prices.slang} <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">${perPaxLabel}</span>`;
+
+      // Hero cards
+      const heroCafes = document.getElementById('heroCardPrice-cafes');
+      if (heroCafes) heroCafes.innerText = `€${prices.cafes}`;
+
+      const heroPalaces = document.getElementById('heroCardPrice-palaces');
+      if (heroPalaces) heroPalaces.innerText = `€${prices.palaces}`;
+
+      const heroSlang = document.getElementById('heroCardPrice-slang');
+      if (heroSlang) heroSlang.innerText = `€${prices.slang}`;
+    }
+
+    function renderBookingAddons() {
+      const container = document.getElementById('bookingAddonsContainer');
+      if (!container) return;
+      const addons = getAddonsConfig();
+      const dict = TRANSLATIONS[currentLang] || TRANSLATIONS.it;
+
+      // Preserve currently checked ids
+      const checkedIds = new Set();
+      container.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+        checkedIds.add(cb.dataset.addonId);
+      });
+
+      container.innerHTML = addons.filter(a => a.active !== false).map(a => {
+        let title = a.name;
+        let desc = a.desc;
+        if (a.id === 'addon_vermouth' || a.id === 'vermouth') {
+          title = dict.addon1_title || a.name;
+          desc = dict.addon1_desc || a.desc;
+        } else if (a.id === 'addon_monginevro' || a.id === 'monginevro') {
+          title = dict.addon2_title || a.name;
+          desc = dict.addon2_desc || a.desc;
+        } else if (a.id === 'addon_sirot' || a.id === 'sirot') {
+          title = dict.addon3_title || a.name;
+          desc = dict.addon3_desc || a.desc;
+        }
+
+        const isChecked = checkedIds.has(a.id);
+        const typeLabel = a.type === 'pax' ? (dict.label_per_pax || '/ pax') : '/ vol.';
+
+        return `
+          <label class="flex items-start sm:items-center justify-between p-3.5 rounded-xl border border-[#EAE3D9] hover:border-[#B88746] cursor-pointer transition-colors bg-[#FAF8F5]/60 hover:bg-white text-xs">
+            <div class="flex items-start sm:items-center gap-3">
+              <input type="checkbox" data-addon-id="${a.id}" data-addon-name="${encodeURIComponent(title)}" data-addon-pvp="${a.pvp}" data-addon-type="${a.type}" ${isChecked ? 'checked' : ''} onchange="updateBookingCalculation()" class="mt-0.5 sm:mt-0 w-4 h-4 rounded text-[#B88746] accent-[#B88746]">
+              <div>
+                <span class="font-bold text-[#1C1917] block">${a.icon || '✨'} ${title}</span>
+                <span class="text-[11px] text-[#78716C]">${desc}</span>
+              </div>
+            </div>
+            <span class="font-serif font-bold text-[#1C1917] text-sm whitespace-nowrap ml-3">+€${Number(a.pvp).toFixed(0)} <span class="text-[10px] font-normal text-[#78716C]">${typeLabel}</span></span>
+          </label>
+        `;
+      }).join('');
+    }
+
     function updateBookingCalculation() {
+      updatePricesUI();
+      const prices = getChapterPrices();
       const selectedChapter = document.querySelector('input[name="chapterOption"]:checked')?.value || 'cafes';
       const guests = parseInt(document.getElementById('bookingGuests')?.value || 2);
-      const pricePerPax = CHAPTER_PRICES[selectedChapter];
+      const pricePerPax = prices[selectedChapter] || 75;
       let baseTotal = pricePerPax * guests;
 
-      // Calculate selected add-ons
+      // Calculate selected add-ons dynamically
       let addonsTotal = 0;
       let addonDetails = [];
-      if (document.getElementById('clientAddonVermouth')?.checked) {
-        addonsTotal += 12 * guests;
-        addonDetails.push('Vermut (' + guests + 'x)');
-      }
-      if (document.getElementById('clientAddonMonginevro')?.checked) {
-        addonsTotal += 18;
-        addonDetails.push('Guida Monginevro');
-      }
-      if (document.getElementById('clientAddonSirot')?.checked) {
-        addonsTotal += 16;
-        addonDetails.push('Insultario Sirot');
-      }
+      const checkboxes = document.querySelectorAll('#bookingAddonsContainer input[type="checkbox"]:checked');
+      checkboxes.forEach(cb => {
+        const pvp = parseFloat(cb.dataset.addonPvp) || 0;
+        const isPax = cb.dataset.addonType === 'pax';
+        const itemTotal = isPax ? (pvp * guests) : pvp;
+        addonsTotal += itemTotal;
+        const rawName = decodeURIComponent(cb.dataset.addonName || '');
+        addonDetails.push(rawName + (isPax ? ` (${guests}x)` : ''));
+      });
 
       const total = baseTotal + addonsTotal;
 
@@ -1657,8 +1753,13 @@
 
       const calcDetails = document.getElementById('calculationDetails');
       if (calcDetails) {
-        const dict = TRANSLATIONS[currentLang];
-        calcDetails.innerText = `(${guests} ${dict.label_per_pax.replace('/', '')} × €${pricePerPax})`;
+        const dict = TRANSLATIONS[currentLang] || TRANSLATIONS.it;
+        const paxText = dict.label_per_pax ? dict.label_per_pax.replace('/', '').trim() : 'pax';
+        let detailText = `(${guests} ${paxText} × €${pricePerPax})`;
+        if (addonsTotal > 0) {
+          detailText += ` + €${addonsTotal} add-ons`;
+        }
+        calcDetails.innerText = detailText;
       }
     }
 
@@ -1686,14 +1787,25 @@
       const email = document.getElementById('guestEmail').value.trim();
       const phone = (document.getElementById('guestPhone')?.value || '').trim() || '+39 340 0000000';
       const code = 'UNT-TRN-' + Math.floor(1000 + Math.random() * 9000);
-      const pricePerPax = CHAPTER_PRICES[chapterKey] || 75;
-      const totalAmount = pricePerPax * guests;
+      
+      const prices = getChapterPrices();
+      const pricePerPax = prices[chapterKey] || 75;
+      let baseTotal = pricePerPax * guests;
       const guide = chapterKey === 'palaces' ? 'Marco Della Rocca' : 'Elena Rostagno';
 
       const selectedAddons = [];
-      if (document.getElementById('clientAddonVermouth')?.checked) selectedAddons.push('Vermut di Torino (+€12/pax)');
-      if (document.getElementById('clientAddonMonginevro')?.checked) selectedAddons.push('Bar & Palazzi (Monginevro Cultura, +€18)');
-      if (document.getElementById('clientAddonSirot')?.checked) selectedAddons.push('Insultario Piemontese di Paulin Sirot (+€16)');
+      let addonsTotal = 0;
+      const checkboxes = document.querySelectorAll('#bookingAddonsContainer input[type="checkbox"]:checked');
+      checkboxes.forEach(cb => {
+        const pvp = parseFloat(cb.dataset.addonPvp) || 0;
+        const isPax = cb.dataset.addonType === 'pax';
+        const itemTotal = isPax ? (pvp * guests) : pvp;
+        addonsTotal += itemTotal;
+        const rawName = decodeURIComponent(cb.dataset.addonName || '');
+        selectedAddons.push(`${rawName} (+€${itemTotal}${isPax ? ' / ' + guests + ' pax' : ''})`);
+      });
+
+      const totalAmount = baseTotal + addonsTotal;
 
       const newBooking = {
         vCode: code,
@@ -1725,7 +1837,6 @@
         const raw = localStorage.getItem('untourist_crm');
         if (raw) {
           bookings = JSON.parse(raw);
-          // If stored contains old dummy mocks, clean them out
           if (Array.isArray(bookings)) {
             bookings = bookings.filter(b => !b.name.includes('Casanova') && !b.name.includes('Dupont') && !b.vCode.includes('8841') && !b.vCode.includes('7412'));
           } else {
@@ -1833,9 +1944,13 @@
       if (dateInput) {
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
-        dateInput.value = tomorrow.toISOString().split('T')[0];
-        dateInput.min = tomorrow.toISOString().split('T')[0];
+        const tomorrowStr = tomorrow.toISOString().split('T')[0];
+        dateInput.value = tomorrowStr;
+        dateInput.min = tomorrowStr;
+        dateInput.max = '2027-12-31';
       }
+      renderBookingAddons();
+      updatePricesUI();
       setLanguage(currentLang);
       updateBookingCalculation();
     });
