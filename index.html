@@ -820,7 +820,7 @@
           </div>
 
           <!-- Step 3: Contact Info -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917] mb-2" data-i18n="book_name_label">
                 Nome e Cognome
@@ -838,6 +838,55 @@
                 Telefono / WhatsApp
               </label>
               <input type="tel" id="guestPhone" placeholder="+39 340 1234567" class="w-full px-4 py-3 rounded-xl border border-[#EAE3D9] bg-white text-sm text-[#1C1917] focus:outline-none focus:border-[#B88746] transition-colors shadow-sm">
+            </div>
+          </div>
+
+          <!-- Step 4: Add-ons Esclusivi del Club (Opzionali) -->
+          <div class="mb-10 p-5 sm:p-6 rounded-2xl bg-white border border-[#EAE3D9] shadow-xs">
+            <div class="flex items-center justify-between mb-3">
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917]">
+                4. Arricchisci la tua Esperienza (Add-ons di Pregio)
+              </label>
+              <span class="text-[10px] text-[#B88746] uppercase font-bold tracking-wider">Opzionali</span>
+            </div>
+            <div class="space-y-3">
+              
+              <!-- Add-on 1: Vermut -->
+              <label class="flex items-start sm:items-center justify-between p-3.5 rounded-xl border border-[#EAE3D9] hover:border-[#B88746] cursor-pointer transition-colors bg-[#FAF8F5]/60 hover:bg-white text-xs">
+                <div class="flex items-start sm:items-center gap-3">
+                  <input type="checkbox" id="clientAddonVermouth" onchange="updateBookingCalculation()" class="mt-0.5 sm:mt-0 w-4 h-4 rounded text-[#B88746] accent-[#B88746]">
+                  <div>
+                    <span class="font-bold text-[#1C1917] block">🍷 Degustazione di Vermut di Torino (Solo Bicchiere)</span>
+                    <span class="text-[11px] text-[#78716C]">Un calice aggiuntivo del celebre vino aromatizzato sabaudo.</span>
+                  </div>
+                </div>
+                <span class="font-serif font-bold text-[#1C1917] text-sm whitespace-nowrap ml-3">+€12 <span class="text-[10px] font-normal text-[#78716C]">/ pax</span></span>
+              </label>
+
+              <!-- Add-on 2: Monginevro Cultura -->
+              <label class="flex items-start sm:items-center justify-between p-3.5 rounded-xl border border-[#EAE3D9] hover:border-[#B88746] cursor-pointer transition-colors bg-[#FAF8F5]/60 hover:bg-white text-xs">
+                <div class="flex items-start sm:items-center gap-3">
+                  <input type="checkbox" id="clientAddonMonginevro" onchange="updateBookingCalculation()" class="mt-0.5 sm:mt-0 w-4 h-4 rounded text-[#B88746] accent-[#B88746]">
+                  <div>
+                    <span class="font-bold text-[#1C1917] block">🏛️ Guida ai Bar Storici & Palazzi (Ed. Monginevro Cultura)</span>
+                    <span class="text-[11px] text-[#78716C]">Pubblicazione storica d'autore sulle botteghe e dimore sabaude.</span>
+                  </div>
+                </div>
+                <span class="font-serif font-bold text-[#1C1917] text-sm whitespace-nowrap ml-3">+€18 <span class="text-[10px] font-normal text-[#78716C]">/ vol.</span></span>
+              </label>
+
+              <!-- Add-on 3: Paulin Sirot -->
+              <label class="flex items-start sm:items-center justify-between p-3.5 rounded-xl border border-[#EAE3D9] hover:border-[#B88746] cursor-pointer transition-colors bg-[#FAF8F5]/60 hover:bg-white text-xs">
+                <div class="flex items-start sm:items-center gap-3">
+                  <input type="checkbox" id="clientAddonSirot" onchange="updateBookingCalculation()" class="mt-0.5 sm:mt-0 w-4 h-4 rounded text-[#B88746] accent-[#B88746]">
+                  <div>
+                    <span class="font-bold text-[#1C1917] block">📖 Libro "L'Insultario Piemontese" di Paulin Sirot</span>
+                    <span class="text-[11px] text-[#78716C]">Divertente compendio dell'arguzia popolare e dei modi di dire piemontesi.</span>
+                  </div>
+                </div>
+                <span class="font-serif font-bold text-[#1C1917] text-sm whitespace-nowrap ml-3">+€16 <span class="text-[10px] font-normal text-[#78716C]">/ vol.</span></span>
+              </label>
+
             </div>
           </div>
 
@@ -1536,7 +1585,25 @@
       const selectedChapter = document.querySelector('input[name="chapterOption"]:checked')?.value || 'cafes';
       const guests = parseInt(document.getElementById('bookingGuests')?.value || 2);
       const pricePerPax = CHAPTER_PRICES[selectedChapter];
-      const total = pricePerPax * guests;
+      let baseTotal = pricePerPax * guests;
+
+      // Calculate selected add-ons
+      let addonsTotal = 0;
+      let addonDetails = [];
+      if (document.getElementById('clientAddonVermouth')?.checked) {
+        addonsTotal += 12 * guests;
+        addonDetails.push('Vermut (' + guests + 'x)');
+      }
+      if (document.getElementById('clientAddonMonginevro')?.checked) {
+        addonsTotal += 18;
+        addonDetails.push('Guida Monginevro');
+      }
+      if (document.getElementById('clientAddonSirot')?.checked) {
+        addonsTotal += 16;
+        addonDetails.push('Insultario Sirot');
+      }
+
+      const total = baseTotal + addonsTotal;
 
       ['cafes', 'palaces', 'slang'].forEach(k => {
         const label = document.getElementById('label-' + k);
@@ -1587,6 +1654,11 @@
       const totalAmount = pricePerPax * guests;
       const guide = chapterKey === 'palaces' ? 'Marco Della Rocca' : 'Elena Rostagno';
 
+      const selectedAddons = [];
+      if (document.getElementById('clientAddonVermouth')?.checked) selectedAddons.push('Vermut di Torino (+€12/pax)');
+      if (document.getElementById('clientAddonMonginevro')?.checked) selectedAddons.push('Bar & Palazzi (Monginevro Cultura, +€18)');
+      if (document.getElementById('clientAddonSirot')?.checked) selectedAddons.push('Insultario Piemontese di Paulin Sirot (+€16)');
+
       const newBooking = {
         vCode: code,
         name: name,
@@ -1599,6 +1671,7 @@
         slot: time,
         guests: guests,
         amount: totalAmount,
+        addons: selectedAddons,
         guideName: guide,
         paymentStatus: 'paid',
         gateway: 'Stripe · Simulazione Online',

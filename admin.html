@@ -347,41 +347,41 @@
                       <div class="flex items-center gap-3">
                         <input type="checkbox" id="addonVermouth" onchange="updateSimCalculation()" class="w-4 h-4 rounded text-[#C9A86A] focus:ring-0 accent-[#C9A86A]">
                         <div>
-                          <span class="text-white font-semibold">🍷 Degustazione Vermut Gran Riserva 1786</span>
-                          <span class="text-[10px] text-white/50 block">Degustazione aggiuntiva al bicchiere con stuzzichino</span>
+                          <span class="text-white font-semibold">🍷 Degustazione di Vermut di Torino (Solo Bicchiere)</span>
+                          <span class="text-[10px] text-white/50 block">Calice di Vermut Storico tradizionale piemontese</span>
                         </div>
                       </div>
                       <div class="text-right">
-                        <span class="font-bold text-[#EAD7A1] font-mono block">+€18.00 / pax</span>
-                        <span class="text-[9px] text-emerald-400 font-bold">Margine: +67% (€12)</span>
+                        <span class="font-bold text-[#EAD7A1] font-mono block">+€12.00 / pax</span>
+                        <span class="text-[9px] text-emerald-400 font-bold">Margine: +67% (€8.00)</span>
                       </div>
                     </label>
 
                     <label class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 hover:border-[#C9A86A]/60 cursor-pointer text-xs transition-colors">
                       <div class="flex items-center gap-3">
-                        <input type="checkbox" id="addonBarolo" onchange="updateSimCalculation()" class="w-4 h-4 rounded text-[#C9A86A] focus:ring-0 accent-[#C9A86A]">
+                        <input type="checkbox" id="addonMonginevro" onchange="updateSimCalculation()" class="w-4 h-4 rounded text-[#C9A86A] focus:ring-0 accent-[#C9A86A]">
                         <div>
-                          <span class="text-white font-semibold">🍾 Bottiglia di Barolo DOCG Numerata d'Asporto</span>
-                          <span class="text-[10px] text-white/50 block">Confezione regalo del club numerata a mano</span>
+                          <span class="text-white font-semibold">🏛️ Guida ai Bar Storici & Palazzi di Monginevro Cultura</span>
+                          <span class="text-[10px] text-white/50 block">Pubblicazione ufficiale di pregio sui caffè e palazzi sabaudi</span>
                         </div>
                       </div>
                       <div class="text-right">
-                        <span class="font-bold text-[#EAD7A1] font-mono block">+€35.00 / bot.</span>
-                        <span class="text-[9px] text-emerald-400 font-bold">Margine: +60% (€21)</span>
+                        <span class="font-bold text-[#EAD7A1] font-mono block">+€18.00 / vol.</span>
+                        <span class="text-[9px] text-emerald-400 font-bold">Margine: +61% (€11.00)</span>
                       </div>
                     </label>
 
                     <label class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 hover:border-[#C9A86A]/60 cursor-pointer text-xs transition-colors">
                       <div class="flex items-center gap-3">
-                        <input type="checkbox" id="addonBook" onchange="updateSimCalculation()" class="w-4 h-4 rounded text-[#C9A86A] focus:ring-0 accent-[#C9A86A]">
+                        <input type="checkbox" id="addonSirot" onchange="updateSimCalculation()" class="w-4 h-4 rounded text-[#C9A86A] focus:ring-0 accent-[#C9A86A]">
                         <div>
-                          <span class="text-white font-semibold">📖 Libro Fotografico di Pregio "Torino Segreta"</span>
-                          <span class="text-[10px] text-white/50 block">Volume rilegato in tela con scatti d'archivio esclusivi</span>
+                          <span class="text-white font-semibold">📖 Libro "L'Insultario Piemontese" di Paulin Sirot</span>
+                          <span class="text-[10px] text-white/50 block">Il celebre volume dell'ironia e dell'arguzia dialettale sabauda</span>
                         </div>
                       </div>
                       <div class="text-right">
-                        <span class="font-bold text-[#EAD7A1] font-mono block">+€24.00 / vol.</span>
-                        <span class="text-[9px] text-emerald-400 font-bold">Margine: +67% (€16)</span>
+                        <span class="font-bold text-[#EAD7A1] font-mono block">+€16.00 / vol.</span>
+                        <span class="text-[9px] text-emerald-400 font-bold">Margine: +62.5% (€10.00)</span>
                       </div>
                     </label>
                   </div>
@@ -1439,22 +1439,22 @@
       let addonDirectCost = 0;
 
       const hasVermouth = document.getElementById('addonVermouth')?.checked;
-      const hasBarolo = document.getElementById('addonBarolo')?.checked;
-      const hasBook = document.getElementById('addonBook')?.checked;
+      const hasMonginevro = document.getElementById('addonMonginevro')?.checked;
+      const hasSirot = document.getElementById('addonSirot')?.checked;
 
       if (hasVermouth) {
-        addonRevenue += 18.00 * pax;
-        addonDirectCost += 6.00 * pax;
+        addonRevenue += 12.00 * pax;
+        addonDirectCost += 4.00 * pax;
       }
-      if (hasBarolo) {
-        const bottles = Math.max(1, Math.round(pax / 2));
-        addonRevenue += 35.00 * bottles;
-        addonDirectCost += 14.00 * bottles;
+      if (hasMonginevro) {
+        const qty = Math.max(1, Math.round(pax / 2));
+        addonRevenue += 18.00 * qty;
+        addonDirectCost += 7.00 * qty;
       }
-      if (hasBook) {
-        const books = Math.max(1, Math.round(pax / 2));
-        addonRevenue += 24.00 * books;
-        addonDirectCost += 8.00 * books;
+      if (hasSirot) {
+        const qty = Math.max(1, Math.round(pax / 2));
+        addonRevenue += 16.00 * qty;
+        addonDirectCost += 6.00 * qty;
       }
 
       const totalRevenue = basePvp + addonRevenue;
