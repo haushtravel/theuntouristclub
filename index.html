@@ -769,7 +769,7 @@
                 <input type="radio" name="chapterOption" value="palaces" onchange="updateBookingCalculation()" class="sr-only">
                 <span class="text-xs font-bold text-[#78716C] uppercase">Capitolo II</span>
                 <span class="font-serif text-lg font-bold text-[#1C1917] mt-1" data-i18n="opt2_title">Corti & Parchi Reali</span>
-                <span class="text-xs text-[#78716C] mt-1">2h 15m · Palazzo di Città</span>
+                <span class="text-xs text-[#78716C] mt-1">2h 15m · Piazza Castello</span>
                 <span class="font-serif text-xl font-bold text-[#1C1917] mt-3">€69 <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
               </label>
 
@@ -778,7 +778,7 @@
                 <input type="radio" name="chapterOption" value="slang" onchange="updateBookingCalculation()" class="sr-only">
                 <span class="text-xs font-bold text-[#78716C] uppercase">Capitolo III</span>
                 <span class="font-serif text-lg font-bold text-[#1C1917] mt-1" data-i18n="opt3_title">Bogianen & Osterie</span>
-                <span class="text-xs text-[#78716C] mt-1">2h 00m · Quadrilatero</span>
+                <span class="text-xs text-[#78716C] mt-1">2h 00m · Piazza Castello</span>
                 <span class="font-serif text-xl font-bold text-[#1C1917] mt-3">€65 <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
               </label>
 
@@ -834,7 +834,7 @@
               <input type="email" id="guestEmail" required placeholder="mario.rossi@email.it" class="w-full px-4 py-3 rounded-xl border border-[#EAE3D9] bg-white text-sm text-[#1C1917] focus:outline-none focus:border-[#B88746] transition-colors shadow-sm">
             </div>
             <div>
-              <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917] mb-2">
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917] mb-2" data-i18n="book_phone_label">
                 Telefono / WhatsApp
               </label>
               <input type="tel" id="guestPhone" placeholder="+39 340 1234567" class="w-full px-4 py-3 rounded-xl border border-[#EAE3D9] bg-white text-sm text-[#1C1917] focus:outline-none focus:border-[#B88746] transition-colors shadow-sm">
@@ -844,10 +844,10 @@
           <!-- Step 4: Add-ons Esclusivi del Club (Opzionali) -->
           <div class="mb-10 p-5 sm:p-6 rounded-2xl bg-white border border-[#EAE3D9] shadow-xs">
             <div class="flex items-center justify-between mb-3">
-              <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917]">
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#1C1917]" data-i18n="addons_step_title">
                 4. Arricchisci la tua Esperienza (Add-ons di Pregio)
               </label>
-              <span class="text-[10px] text-[#B88746] uppercase font-bold tracking-wider">Opzionali</span>
+              <span class="text-[10px] text-[#B88746] uppercase font-bold tracking-wider" data-i18n="addons_optional_tag">Opzionali</span>
             </div>
             <div class="space-y-3">
               
@@ -856,11 +856,11 @@
                 <div class="flex items-start sm:items-center gap-3">
                   <input type="checkbox" id="clientAddonVermouth" onchange="updateBookingCalculation()" class="mt-0.5 sm:mt-0 w-4 h-4 rounded text-[#B88746] accent-[#B88746]">
                   <div>
-                    <span class="font-bold text-[#1C1917] block">🍷 Degustazione di Vermut di Torino (Solo Bicchiere)</span>
-                    <span class="text-[11px] text-[#78716C]">Un calice aggiuntivo del celebre vino aromatizzato sabaudo.</span>
+                    <span class="font-bold text-[#1C1917] block" data-i18n="addon1_title">🍷 Degustazione di Vermut di Torino (Solo Bicchiere)</span>
+                    <span class="text-[11px] text-[#78716C]" data-i18n="addon1_desc">Un calice aggiuntivo del celebre vino aromatizzato sabaudo.</span>
                   </div>
                 </div>
-                <span class="font-serif font-bold text-[#1C1917] text-sm whitespace-nowrap ml-3">+€12 <span class="text-[10px] font-normal text-[#78716C]">/ pax</span></span>
+                <span class="font-serif font-bold text-[#1C1917] text-sm whitespace-nowrap ml-3">+€12 <span class="text-[10px] font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
               </label>
 
               <!-- Add-on 2: Monginevro Cultura -->
@@ -868,8 +868,8 @@
                 <div class="flex items-start sm:items-center gap-3">
                   <input type="checkbox" id="clientAddonMonginevro" onchange="updateBookingCalculation()" class="mt-0.5 sm:mt-0 w-4 h-4 rounded text-[#B88746] accent-[#B88746]">
                   <div>
-                    <span class="font-bold text-[#1C1917] block">🏛️ Guida ai Bar Storici & Palazzi (Ed. Monginevro Cultura)</span>
-                    <span class="text-[11px] text-[#78716C]">Pubblicazione storica d'autore sulle botteghe e dimore sabaude.</span>
+                    <span class="font-bold text-[#1C1917] block" data-i18n="addon2_title">🏛️ Guida ai Bar Storici & Palazzi (Ed. Monginevro Cultura)</span>
+                    <span class="text-[11px] text-[#78716C]" data-i18n="addon2_desc">Pubblicazione storica d'autore sulle botteghe e dimore sabaude.</span>
                   </div>
                 </div>
                 <span class="font-serif font-bold text-[#1C1917] text-sm whitespace-nowrap ml-3">+€18 <span class="text-[10px] font-normal text-[#78716C]">/ vol.</span></span>
@@ -880,8 +880,8 @@
                 <div class="flex items-start sm:items-center gap-3">
                   <input type="checkbox" id="clientAddonSirot" onchange="updateBookingCalculation()" class="mt-0.5 sm:mt-0 w-4 h-4 rounded text-[#B88746] accent-[#B88746]">
                   <div>
-                    <span class="font-bold text-[#1C1917] block">📖 Libro "L'Insultario Piemontese" di Paulin Sirot</span>
-                    <span class="text-[11px] text-[#78716C]">Divertente compendio dell'arguzia popolare e dei modi di dire piemontesi.</span>
+                    <span class="font-bold text-[#1C1917] block" data-i18n="addon3_title">📖 Libro "L'Insultario Piemontese" di Paulin Sirot</span>
+                    <span class="text-[11px] text-[#78716C]" data-i18n="addon3_desc">Divertente compendio dell'arguzia popolare e dei modi di dire piemontesi.</span>
                   </div>
                 </div>
                 <span class="font-serif font-bold text-[#1C1917] text-sm whitespace-nowrap ml-3">+€16 <span class="text-[10px] font-normal text-[#78716C]">/ vol.</span></span>
@@ -1094,6 +1094,15 @@
         book_step2_date: "2. Data dell'Uscita",
         book_step2_time: "3. Orario",
         book_step2_pax: "4. Partecipanti (Max 8)",
+        book_phone_label: "Telefono / WhatsApp",
+        addons_step_title: "4. Arricchisci la tua Esperienza (Add-ons di Pregio)",
+        addons_optional_tag: "Opzionali",
+        addon1_title: "🍷 Degustazione di Vermut di Torino (Solo Bicchiere)",
+        addon1_desc: "Un calice aggiuntivo del celebre vino aromatizzato sabaudo.",
+        addon2_title: "🏛️ Guida ai Bar Storici & Palazzi (Ed. Monginevro Cultura)",
+        addon2_desc: "Pubblicazione storica d'autore sulle botteghe e dimore sabaude.",
+        addon3_title: "📖 Libro \"L'Insultario Piemontese\" di Paulin Sirot",
+        addon3_desc: "Divertente compendio dell'arguzia popolare e dei modi di dire piemontesi.",
         book_name_label: "Nome e Cognome",
         book_email_label: "Indirizzo Email",
         book_total_label: "Riepilogo Totale",
@@ -1197,6 +1206,15 @@
         book_step2_date: "2. Tour Date",
         book_step2_time: "3. Departure Time",
         book_step2_pax: "4. Travelers (Max 8)",
+        book_phone_label: "Phone / WhatsApp",
+        addons_step_title: "4. Enhance Your Experience (Curated Add-ons)",
+        addons_optional_tag: "Optional",
+        addon1_title: "🍷 Turin Vermouth Tasting (Single Glass)",
+        addon1_desc: "An additional glass of the iconic Savoy fortified aromatic wine.",
+        addon2_title: "🏛️ Historic Bars & Palaces Guide (Ed. Monginevro Cultura)",
+        addon2_desc: "Curated historical publication on historic shops and royal residences.",
+        addon3_title: "📖 Book \"L'Insultario Piemontese\" by Paulin Sirot",
+        addon3_desc: "A delightful, witty compendium of Piedmontese popular humor and idioms.",
         book_name_label: "Full Name",
         book_email_label: "Email Address",
         book_total_label: "Total Summary",
@@ -1300,6 +1318,15 @@
         book_step2_date: "2. Fecha de la Salida",
         book_step2_time: "3. Horario",
         book_step2_pax: "4. Participantes (Máx 8)",
+        book_phone_label: "Teléfono / WhatsApp",
+        addons_step_title: "4. Enriquece tu Experiencia (Add-ons Exclusivos)",
+        addons_optional_tag: "Opcionales",
+        addon1_title: "🍷 Degustación de Vermut de Turín (Copa Sola)",
+        addon1_desc: "Una copa adicional del célebre vino aromatizado saboyano.",
+        addon2_title: "🏛️ Guía de Bares Históricos y Palacios (Ed. Monginevro Cultura)",
+        addon2_desc: "Publicación histórica de autor sobre los cafés y residencias saboyanas.",
+        addon3_title: "📖 Libro \"L'Insultario Piemontese\" de Paulin Sirot",
+        addon3_desc: "Divertido compendio de la picardía popular y modismos piamonteses.",
         book_name_label: "Nombre y Apellido",
         book_email_label: "Correo Electrónico",
         book_total_label: "Resumen Total",
@@ -1403,6 +1430,15 @@
         book_step2_date: "2. Date de la Sortie",
         book_step2_time: "3. Horaire",
         book_step2_pax: "4. Participants (Max 8)",
+        book_phone_label: "Téléphone / WhatsApp",
+        addons_step_title: "4. Sublimez Votre Expérience (Options Exclusives)",
+        addons_optional_tag: "Optionnel",
+        addon1_title: "🍷 Dégustation de Vermouth de Turin (Verre Seul)",
+        addon1_desc: "Un verre supplémentaire du célèbre vin aromatisé savoyard.",
+        addon2_title: "🏛️ Guide des Cafés Historiques & Palais (Éd. Monginevro Cultura)",
+        addon2_desc: "Publication historique de référence sur les cafés et palais royaux.",
+        addon3_title: "📖 Livre « L'Insultario Piemontese » de Paulin Sirot",
+        addon3_desc: "Savoureux recueil de l'esprit populaire et des dictons piémontais.",
         book_name_label: "Nom et Prénom",
         book_email_label: "Adresse E-mail",
         book_total_label: "Récapitulatif Total",
