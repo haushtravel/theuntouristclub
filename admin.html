@@ -189,78 +189,284 @@
         <!-- ================================================================= -->
         <section id="module-finance" class="space-y-8">
           
-          <!-- Key Metrics Grid -->
+          <!-- Key Metrics Grid con Margine Reale Dinamico -->
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10">
               <span class="text-[10px] uppercase tracking-widest text-white/50 block">Incasso Totale Lordo</span>
-              <p id="kpiGrossRev" class="text-3xl font-serif font-bold text-white mt-1">€18,480.00</p>
-              <span class="text-[11px] text-emerald-400 mt-1 block">↑ +24% rispetto al mese precedente</span>
+              <p id="kpiGrossRev" class="text-3xl font-serif font-bold text-white mt-1">€0.00</p>
+              <span class="text-[11px] text-emerald-400 mt-1 block">Fatturato totale da clienti</span>
             </div>
-            <div class="p-5 rounded-2xl bg-white/[0.04] border border-[#C9A86A]/40 bg-[#C9A86A]/5">
-              <span class="text-[10px] uppercase tracking-widest text-[#C9A86A] block font-bold">Margine Netto Agenzia (15%)</span>
-              <p id="kpiMargin" class="text-3xl font-serif font-bold text-[#EAD7A1] mt-1">€2,772.00</p>
-              <span class="text-[11px] text-white/60 mt-1 block">Utilità netta trattenuta</span>
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-[#C9A86A]/50 bg-gradient-to-br from-[#C9A86A]/10 to-transparent">
+              <div class="flex justify-between items-start">
+                <span class="text-[10px] uppercase tracking-widest text-[#C9A86A] block font-bold">Margine Netto Reale</span>
+                <span class="text-[9px] px-2 py-0.5 rounded-full bg-[#C9A86A]/20 text-[#EAD7A1] font-bold border border-[#C9A86A]/40">Piso Base: 15%</span>
+              </div>
+              <p id="kpiMargin" class="text-3xl font-serif font-bold text-[#EAD7A1] mt-1">€0.00</p>
+              <span id="kpiMarginPct" class="text-[11px] text-emerald-400 mt-1 font-semibold block">0.0% effettivo (PVP detratti tutti i costi)</span>
             </div>
             <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10">
-              <span class="text-[10px] uppercase tracking-widest text-white/50 block">Compensi Guide (82%)</span>
-              <p id="kpiGuidesPayout" class="text-3xl font-serif font-bold text-white mt-1">€15,153.60</p>
-              <span class="text-[11px] text-white/60 mt-1 block">Liquidazione guide abilitate</span>
+              <span class="text-[10px] uppercase tracking-widest text-white/50 block">Costi Operativi Erogazione</span>
+              <p id="kpiTotalCosts" class="text-3xl font-serif font-bold text-rose-300 mt-1">€0.00</p>
+              <span class="text-[11px] text-white/60 mt-1 block">Guide + Degustazioni + Kit + Mktg</span>
             </div>
             <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10">
               <span class="text-[10px] uppercase tracking-widest text-white/50 block">Fondo Fiscale & Riserva (3%)</span>
-              <p id="kpiTaxFund" class="text-3xl font-serif font-bold text-white mt-1">€554.40</p>
-              <span class="text-[11px] text-white/60 mt-1 block">Imposta e riserva operativa</span>
+              <p id="kpiTaxFund" class="text-3xl font-serif font-bold text-white mt-1">€0.00</p>
+              <span class="text-[11px] text-white/60 mt-1 block">Accantonamento operativo</span>
             </div>
           </div>
 
-          <!-- Product Segmentation (Capitoli) -->
+          <!-- Sezione: Analisi di Contribuzione e Margini Reali -->
           <div class="p-6 rounded-2xl bg-white/[0.03] border border-white/10">
-            <h3 class="font-serif text-base text-white font-bold mb-1">Rendimento Finanziario per Capitolo di Viaggio</h3>
-            <p class="text-xs text-white/50 mb-4">Analisi comparativa di vendite, volumi di passeggeri e margine per ciascuna esperienza.</p>
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+              <div>
+                <h3 class="font-serif text-base text-white font-bold">Rendimento Analitico per Capitolo (PVP Detratti i Costi)</h3>
+                <p class="text-xs text-white/50">Il margine non è una percentuale fissa: il 15% è il piso minimo. Scala fino al 35%+ all'aumentare dei viaggiatori.</p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
+                Formula Dinamica Attiva
+              </span>
+            </div>
             
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs">
                 <thead>
                   <tr class="border-b border-white/10 text-white/40 uppercase text-[10px]">
-                    <th class="py-3">Capitolo</th>
-                    <th>Prezzo / Pax</th>
-                    <th>Passeggeri</th>
-                    <th>Incasso Lordo</th>
-                    <th>Costo Degustazioni</th>
-                    <th>Margine Netto (15%)</th>
-                    <th>Redditività %</th>
+                    <th class="py-3">Capitolo di Viaggio</th>
+                    <th>PVP / Pax</th>
+                    <th>Costi Variabili / Pax</th>
+                    <th>Margine (2 Pax)</th>
+                    <th>Margine (4 Pax)</th>
+                    <th>Margine (8 Pax - Pieno)</th>
+                    <th>Stato vs Piso 15%</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-white/5">
                   <tr>
-                    <td class="py-3 font-semibold text-white">Capitolo I: Grandi Caffè & Cospiratori</td>
-                    <td class="font-mono text-[#C9A86A]">€75.00</td>
-                    <td class="font-bold">220 pax</td>
-                    <td class="font-bold text-white">€9,240.00</td>
-                    <td class="text-white/60">€1,100.00 (Bicerin)</td>
-                    <td class="font-bold text-[#EAD7A1]">€1,386.00</td>
-                    <td><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold">Alta (15%)</span></td>
+                    <td class="py-3.5">
+                      <b class="text-white text-sm">Capitolo I: Grandi Caffè & Cospiratori</b><br>
+                      <span class="text-[11px] text-white/50">Bicerin 1763 + Bombones Cremino + Pin + Pasaporte</span>
+                    </td>
+                    <td class="font-mono text-[#C9A86A] font-bold text-sm">€75.00</td>
+                    <td class="text-white/70 font-mono">€18.00 <span class="text-[10px] text-white/40">(Cibo €11 + Kit €5.5 + RC €1.5)</span></td>
+                    <td><span class="font-mono font-bold text-amber-300">€15.75</span> <span class="text-[10px] text-white/50">(10.5%)</span></td>
+                    <td><span class="font-mono font-bold text-emerald-400">€71.50</span> <span class="text-[10px] text-emerald-400 font-bold">(23.8%)</span></td>
+                    <td><span class="font-mono font-bold text-[#EAD7A1] text-sm">€213.00</span> <span class="text-[10px] text-[#EAD7A1] font-bold">(35.5%)</span></td>
+                    <td><span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-[10px]">+20.5% sopra il piso</span></td>
                   </tr>
                   <tr>
-                    <td class="py-3 font-semibold text-white">Capitolo II: Segreti Sabaudi & Corti Nascoste</td>
-                    <td class="font-mono text-[#C9A86A]">€69.00</td>
-                    <td class="font-bold">160 pax</td>
-                    <td class="font-bold text-white">€6,080.00</td>
-                    <td class="text-white/60">€480.00 (Calice)</td>
-                    <td class="font-bold text-[#EAD7A1]">€912.00</td>
-                    <td><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold">Stabile (15%)</span></td>
+                    <td class="py-3.5">
+                      <b class="text-white text-sm">Capitolo II: Segreti Sabaudi & Corti Nascoste</b><br>
+                      <span class="text-[11px] text-white/50">Vino DOC / Vermut 1786 + Grissini + Pin + Pasaporte</span>
+                    </td>
+                    <td class="font-mono text-[#C9A86A] font-bold text-sm">€69.00</td>
+                    <td class="text-white/70 font-mono">€16.50 <span class="text-[10px] text-white/40">(Vino €9.5 + Kit €5.5 + RC €1.5)</span></td>
+                    <td><span class="font-mono font-bold text-amber-300">€16.55</span> <span class="text-[10px] text-white/50">(12.0%)</span></td>
+                    <td><span class="font-mono font-bold text-emerald-400">€68.10</span> <span class="text-[10px] text-emerald-400 font-bold">(24.7%)</span></td>
+                    <td><span class="font-mono font-bold text-[#EAD7A1] text-sm">€202.20</span> <span class="text-[10px] text-[#EAD7A1] font-bold">(36.6%)</span></td>
+                    <td><span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-[10px]">+21.6% sopra il piso</span></td>
                   </tr>
                   <tr>
-                    <td class="py-3 font-semibold text-white">Capitolo III: L'Arte del Bogianen & Osterie</td>
-                    <td class="font-mono text-[#C9A86A]">€65.00</td>
-                    <td class="font-bold">120 pax</td>
-                    <td class="font-bold text-white">€3,120.00</td>
-                    <td class="text-white/60">€360.00 (Piòla)</td>
-                    <td class="font-bold text-[#EAD7A1]">€468.00</td>
-                    <td><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold">Crescita (15%)</span></td>
+                    <td class="py-3.5">
+                      <b class="text-white text-sm">Capitolo III: L'Arte del Bogianen & Osterie</b><br>
+                      <span class="text-[11px] text-white/50">Piòla: Tomino + Formaggi + Vino gotto + Pin + Pasaporte</span>
+                    </td>
+                    <td class="font-mono text-[#C9A86A] font-bold text-sm">€65.00</td>
+                    <td class="text-white/70 font-mono">€20.50 <span class="text-[10px] text-white/40">(Piòla €13.5 + Kit €5.5 + RC €1.5)</span></td>
+                    <td><span class="font-mono font-bold text-amber-300">€11.10</span> <span class="text-[10px] text-white/50">(8.5%)</span></td>
+                    <td><span class="font-mono font-bold text-emerald-400">€52.10</span> <span class="text-[10px] text-emerald-400 font-bold">(20.0%)</span></td>
+                    <td><span class="font-mono font-bold text-[#EAD7A1] text-sm">€170.20</span> <span class="text-[10px] text-[#EAD7A1] font-bold">(32.7%)</span></td>
+                    <td><span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-[10px]">+17.7% sopra il piso</span></td>
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+
+          <!-- SIMULATORE INTERATTIVO: MARGINE REALE & ADD-ONS DI VALORE AGGIUNTO -->
+          <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-white/[0.05] via-carbon-900 to-black border border-[#C9A86A]/40 shadow-2xl">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-6 pb-4 border-b border-white/10">
+              <div>
+                <span class="text-[10px] tracking-[0.25em] text-[#C9A86A] font-bold uppercase">Strumento Direzionale di Redditività</span>
+                <h3 class="font-serif text-xl text-white font-bold mt-0.5">Simulatore di Margine Reale & Add-ons per Uscita</h3>
+                <p class="text-xs text-white/60">Configura una salita, aggiungi servizi extra e visualizza istantaneamente il margine netto reale rispetto al piso del 15%.</p>
+              </div>
+              <span class="text-xs text-[#EAD7A1] font-mono bg-[#C9A86A]/10 px-3 py-1.5 rounded-xl border border-[#C9A86A]/30 font-bold">
+                Piso Garanzia: 15% Min.
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              
+              <!-- Left Column: Controls (Capitolo, Pax, Add-ons) -->
+              <div class="lg:col-span-7 space-y-5">
+                
+                <!-- 1. Chapter Selection -->
+                <div>
+                  <label class="block text-xs uppercase tracking-wider text-white/70 font-semibold mb-2">1. Seleziona Capitolo</label>
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <button type="button" onclick="setSimChapter('cafes')" id="simBtn-cafes" class="p-3 rounded-xl border border-[#C9A86A] bg-[#C9A86A]/20 text-white font-bold text-left transition-all">
+                      <span class="block text-[10px] text-[#C9A86A] uppercase">Capitolo I</span>
+                      <span>Grandi Caffè</span>
+                      <span class="block font-mono text-[#EAD7A1] mt-1">€75 / pax</span>
+                    </button>
+                    <button type="button" onclick="setSimChapter('palaces')" id="simBtn-palaces" class="p-3 rounded-xl border border-white/10 bg-white/5 text-white/70 font-semibold text-left hover:border-white/30 transition-all">
+                      <span class="block text-[10px] text-white/40 uppercase">Capitolo II</span>
+                      <span>Corti Reali</span>
+                      <span class="block font-mono text-white mt-1">€69 / pax</span>
+                    </button>
+                    <button type="button" onclick="setSimChapter('slang')" id="simBtn-slang" class="p-3 rounded-xl border border-white/10 bg-white/5 text-white/70 font-semibold text-left hover:border-white/30 transition-all">
+                      <span class="block text-[10px] text-white/40 uppercase">Capitolo III</span>
+                      <span>Bogianen Piòla</span>
+                      <span class="block font-mono text-white mt-1">€65 / pax</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 2. Pax Slider / Stepper -->
+                <div>
+                  <div class="flex justify-between items-center mb-2">
+                    <label class="text-xs uppercase tracking-wider text-white/70 font-semibold">2. Numero di Viaggiatori (Pax)</label>
+                    <span id="simPaxLabel" class="text-xs font-bold text-[#EAD7A1] font-mono px-2.5 py-0.5 rounded-md bg-black/60 border border-white/10">4 Viaggiatori</span>
+                  </div>
+                  <input type="range" id="simPaxInput" min="1" max="8" value="4" oninput="updateSimCalculation()" class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#C9A86A]">
+                  <div class="flex justify-between text-[10px] text-white/40 px-1 mt-1 font-mono">
+                    <span>1 (Privato)</span>
+                    <span>2 (Min. Salita)</span>
+                    <span>4 (Media)</span>
+                    <span>6</span>
+                    <span>8 (Capienza Max)</span>
+                  </div>
+                </div>
+
+                <!-- 3. Add-ons Upselling Checkboxes -->
+                <div>
+                  <label class="block text-xs uppercase tracking-wider text-white/70 font-semibold mb-2">3. Servizi Extra & Add-ons ad Alto Margine</label>
+                  <div class="space-y-2">
+                    <label class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 hover:border-[#C9A86A]/60 cursor-pointer text-xs transition-colors">
+                      <div class="flex items-center gap-3">
+                        <input type="checkbox" id="addonVermouth" onchange="updateSimCalculation()" class="w-4 h-4 rounded text-[#C9A86A] focus:ring-0 accent-[#C9A86A]">
+                        <div>
+                          <span class="text-white font-semibold">🍷 Degustazione Vermut Gran Riserva 1786</span>
+                          <span class="text-[10px] text-white/50 block">Degustazione aggiuntiva al bicchiere con stuzzichino</span>
+                        </div>
+                      </div>
+                      <div class="text-right">
+                        <span class="font-bold text-[#EAD7A1] font-mono block">+€18.00 / pax</span>
+                        <span class="text-[9px] text-emerald-400 font-bold">Margine: +67% (€12)</span>
+                      </div>
+                    </label>
+
+                    <label class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 hover:border-[#C9A86A]/60 cursor-pointer text-xs transition-colors">
+                      <div class="flex items-center gap-3">
+                        <input type="checkbox" id="addonBarolo" onchange="updateSimCalculation()" class="w-4 h-4 rounded text-[#C9A86A] focus:ring-0 accent-[#C9A86A]">
+                        <div>
+                          <span class="text-white font-semibold">🍾 Bottiglia di Barolo DOCG Numerata d'Asporto</span>
+                          <span class="text-[10px] text-white/50 block">Confezione regalo del club numerata a mano</span>
+                        </div>
+                      </div>
+                      <div class="text-right">
+                        <span class="font-bold text-[#EAD7A1] font-mono block">+€35.00 / bot.</span>
+                        <span class="text-[9px] text-emerald-400 font-bold">Margine: +60% (€21)</span>
+                      </div>
+                    </label>
+
+                    <label class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 hover:border-[#C9A86A]/60 cursor-pointer text-xs transition-colors">
+                      <div class="flex items-center gap-3">
+                        <input type="checkbox" id="addonBook" onchange="updateSimCalculation()" class="w-4 h-4 rounded text-[#C9A86A] focus:ring-0 accent-[#C9A86A]">
+                        <div>
+                          <span class="text-white font-semibold">📖 Libro Fotografico di Pregio "Torino Segreta"</span>
+                          <span class="text-[10px] text-white/50 block">Volume rilegato in tela con scatti d'archivio esclusivi</span>
+                        </div>
+                      </div>
+                      <div class="text-right">
+                        <span class="font-bold text-[#EAD7A1] font-mono block">+€24.00 / vol.</span>
+                        <span class="text-[9px] text-emerald-400 font-bold">Margine: +67% (€16)</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Right Column: Real Dynamic Results & Breakdown -->
+              <div class="lg:col-span-5 p-6 rounded-2xl bg-black/60 border border-white/15 flex flex-col justify-between">
+                
+                <div>
+                  <span class="text-[10px] uppercase tracking-widest text-[#C9A86A] font-bold block mb-1">Risultato Economico Simulato</span>
+                  <div class="flex justify-between items-baseline mb-4">
+                    <div>
+                      <span class="text-xs text-white/50 block">Incasso Totale (PVP)</span>
+                      <p id="simTotalRevenue" class="text-3xl font-serif font-bold text-white font-mono">€300.00</p>
+                    </div>
+                    <div class="text-right">
+                      <span class="text-xs text-white/50 block">Margine Reale Netto</span>
+                      <p id="simNetMarginAmount" class="text-3xl font-serif font-bold text-[#EAD7A1] font-mono">€71.50</p>
+                    </div>
+                  </div>
+
+                  <!-- Margin Percentage Indicator vs Floor (15%) -->
+                  <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 mb-4">
+                    <div class="flex justify-between items-center text-xs mb-1.5">
+                      <span class="text-white/70 font-semibold">Margine di Redditività Reale</span>
+                      <span id="simMarginPercent" class="font-mono font-bold text-emerald-400 text-sm">23.8%</span>
+                    </div>
+                    <!-- Visual Progress Bar with 15% Floor Marked -->
+                    <div class="relative w-full h-3 rounded-full bg-white/10 overflow-hidden">
+                      <div id="simMarginBar" class="h-full bg-gradient-to-r from-[#C9A86A] to-emerald-400 transition-all duration-300" style="width: 23.8%;"></div>
+                    </div>
+                    <div class="flex justify-between items-center text-[9px] text-white/40 mt-1 font-mono">
+                      <span>0%</span>
+                      <span class="text-amber-300 font-bold">| Piso Minimo 15%</span>
+                      <span>50%+</span>
+                    </div>
+                    <p id="simFloorComparisonMsg" class="text-[11px] text-emerald-400 mt-2 font-semibold">
+                      ✓ +8.8% al di sopra del piso minimo del 15% (+€26.50 di utile extra).
+                    </p>
+                  </div>
+
+                  <!-- Detached Costs Detailed Breakdown -->
+                  <div class="space-y-1.5 text-xs pt-3 border-t border-white/10">
+                    <span class="text-[10px] uppercase tracking-wider text-white/40 font-bold block mb-1">Dettaglio Costi Detratti:</span>
+                    <div class="flex justify-between text-white/70">
+                      <span>• Guida Habilitata Assegnata:</span>
+                      <span id="simCostGuide" class="font-mono text-white">€100.00</span>
+                    </div>
+                    <div class="flex justify-between text-white/70">
+                      <span>• Degustazioni & Food:</span>
+                      <span id="simCostFood" class="font-mono text-white">€44.00</span>
+                    </div>
+                    <div class="flex justify-between text-white/70">
+                      <span>• Welcome Kit (Pin + Libreta):</span>
+                      <span id="simCostKit" class="font-mono text-white">€22.00</span>
+                    </div>
+                    <div class="flex justify-between text-white/70">
+                      <span>• Marketing CAC Stimato:</span>
+                      <span id="simCostMkt" class="font-mono text-white">€40.00</span>
+                    </div>
+                    <div class="flex justify-between text-white/70">
+                      <span>• Pasarela Stripe & Seguro RC:</span>
+                      <span id="simCostStripe" class="font-mono text-white">€13.50</span>
+                    </div>
+                    <div class="flex justify-between text-white/70">
+                      <span>• Fondo Fiscale Operativo (3%):</span>
+                      <span id="simCostTax" class="font-mono text-white">€9.00</span>
+                    </div>
+                    <div id="simAddonCostsRow" class="flex justify-between text-amber-300 hidden">
+                      <span>• Costo Diretto Add-ons:</span>
+                      <span id="simCostAddons" class="font-mono">€0.00</span>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="pt-4 mt-4 border-t border-white/10 flex justify-between items-center text-[11px] text-white/40">
+                  <span>Modello Finanziario Untourist Club</span>
+                  <span class="text-[#C9A86A]">Peregrinus SAS</span>
+                </div>
+
+              </div>
+
             </div>
           </div>
 
@@ -312,10 +518,11 @@
                 <table class="w-full text-left text-xs">
                   <thead>
                     <tr class="text-white/40 text-[10px] border-b border-white/10 uppercase">
-                      <th class="py-2">Ospite</th>
-                      <th>Importo</th>
-                      <th>Costo Guida</th>
-                      <th>Margine (15%)</th>
+                      <th class="py-2">Ospite / Prenotazione</th>
+                      <th>PVP Incassato</th>
+                      <th>Costi Detratti</th>
+                      <th>Margine Reale (€)</th>
+                      <th>Margine % (Piso: 15%)</th>
                     </tr>
                   </thead>
                   <tbody id="financeClientsTable" class="divide-y divide-white/5">
@@ -1067,23 +1274,92 @@
       alert('Tutte le prenotazioni sono state eliminate. Il sistema è ora azzerato e pronto per nuove prenotazioni.');
     }
 
+    // Cost Matrix per Chapter
+    const CHAPTER_COST_MATRIX = {
+      cafes: { pvp: 75, tasting: 11.00, kit: 5.50, rc: 1.50, mkt: 10.00 },
+      palaces: { pvp: 69, tasting: 9.50, kit: 5.50, rc: 1.50, mkt: 10.00 },
+      slang: { pvp: 65, tasting: 13.50, kit: 5.50, rc: 1.50, mkt: 10.00 }
+    };
+
+    function calculateGuideFeeByPax(pax) {
+      if (pax <= 2) return 70.00;
+      if (pax <= 5) return 100.00;
+      return 130.00;
+    }
+
+    function calculateBookingRealEconomics(b) {
+      const pax = parseInt(b.guests) || 2;
+      const chKey = b.chapterKey || (b.chapterName?.toLowerCase().includes('caffè') ? 'cafes' : (b.chapterName?.toLowerCase().includes('corti') ? 'palaces' : 'slang'));
+      const matrix = CHAPTER_COST_MATRIX[chKey] || CHAPTER_COST_MATRIX.cafes;
+      const pvp = Number(b.amount) || (matrix.pvp * pax);
+      
+      const costGuide = calculateGuideFeeByPax(pax);
+      const costTasting = matrix.tasting * pax;
+      const costKit = matrix.kit * pax;
+      const costRc = matrix.rc * pax;
+      const costMkt = matrix.mkt * pax;
+      const costStripe = pvp * 0.025;
+      const costTax = pvp * 0.03;
+
+      const totalCosts = costGuide + costTasting + costKit + costRc + costMkt + costStripe + costTax;
+      const netMargin = pvp - totalCosts;
+      const marginPct = pvp > 0 ? (netMargin / pvp) * 100 : 0;
+
+      return {
+        pvp,
+        pax,
+        costGuide,
+        costTasting,
+        costKit,
+        costRc,
+        costMkt,
+        costStripe,
+        costTax,
+        totalCosts,
+        netMargin,
+        marginPct
+      };
+    }
+
     function renderFinance() {
       const bookings = getBookings();
       const paidBookings = bookings.filter(b => b.paymentStatus === 'paid');
-      const totalGross = paidBookings.reduce((sum, b) => sum + (Number(b.amount) || 0), 0);
-      const margin = totalGross * 0.15;
-      const guides = totalGross * 0.82;
-      const taxes = totalGross * 0.03;
+      
+      let totalGross = 0;
+      let totalCostsAll = 0;
+      let totalNetMargin = 0;
+      let totalTaxFund = 0;
+
+      paidBookings.forEach(b => {
+        const econ = calculateBookingRealEconomics(b);
+        totalGross += econ.pvp;
+        totalCostsAll += econ.totalCosts;
+        totalNetMargin += econ.netMargin;
+        totalTaxFund += econ.costTax;
+      });
+
+      const averageMarginPct = totalGross > 0 ? (totalNetMargin / totalGross) * 100 : 0;
 
       const kpiGross = document.getElementById('kpiGrossRev');
       const kpiMarg = document.getElementById('kpiMargin');
-      const kpiGuid = document.getElementById('kpiGuidesPayout');
+      const kpiMargPct = document.getElementById('kpiMarginPct');
+      const kpiCosts = document.getElementById('kpiTotalCosts');
       const kpiTax = document.getElementById('kpiTaxFund');
 
       if (kpiGross) kpiGross.innerText = '€' + totalGross.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      if (kpiMarg) kpiMarg.innerText = '€' + margin.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      if (kpiGuid) kpiGuid.innerText = '€' + guides.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      if (kpiTax) kpiTax.innerText = '€' + taxes.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (kpiMarg) kpiMarg.innerText = '€' + totalNetMargin.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (kpiMargPct) {
+        if (totalGross === 0) {
+          kpiMargPct.innerText = 'Piso 15% · In attesa di prenotazioni';
+          kpiMargPct.className = 'text-[11px] text-white/50 mt-1 block font-medium';
+        } else {
+          const diffFromFloor = (averageMarginPct - 15).toFixed(1);
+          kpiMargPct.innerText = averageMarginPct.toFixed(1) + '% reale (' + (diffFromFloor >= 0 ? '+' : '') + diffFromFloor + '% sopra il piso)';
+          kpiMargPct.className = 'text-[11px] font-bold mt-1 block ' + (averageMarginPct >= 20 ? 'text-emerald-400' : (averageMarginPct >= 15 ? 'text-amber-300' : 'text-rose-400'));
+        }
+      }
+      if (kpiCosts) kpiCosts.innerText = '€' + totalCostsAll.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (kpiTax) kpiTax.innerText = '€' + totalTaxFund.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
       const tbody = document.getElementById('financeClientsTable');
       if (!tbody) return;
@@ -1091,8 +1367,8 @@
       if (bookings.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="4" class="py-8 text-center text-white/40 text-xs">
-              Nessuna transazione registrata. Le nuove prenotazioni effettuate sul sito compariranno qui automaticamente.
+            <td colspan="5" class="py-8 text-center text-white/40 text-xs">
+              Nessuna transazione registrata. Le nuove prenotazioni effettuate sul sito compariranno qui con il calcolo del margine reale da costi.
             </td>
           </tr>
         `;
@@ -1101,20 +1377,139 @@
 
       tbody.innerHTML = bookings.map(b => {
         const isPaid = b.paymentStatus === 'paid';
-        const guideFee = (b.amount * 0.82).toFixed(2);
-        const marginVal = (b.amount * 0.15).toFixed(2);
+        const econ = calculateBookingRealEconomics(b);
+        
+        const badgeColor = econ.marginPct >= 20 
+          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
+          : (econ.marginPct >= 15 
+              ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' 
+              : 'bg-rose-500/20 text-rose-400 border border-rose-500/30');
+
         return `
           <tr class="hover:bg-white/5 ${!isPaid ? 'opacity-40 line-through' : ''}">
             <td class="py-2.5">
-              <b class="text-white">${b.name}</b><br>
-              <span class="text-[10px] text-white/50 font-mono">#${b.vCode} · ${b.date}</span>
+              <b class="text-white">${b.name}</b> (${b.guests} pax)<br>
+              <span class="text-[10px] text-white/50 font-mono">#${b.vCode} · ${b.chapterName}</span>
             </td>
-            <td class="font-bold text-white font-mono">€${b.amount.toFixed(2)}</td>
-            <td class="text-white/60 font-mono">€${guideFee}</td>
-            <td class="font-bold text-[#EAD7A1] font-mono">+ €${marginVal}</td>
+            <td class="font-bold text-white font-mono">€${econ.pvp.toFixed(2)}</td>
+            <td class="text-white/70 font-mono text-[11px]">
+              - €${econ.totalCosts.toFixed(2)}
+              <span class="block text-[9px] text-white/40">Guida €${econ.costGuide} + Cibo €${econ.costTasting}</span>
+            </td>
+            <td class="font-bold font-mono ${econ.netMargin >= 0 ? 'text-[#EAD7A1]' : 'text-rose-400'}">
+              ${econ.netMargin >= 0 ? '+' : ''}€${econ.netMargin.toFixed(2)}
+            </td>
+            <td>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono ${badgeColor}">
+                ${econ.marginPct.toFixed(1)}% ${econ.marginPct >= 15 ? '✓' : '⚠️'}
+              </span>
+            </td>
           </tr>
         `;
       }).join('');
+    }
+
+    // ----------------------------------------------------
+    // LOGICA DEL SIMULATORE INTERATTIVO DI MARGINI & ADD-ONS
+    // ----------------------------------------------------
+    let currentSimChapter = 'cafes';
+
+    function setSimChapter(key) {
+      currentSimChapter = key;
+      ['cafes', 'palaces', 'slang'].forEach(k => {
+        const btn = document.getElementById('simBtn-' + k);
+        if (!btn) return;
+        if (k === key) {
+          btn.className = "p-3 rounded-xl border border-[#C9A86A] bg-[#C9A86A]/20 text-white font-bold text-left transition-all";
+        } else {
+          btn.className = "p-3 rounded-xl border border-white/10 bg-white/5 text-white/70 font-semibold text-left hover:border-white/30 transition-all";
+        }
+      });
+      updateSimCalculation();
+    }
+
+    function updateSimCalculation() {
+      const pax = parseInt(document.getElementById('simPaxInput')?.value || 4);
+      const paxLabel = document.getElementById('simPaxLabel');
+      if (paxLabel) paxLabel.innerText = pax + (pax === 1 ? ' Viaggiatore (Privato)' : ' Viaggiatori');
+
+      const matrix = CHAPTER_COST_MATRIX[currentSimChapter];
+      let basePvp = matrix.pvp * pax;
+      let addonRevenue = 0;
+      let addonDirectCost = 0;
+
+      const hasVermouth = document.getElementById('addonVermouth')?.checked;
+      const hasBarolo = document.getElementById('addonBarolo')?.checked;
+      const hasBook = document.getElementById('addonBook')?.checked;
+
+      if (hasVermouth) {
+        addonRevenue += 18.00 * pax;
+        addonDirectCost += 6.00 * pax;
+      }
+      if (hasBarolo) {
+        const bottles = Math.max(1, Math.round(pax / 2));
+        addonRevenue += 35.00 * bottles;
+        addonDirectCost += 14.00 * bottles;
+      }
+      if (hasBook) {
+        const books = Math.max(1, Math.round(pax / 2));
+        addonRevenue += 24.00 * books;
+        addonDirectCost += 8.00 * books;
+      }
+
+      const totalRevenue = basePvp + addonRevenue;
+      const costGuide = calculateGuideFeeByPax(pax);
+      const costFood = matrix.tasting * pax;
+      const costKit = matrix.kit * pax;
+      const costRc = matrix.rc * pax;
+      const costMkt = matrix.mkt * pax;
+      const costStripe = totalRevenue * 0.025;
+      const costTax = totalRevenue * 0.03;
+
+      const totalCosts = costGuide + costFood + costKit + costRc + costMkt + costStripe + costTax + addonDirectCost;
+      const netMargin = totalRevenue - totalCosts;
+      const marginPercent = totalRevenue > 0 ? (netMargin / totalRevenue) * 100 : 0;
+
+      // Update UI elements
+      document.getElementById('simTotalRevenue').innerText = '€' + totalRevenue.toFixed(2);
+      document.getElementById('simNetMarginAmount').innerText = (netMargin >= 0 ? '+' : '') + '€' + netMargin.toFixed(2);
+      
+      const pctEl = document.getElementById('simMarginPercent');
+      pctEl.innerText = marginPercent.toFixed(1) + '%';
+      pctEl.className = 'font-mono font-bold text-sm ' + (marginPercent >= 20 ? 'text-emerald-400' : (marginPercent >= 15 ? 'text-amber-300' : 'text-rose-400'));
+
+      const barEl = document.getElementById('simMarginBar');
+      const barWidth = Math.min(100, Math.max(0, marginPercent * 2)); // 50% = 100% width
+      barEl.style.width = barWidth + '%';
+      barEl.className = 'h-full transition-all duration-300 ' + (marginPercent >= 20 ? 'bg-gradient-to-r from-[#C9A86A] to-emerald-400' : (marginPercent >= 15 ? 'bg-gradient-to-r from-amber-500 to-[#C9A86A]' : 'bg-rose-500'));
+
+      // Floor comparison text
+      const diffFromFloor = marginPercent - 15;
+      const compEl = document.getElementById('simFloorComparisonMsg');
+      if (diffFromFloor >= 0) {
+        const extraCash = netMargin - (totalRevenue * 0.15);
+        compEl.innerText = '✓ +' + diffFromFloor.toFixed(1) + '% al di sopra del piso minimo del 15% (+€' + extraCash.toFixed(2) + ' di utile extra).';
+        compEl.className = 'text-[11px] text-emerald-400 mt-2 font-semibold';
+      } else {
+        compEl.innerText = '⚠️ ' + Math.abs(diffFromFloor).toFixed(1) + '% al di sotto del piso del 15%. Aggiungi partecipanti o add-ons per massimizzare la redditività.';
+        compEl.className = 'text-[11px] text-amber-300 mt-2 font-semibold';
+      }
+
+      // Breakdown rows
+      document.getElementById('simCostGuide').innerText = '€' + costGuide.toFixed(2);
+      document.getElementById('simCostFood').innerText = '€' + costFood.toFixed(2);
+      document.getElementById('simCostKit').innerText = '€' + costKit.toFixed(2);
+      document.getElementById('simCostMkt').innerText = '€' + costMkt.toFixed(2);
+      document.getElementById('simCostStripe').innerText = '€' + (costStripe + costRc).toFixed(2);
+      document.getElementById('simCostTax').innerText = '€' + costTax.toFixed(2);
+
+      const addonRow = document.getElementById('simAddonCostsRow');
+      if (addonDirectCost > 0) {
+        addonRow.classList.remove('hidden');
+        document.getElementById('simCostAddons').innerText = '€' + addonDirectCost.toFixed(2);
+      } else {
+        addonRow.classList.add('hidden');
+      }
     }
 
     function renderCrm() {
