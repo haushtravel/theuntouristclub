@@ -370,7 +370,7 @@
               <div>
                 <span class="text-xs text-[#78716C] uppercase tracking-wider block" data-i18n="label_fee">Tariffa per persona</span>
                 <div class="flex items-baseline gap-1">
-                  <span class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€42</span>
+                  <span class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€75</span>
                   <span class="text-xs text-[#78716C]" data-i18n="label_per_pax">/ partecipante</span>
                 </div>
               </div>
@@ -424,7 +424,7 @@
               <div>
                 <span class="text-xs text-[#78716C] uppercase tracking-wider block" data-i18n="label_fee">Tariffa per persona</span>
                 <div class="flex items-baseline gap-1">
-                  <span class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€38</span>
+                  <span class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€69</span>
                   <span class="text-xs text-[#78716C]" data-i18n="label_per_pax">/ partecipante</span>
                 </div>
               </div>
@@ -522,7 +522,7 @@
               <div>
                 <span class="text-xs text-[#78716C] uppercase tracking-wider block" data-i18n="label_fee">Tariffa per persona</span>
                 <div class="flex items-baseline gap-1">
-                  <span class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€26</span>
+                  <span class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€65</span>
                   <span class="text-xs text-[#78716C]" data-i18n="label_per_pax">/ partecipante</span>
                 </div>
               </div>
@@ -761,7 +761,7 @@
                 <span class="text-xs font-bold text-[#B88746] uppercase">Capitolo I</span>
                 <span class="font-serif text-lg font-bold text-[#1C1917] mt-1" data-i18n="opt1_title">Grandi Caffè & Cospiratori</span>
                 <span class="text-xs text-[#78716C] mt-1">2h 30m · Piazza Castello</span>
-                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3">€42 <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
+                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3">€75 <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
               </label>
 
               <!-- Option 2 -->
@@ -770,7 +770,7 @@
                 <span class="text-xs font-bold text-[#78716C] uppercase">Capitolo II</span>
                 <span class="font-serif text-lg font-bold text-[#1C1917] mt-1" data-i18n="opt2_title">Corti & Parchi Reali</span>
                 <span class="text-xs text-[#78716C] mt-1">2h 15m · Palazzo di Città</span>
-                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3">€38 <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
+                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3">€69 <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
               </label>
 
               <!-- Option 3 -->
@@ -779,7 +779,7 @@
                 <span class="text-xs font-bold text-[#78716C] uppercase">Capitolo III</span>
                 <span class="font-serif text-lg font-bold text-[#1C1917] mt-1" data-i18n="opt3_title">Bogianen & Osterie</span>
                 <span class="text-xs text-[#78716C] mt-1">2h 00m · Quadrilatero</span>
-                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3">€26 <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
+                <span class="font-serif text-xl font-bold text-[#1C1917] mt-3">€65 <span class="text-xs font-normal text-[#78716C]" data-i18n="label_per_pax">/ pax</span></span>
               </label>
 
             </div>
@@ -846,8 +846,8 @@
             <div>
               <span class="text-xs text-[#78716C] uppercase tracking-wider block" data-i18n="book_total_label">Riepilogo Totale</span>
               <div class="flex items-baseline gap-2">
-                <span id="totalAmountDisplay" class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€84</span>
-                <span id="calculationDetails" class="text-xs text-[#78716C]">(2 partecipanti × €42)</span>
+                <span id="totalAmountDisplay" class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1917]">€150</span>
+                <span id="calculationDetails" class="text-xs text-[#78716C]">(2 partecipanti × €75)</span>
               </div>
               <span class="text-[11px] text-[#3D5A4C] font-semibold block mt-1" data-i18n="book_cancel_notice">✓ Cancellazione gratuita fino a 24h prima</span>
             </div>
@@ -1503,9 +1503,9 @@
 
     // 4. BOOKING ENGINE PRICING & LOGIC
     const CHAPTER_PRICES = {
-      cafes: 42,
-      palaces: 38,
-      slang: 26
+      cafes: 75,
+      palaces: 69,
+      slang: 65
     };
 
     const CHAPTER_NAMES = {
@@ -1583,7 +1583,7 @@
       const email = document.getElementById('guestEmail').value.trim();
       const phone = (document.getElementById('guestPhone')?.value || '').trim() || '+39 340 0000000';
       const code = 'UNT-TRN-' + Math.floor(1000 + Math.random() * 9000);
-      const pricePerPax = CHAPTER_PRICES[chapterKey] || 42;
+      const pricePerPax = CHAPTER_PRICES[chapterKey] || 75;
       const totalAmount = pricePerPax * guests;
       const guide = chapterKey === 'palaces' ? 'Marco Della Rocca' : 'Elena Rostagno';
 
